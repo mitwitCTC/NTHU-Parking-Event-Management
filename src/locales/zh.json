@@ -1,0 +1,19 @@
+{
+    "pages": {
+        "index": {
+            "title": "駐警隊申請服務",
+            "subtitle": "車證、工作證、折抵券、活動申請",
+            "queryLinks": "申請進度查詢",
+            "applyFacultyStudentParking": "教職員工生停車證申請",
+            "applyFacultyStudentParking_subtitle": "汽車、機車及腳踏車證申請",
+            "applyStaffParking": "工作人員停車證申請",
+            "applyStaffParking_subtitle": "汽車、機車工作證申請",
+            "applyEvent": "各單位自辦活動申請",
+            "applyEvent_subtitle": "活動申請",
+            "applyEventCoupon": "自辦活動&抵用券申請",
+            "applyEventCoupon_subtitle": "活動及活動使用停車抵用券",
+            "preorderCoupon": "預購抵用券",
+            "preorderCoupon_subtitle": "停車抵用券申請及購買"
+        }
+    }
+}
