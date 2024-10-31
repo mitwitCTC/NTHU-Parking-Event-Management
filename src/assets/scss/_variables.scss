@@ -37,7 +37,7 @@ $grays: (
 // scss-docs-start color-variables
 $blue: #0d6efd !default;
 $indigo: #6610f2 !default;
-$purple: #6f42c1 !default;
+$purple: #702f9f !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
 $orange: #fd7e14 !default;
@@ -96,7 +96,7 @@ $indigo-900: shade-color($indigo, 80%) !default;
 
 $purple-100: tint-color($purple, 80%) !default;
 $purple-200: tint-color($purple, 60%) !default;
-$purple-300: tint-color($purple, 40%) !default;
+$purple-300: tint-color($purple, 50%) !default;
 $purple-400: tint-color($purple, 20%) !default;
 $purple-500: $purple !default;
 $purple-600: shade-color($purple, 20%) !default;
@@ -286,8 +286,8 @@ $cyans: (
 // fusv-enable
 
 // scss-docs-start theme-color-variables
-$primary: $blue !default;
-$secondary: $gray-600 !default;
+$primary: $purple !default;
+$secondary: $purple-300 !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
