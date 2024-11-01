@@ -1,0 +1,19 @@
+{
+    "pages": {
+        "index": {
+            "title": "title",
+            "subtitle": "subtitle",
+            "queryLinks": "queryLinks",
+            "applyFacultyStudentParking": "applyFacultyStudentParking",
+            "applyFacultyStudentParking_subtitle": "applyFacultyStudentParking_subtitle",
+            "applyStaffParking": "applyStaffParking",
+            "applyStaffParking_subtitle": "applyStaffParking_subtitle",
+            "applyEvent": "applyEvent",
+            "applyEvent_subtitle": "applyEvent_subtitle",
+            "applyEventCoupon": "applyEventCoupon",
+            "applyEventCoupon_subtitle": "applyEventCoupon_subtitle",
+            "preorderCoupon": "preorderCoupon",
+            "preorderCoupon_subtitle": "preorderCoupon_subtitle"
+        }
+    }
+}
