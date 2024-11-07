@@ -1,0 +1,1 @@
+import{_ as l,c as s,a as t,t as n,F as r,o}from"./index-i9MU6Pez.js";const p={};function f(a,e){return o(),s(r,null,[e[0]||(e[0]=t("div",null,"步驟三",-1)),t("h2",null,n(a.$t("pages.applyStaffParking.title")),1),t("h5",null,n(a.$t("pages.applyStaffParking.subtitle")),1)],64)}const c=l(p,[["render",f]]);export{c as default};
