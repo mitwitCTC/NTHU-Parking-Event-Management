@@ -1,0 +1,1 @@
+import{_ as l,c as s,a,t as n,F as r,o}from"./index-B8OGz3l_.js";const p={};function i(t,e){return o(),s(r,null,[e[0]||(e[0]=a("div",null,"登入上傳",-1)),a("h2",null,n(t.$t("pages.applyStaffParking.title")),1),a("h5",null,n(t.$t("pages.applyStaffParking.subtitle")),1)],64)}const c=l(p,[["render",i]]);export{c as default};
