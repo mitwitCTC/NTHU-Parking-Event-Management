@@ -14,6 +14,18 @@
             "applyEventCoupon_subtitle": "活動及活動使用停車抵用券",
             "preorderCoupon": "預購抵用券",
             "preorderCoupon_subtitle": "停車抵用券申請及購買"
+        },
+        "applyStaffParking": {
+            "title": "工作人員停車證",
+            "subtitle": "汽車、機車證申請",
+            "steps": {
+                "title": "申請四步驟",
+                "step1": "填寫申請書",
+                "step2": "列印",
+                "step3": "證明單位及主管簽章",
+                "step4": "拍照或掃描上傳簽核申請單",
+                "apply": "開始申請"
+            }
         }
     }
 }

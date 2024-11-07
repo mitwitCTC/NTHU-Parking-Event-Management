@@ -28,6 +28,38 @@ const router = createRouter({
       path: '/apply-staff-parking',
       name: 'ApplyStaffParking',
       component: applyStaffParking,
+      redirect: '/apply-staff-parking/steps',
+      children: [
+        {
+          path: 'steps',
+          name: 'ApplyStaffParking_steps',
+          component: () => import('@/views/applyStaffParking/StepsView.vue'),
+        },
+        {
+          path: 'step1',
+          name: 'ApplyStaffParking_step1',
+          component: () =>
+            import('@/views/applyStaffParking/Step1BasicInfo.vue'),
+        },
+        {
+          path: 'step2',
+          name: 'ApplyStaffParking_step2',
+          component: () =>
+            import('@/views/applyStaffParking/Step2VehicleRegistration.vue'),
+        },
+        {
+          path: 'step3_1',
+          name: 'ApplyStaffParking_step3_1',
+          component: () =>
+            import('@/views/applyStaffParking/Step3_1LoginAndUpload.vue'),
+        },
+        {
+          path: 'step3_2',
+          name: 'ApplyStaffParking_step3_2',
+          component: () =>
+            import('@/views/applyStaffParking/Step3_2UploadDocuments.vue'),
+        },
+      ],
     },
     {
       path: '/apply-event',
