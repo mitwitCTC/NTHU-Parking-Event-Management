@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-secondary text-center">
+  <div class="bg-secondary text-center fixed-top">
     <div class="header text-white">
       <!-- 插槽顯示頁首內容 -->
       <slot name="header-content"></slot>
