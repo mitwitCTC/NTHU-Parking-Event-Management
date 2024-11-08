@@ -1,0 +1,1 @@
+import{S as t}from"./StepNavigator-B1lb1bOe.js";import{e as r,f as o,o as a}from"./index-4Pgp5Qx6.js";import"./上傳申請書-CXXY70II.js";const f={__name:"Step1BasicInfo",setup(c){const e=r(1);return(p,n)=>(a(),o(t,{currentStep:e.value},null,8,["currentStep"]))}};export{f as default};

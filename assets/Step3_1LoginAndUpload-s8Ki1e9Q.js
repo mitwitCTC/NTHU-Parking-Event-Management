@@ -1,0 +1,1 @@
+import{S as t}from"./StepNavigator-B1lb1bOe.js";import{e as r,f as o,o as a}from"./index-4Pgp5Qx6.js";import"./上傳申請書-CXXY70II.js";const l={__name:"Step3_1LoginAndUpload",setup(p){const e=r(3);return(n,c)=>(a(),o(t,{currentStep:e.value},null,8,["currentStep"]))}};export{l as default};
