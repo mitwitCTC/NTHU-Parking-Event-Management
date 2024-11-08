@@ -25,6 +25,17 @@
                 "step3": "證明單位及主管簽章",
                 "step4": "拍照或掃描上傳簽核申請單",
                 "apply": "開始申請"
+            },
+            "basic_info": {
+                "fillOut": "填寫申請書",
+                "uploadAndSubmit": "上傳及申請提出",
+                "applicant": "申請人姓名",
+                "applicant_source": "公司/單位",
+                "email": "Email(系統通知使用)",
+                "phone_number": "聯絡電話",
+                "academic_year": "申請學年度",
+                "required": "*為必填項目",
+                "next": "下一步，登記車輛"
             }
         }
     }
