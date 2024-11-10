@@ -2,8 +2,13 @@
 import { ref, onMounted } from 'vue'
 import StepNavigator from '@/components/applyStaffParking/StepNavigator.vue'
 import router from '@/router'
+import { useStaffStore } from '@/stores/staffStore'
 
 const current_step = ref(1)
+const staffStore = useStaffStore()
+
+// 申請人資料
+const applicant_data = ref({})
 const academicYears = ref([]) // 用來儲存學年選項
 // 計算學年
 onMounted(() => {
@@ -15,13 +20,11 @@ onMounted(() => {
   academicYears.value = [currentAcademicYear, nextAcademicYear]
   // 預設選本學年
   applicant_data.value.academic_year = currentAcademicYear
+  staffStore.getApplicantData()
 })
 
-// 申請人資料
-const applicant_data = ref({})
-
 function apply() {
-  console.log(applicant_data.value)
+  staffStore.setApplicantData(applicant_data.value)
   router.push('/apply-staff-parking/step2')
 }
 </script>
