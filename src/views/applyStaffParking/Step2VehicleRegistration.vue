@@ -77,18 +77,18 @@ function print() {
   />
   <form class="mt-5">
     <div class="mb-3">
-      <label for="applicant" class="form-label">
+      <label for="plate" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.plate') }}
       </label>
       <input
         type="text"
         class="form-control"
-        id="applicant"
+        id="plate"
         v-model="vehicle_registration_data.plate"
       />
     </div>
     <div class="mb-3" v-if="mainPassCode != 'WM'">
-      <label for="academic_year" class="form-label">
+      <label for="car_type" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.car_type') }}
       </label>
       <select class="form-select" v-model="vehicle_registration_data.car_type">
