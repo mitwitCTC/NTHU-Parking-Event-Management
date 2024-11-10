@@ -10,9 +10,48 @@ onMounted(() => {
   staffStore.getApplicantData()
 })
 
+// 車輛型式選項
+const car_types = [
+  {
+    id: 1,
+    des: '汽油車',
+  },
+  {
+    id: 2,
+    des: '油電車',
+  },
+  {
+    id: 3,
+    des: '電動車',
+  },
+  {
+    id: 4,
+    des: '柴油車',
+  },
+]
+
 // 更新車輛類型( 車證型態：汽車/機車 )
 function updateVehicleType(type) {
   vehicle_type.value = type
+}
+
+const vehicle_registration_data = ref({})
+const vehicle_registered_list = ref([])
+function addVehicle_registered_list() {
+  vehicle_registration_data.value.vehicle_type = vehicle_type.value
+  // 判斷為汽車或機車
+  if (vehicle_registration_data.value.vehicle_type == 'WC') {
+    vehicle_registration_data.value.car_type_title = '汽車'
+  } else {
+    vehicle_registration_data.value.car_type_title = '機車'
+    vehicle_registration_data.value.car_type = 5
+  }
+  vehicle_registered_list.value.push(vehicle_registration_data.value)
+  vehicle_registration_data.value = {}
+}
+
+function print() {
+  console.log(vehicle_registered_list.value)
 }
 </script>
 
@@ -24,4 +63,35 @@ function updateVehicleType(type) {
     :vehicleType="vehicle_type"
     @updateVehicleType="updateVehicleType"
   />
+  <form class="mt-5">
+    <div class="mb-3">
+      <label for="applicant" class="form-label">
+        {{ $t('pages.applyStaffParking.vehicle_registration.plate') }}
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="applicant"
+        v-model="vehicle_registration_data.plate"
+      />
+    </div>
+    <div class="mb-3" v-if="vehicle_type != 'WM'">
+      <label for="academic_year" class="form-label">
+        {{ $t('pages.applyStaffParking.vehicle_registration.car_type') }}
+      </label>
+      <select class="form-select" v-model="vehicle_registration_data.car_type">
+        <option v-for="item in car_types" :key="item.id" :value="item.id">
+          {{ item.des }}
+        </option>
+      </select>
+    </div>
+  </form>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-secondary" @click="addVehicle_registered_list">
+      {{ $t('pages.applyStaffParking.vehicle_registration.next') }}
+    </button>
+    <button class="btn btn-secondary" @click="print">
+      {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
+    </button>
+  </div>
 </template>
