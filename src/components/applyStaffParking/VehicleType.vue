@@ -1,18 +1,17 @@
 <script setup>
-// 定義接收的 props 和 emits
 import { defineProps, defineEmits } from 'vue'
 
 defineProps({
-  vehicleType: {
+  mainPassCode: {
     type: String,
     required: true,
   },
 })
 
-const emit = defineEmits(['updateVehicleType'])
+const emit = defineEmits(['updateMainPassCode'])
 
-function handleClick(type) {
-  emit('updateVehicleType', type)
+function handleClick(code) {
+  emit('updateMainPassCode', code)
 }
 </script>
 
@@ -21,7 +20,7 @@ function handleClick(type) {
     <div class="d-flex justify-content-start gap-5">
       <div
         class="d-flex flex-column align-items-center pointer"
-        :class="{ 'gray-overlay': vehicleType != 'WC' }"
+        :class="{ 'gray-overlay': mainPassCode != 'WC' }"
         @click="handleClick('WC')"
       >
         <div class="img-container">
@@ -30,7 +29,7 @@ function handleClick(type) {
       </div>
       <div
         class="d-flex flex-column align-items-center pointer"
-        :class="{ 'gray-overlay': vehicleType != 'WM' }"
+        :class="{ 'gray-overlay': mainPassCode != 'WM' }"
         @click="handleClick('WM')"
       >
         <div class="img-container">

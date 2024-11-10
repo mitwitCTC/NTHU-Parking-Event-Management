@@ -4,7 +4,8 @@ import { useStaffStore } from '@/stores/staffStore'
 import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
 const staffStore = useStaffStore()
-const vehicle_type = ref('WC') // 預設為汽車
+// 車證型態
+const mainPassCode = ref('WC') // 預設為汽車
 
 onMounted(() => {
   staffStore.getApplicantData()
@@ -30,17 +31,17 @@ const car_types = [
   },
 ]
 
-// 更新車輛類型( 車證型態：汽車/機車 )
-function updateVehicleType(type) {
-  vehicle_type.value = type
+// 更新車證型態
+function updateMainPassCode(type) {
+  mainPassCode.value = type
 }
 
 const vehicle_registration_data = ref({})
 const vehicle_registered_list = ref([])
 function addVehicle_registered_list() {
-  vehicle_registration_data.value.vehicle_type = vehicle_type.value
+  vehicle_registration_data.value.main_pass_code = mainPassCode.value
   // 判斷為汽車或機車
-  if (vehicle_registration_data.value.vehicle_type == 'WC') {
+  if (vehicle_registration_data.value.main_pass_code == 'WC') {
     vehicle_registration_data.value.car_type_title = '汽車'
   } else {
     vehicle_registration_data.value.car_type_title = '機車'
@@ -60,8 +61,8 @@ function print() {
     {{ $t('pages.applyStaffParking.vehicle_registration.vehicle_type') }}
   </p>
   <VehicleType
-    :vehicleType="vehicle_type"
-    @updateVehicleType="updateVehicleType"
+    :mainPassCode="mainPassCode"
+    @updateMainPassCode="updateMainPassCode"
   />
   <form class="mt-5">
     <div class="mb-3">
@@ -75,7 +76,7 @@ function print() {
         v-model="vehicle_registration_data.plate"
       />
     </div>
-    <div class="mb-3" v-if="vehicle_type != 'WM'">
+    <div class="mb-3" v-if="mainPassCode != 'WM'">
       <label for="academic_year" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.car_type') }}
       </label>
