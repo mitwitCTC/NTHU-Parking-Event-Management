@@ -40,6 +40,14 @@
                 "confirm_message": "confirm_message",
                 "cancel": "cancel",
                 "confirm": "confirm"
+            },
+            "vehicle_registration": {
+                "vehicle_type": "vehicle_type",
+                "plate": "plate",
+                "car_type": "car_type",
+                "next": "next",
+                "print": "print",
+                "plate_registered": "plate_registered"
             }
         }
     }
