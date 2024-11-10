@@ -50,6 +50,17 @@ function addVehicle_registered_list() {
   vehicle_registered_list.value.push(vehicle_registration_data.value)
   vehicle_registration_data.value = {}
 }
+// 車證型態對照表
+const main_pass_code_list = [
+  {
+    code: 'WC',
+    des: '工作證汽車識別證',
+  },
+  {
+    code: 'WM',
+    des: '工作機車識別證',
+  },
+]
 
 function print() {
   console.log(vehicle_registered_list.value)
@@ -95,4 +106,25 @@ function print() {
       {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
     </button>
   </div>
+  <section>
+    <p class="mt-3">
+      {{ $t('pages.applyStaffParking.vehicle_registration.plate_registered') }}
+    </p>
+    <div class="registered-list border rounded">
+      <ul>
+        <li v-for="(item, index) in vehicle_registered_list" :key="index">
+          <p>
+            <span class="me-3">{{ item.plate }}</span>
+            <span>
+              {{
+                main_pass_code_list.find(
+                  code => code.code === item.main_pass_code,
+                )?.des || '未知'
+              }}
+            </span>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
 </template>
