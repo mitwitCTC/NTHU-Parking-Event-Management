@@ -48,6 +48,14 @@
                 "next": "next",
                 "print": "print",
                 "plate_registered": "plate_registered"
+            },
+            "loginAndUpload": {
+                "plate": "plate",
+                "phone_number": "phone_number",
+                "academic_year": "academic_year",
+                "loginAndUpload": "loginAndUpload",
+                "success": "success",
+                "fail": "fail"
             }
         }
     }

@@ -48,6 +48,14 @@
                 "next": "登記下一部",
                 "print": "列印申請書",
                 "plate_registered": "已登記車號"
+            },
+            "loginAndUpload": {
+                "plate": "車號",
+                "phone_number": "聯絡電話",
+                "academic_year": "申請學年度",
+                "loginAndUpload": "登入上傳",
+                "success": "登入成功",
+                "fail": "登入失敗"
             }
         }
     }
