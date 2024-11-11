@@ -43,6 +43,22 @@ const main_pass_code_list = [
     des: '工作機車識別證',
   },
 ]
+
+// 通勤距離
+const commuteDistances = [
+  '5-10km',
+  '10-20km',
+  '20-30km',
+  '30-40km',
+  '40-50km',
+  '50km 以上',
+]
+// 被選中的通勤距離（假設初始為5-10km）
+applicationData.value.selectedCommuteDistance = '5-10km'
+
+async function apply() {
+  console.log(applicationData.value)
+}
 </script>
 <template>
   <section>
@@ -54,6 +70,7 @@ const main_pass_code_list = [
         <li
           v-for="(item, index) in applicationData.vehicle_registered_list"
           :key="index"
+        >
           <p>
             <span class="me-3">{{ item.plate }}</span>
             <span>
@@ -68,6 +85,68 @@ const main_pass_code_list = [
       </ul>
     </div>
   </section>
+  <form class="mt-5">
+    <div class="mb-3">
+      <label for="car_type" class="form-label">
+        {{ $t('pages.applyStaffParking.uploadDocuments.distance') }}
+      </label>
+      <select
+        class="form-select"
+        v-model="applicationData.selectedCommuteDistance"
+      >
+        <option v-for="item in commuteDistances" :key="item" :value="item">
+          {{ item }}
+        </option>
+      </select>
+    </div>
+  </form>
+  <div class="text-center">
+    <button
+      class="btn btn-secondary w-100"
+      data-bs-toggle="modal"
+      data-bs-target="#comfirmModal"
+    >
+      {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
+    </button>
+  </div>
+  <div
+    class="modal fade"
+    id="comfirmModal"
+    tabindex="-1"
+    aria-labelledby="comfirmModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h5 class="modal-title text-black" id="comfirmModalLabel">
+            {{ $t('pages.applyStaffParking.uploadDocuments.confirm_title') }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{ $t('pages.applyStaffParking.uploadDocuments.confirm_message') }}
+        </div>
+        <div class="modal-footer">
+          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
+            {{ $t('pages.applyStaffParking.uploadDocuments.cancel') }}
+          </p>
+          <p
+            class="pointer text-primary fw-bold"
+            data-bs-dismiss="modal"
+            @click="apply"
+          >
+            {{ $t('pages.applyStaffParking.uploadDocuments.confirm') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
@@ -78,5 +157,8 @@ const main_pass_code_list = [
   ::-webkit-scrollbar {
     display: none;
   }
+}
+.pointer {
+  cursor: pointer;
 }
 </style>
