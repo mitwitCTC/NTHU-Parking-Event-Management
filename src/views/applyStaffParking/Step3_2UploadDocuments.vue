@@ -71,6 +71,9 @@ function removeFile(index) {
   applicationData.value.document_list[index] = null
 }
 
+// 辦證說明閱讀狀態
+const certificateApplicationInstructionsRead = ref(false)
+
 async function apply() {
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
@@ -188,10 +191,85 @@ async function apply() {
         </div>
       </div>
     </div>
+    <div class="mb-3">
+      <button
+        class="btn btn-secondary fw-bold w-100"
+        :class="{
+          btn: true,
+          'btn-dark': !certificateApplicationInstructionsRead,
+          'btn-secondary': certificateApplicationInstructionsRead,
+          'fw-bold': certificateApplicationInstructionsRead,
+          'w-100': true,
+        }"
+        :style="{
+          color: certificateApplicationInstructionsRead
+            ? '#702f9f'
+            : 'lightgray',
+        }"
+        data-bs-toggle="modal"
+        data-bs-target="#introductionModal"
+      >
+        <i class="bi bi-check-circle"></i>
+        {{
+          $t(
+            'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsRead',
+          )
+        }}
+      </button>
+    </div>
   </form>
+  <!-- 辦證說明 modal 開始 -->
+  <div
+    class="modal fade"
+    id="introductionModal"
+    tabindex="-1"
+    aria-labelledby="introductionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h5 class="modal-title text-black" id="introductionModalModalLabel">
+            {{
+              $t(
+                'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsTitle',
+              )
+            }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{
+            $t(
+              'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsContent',
+            )
+          }}
+        </div>
+        <div class="modal-footer">
+          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
+            {{ $t('pages.applyStaffParking.basic_info.cancel') }}
+          </p>
+          <p
+            class="pointer text-primary fw-bold"
+            data-bs-dismiss="modal"
+            @click="certificateApplicationInstructionsRead = true"
+          >
+            {{ $t('pages.applyStaffParking.basic_info.confirm') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 辦證說明 modal 結束 -->
   <div class="text-center">
     <button
       class="btn btn-secondary w-100"
+      :disabled="!certificateApplicationInstructionsRead"
       data-bs-toggle="modal"
       data-bs-target="#comfirmModal"
     >

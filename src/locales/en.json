@@ -70,7 +70,9 @@
                 "confirm_title": "confirm_title",
                 "confirm_message": "confirm_message",
                 "cancel": "cancel",
-                "confirm": "confirm"
+                "confirm": "confirm",
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructionsTitle",
+                "certificateApplicationInstructionsContent": "certificateApplicationInstructionsContent"
             }
         }
     }
