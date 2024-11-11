@@ -1,0 +1,1 @@
+import{l as a}from"./index-Blt6_AFQ.js";const e=a("staff",{state:()=>({applicant_data:{}}),actions:{setApplicantData(t){this.applicant_data=t,sessionStorage.setItem("applicant_data",JSON.stringify(t))},getApplicantData(){const t=sessionStorage.getItem("applicant_data");t&&(this.applicant_data=JSON.parse(t))}}});export{e as u};
