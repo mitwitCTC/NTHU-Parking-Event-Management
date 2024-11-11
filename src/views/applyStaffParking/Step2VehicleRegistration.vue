@@ -62,7 +62,7 @@ const main_pass_code_list = [
   },
 ]
 
-function print() {
+async function print() {
   console.log(vehicle_registered_list.value)
 }
 </script>
@@ -110,7 +110,7 @@ function print() {
     <p class="mt-3">
       {{ $t('pages.applyStaffParking.vehicle_registration.plate_registered') }}
     </p>
-    <div class="registered-list border rounded">
+    <div class="registered-list border rounded vehicle-registration">
       <ul>
         <li v-for="(item, index) in vehicle_registered_list" :key="index">
           <p>
@@ -128,3 +128,14 @@ function print() {
     </div>
   </section>
 </template>
+
+<style scoped>
+.vehicle-registration {
+  height: 100px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>
