@@ -4,7 +4,7 @@
       <!-- 插槽顯示頁首內容 -->
       <slot name="header-content"></slot>
     </div>
-    <!-- 默認插槽，顯示 LanguageSwitcher -->
+    <!-- 默認插槽，顯示 HeaderButtonsSection -->
     <slot></slot>
   </div>
 </template>

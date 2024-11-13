@@ -2,7 +2,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import TheHeader from './TheHeader.vue'
-import LanguageSwitcher from './LanguageSwitcher.vue'
+import HeaderButtonsSection from './HeaderButtonsSection.vue'
 
 const headerHeight = ref(0)
 
@@ -28,8 +28,8 @@ onUnmounted(() => {
     <template #header-content>
       <slot name="header-content"></slot>
     </template>
-    <!-- 插入語言切換按鈕區塊 -->
-    <LanguageSwitcher />
+    <!-- 插入頁首按鈕區塊 -->
+    <HeaderButtonsSection />
   </TheHeader>
 
   <!-- 主要內容區域 -->
