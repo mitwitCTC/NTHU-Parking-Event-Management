@@ -53,7 +53,7 @@ onUnmounted(() => {
     class="bg-light content"
     :style="{
       paddingTop: `${headerHeight}px`,
-      paddingBottom: '20px',
+      paddingBottom: '40px',
       height: '100vh',
     }"
   >
