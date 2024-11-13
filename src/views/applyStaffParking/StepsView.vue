@@ -43,11 +43,13 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <button class="btn btn-secondary py-3 w-75 apply-btn">
-      <router-link to="/apply-staff-parking/step1" class="fw-bold fs-4">
-        {{ $t('pages.applyStaffParking.steps.apply') }}
-      </router-link>
-    </button>
+    <router-link to="/apply-staff-parking/step1" class="w-75">
+      <button class="btn btn-secondary py-3 apply-btn w-100">
+        <span class="fw-bold fs-4 text-primary">
+          {{ $t('pages.applyStaffParking.steps.apply') }}
+        </span>
+      </button>
+    </router-link>
   </div>
 </template>
 
