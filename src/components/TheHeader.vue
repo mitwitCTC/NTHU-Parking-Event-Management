@@ -28,9 +28,9 @@ defineProps({
       />
       <div class="flex-grow-1 text-center">
         <!-- 標題 -->
-        <h2>{{ title }}</h2>
+        <h2 class="fs-1">{{ title }}</h2>
         <!-- 副標題 -->
-        <h5>{{ subtitle }}</h5>
+        <h5 class="fs-6">{{ subtitle }}</h5>
       </div>
     </div>
     <!-- 默認插槽，顯示 HeaderButtonsSection -->
