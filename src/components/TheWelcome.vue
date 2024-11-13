@@ -3,11 +3,11 @@ import TheLayout from '@/components/TheLayout.vue'
 </script>
 
 <template>
-  <TheLayout>
-    <template #header-content>
-      <h2>{{ $t('pages.index.title') }}</h2>
-      <h5>{{ $t('pages.index.subtitle') }}</h5>
-    </template>
+  <TheLayout
+    :title="$t('pages.index.title')"
+    :subtitle="$t('pages.index.subtitle')"
+    :showBackIcon="false"
+  >
     <template #content>
       <div class="container mt-3">
         <ul class="nav-links">

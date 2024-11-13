@@ -4,6 +4,21 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import TheHeader from './TheHeader.vue'
 import HeaderButtonsSection from './HeaderButtonsSection.vue'
 
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  subtitle: {
+    type: String,
+    required: true,
+  },
+  showBackIcon: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 const headerHeight = ref(0)
 
 // 計算 header 的高度以便正確定位 content 區塊
@@ -23,11 +38,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <TheHeader>
-    <!-- 頁首內容插槽 -->
-    <template #header-content>
-      <slot name="header-content"></slot>
-    </template>
+  <TheHeader
+    :title="title"
+    :subtitle="subtitle"
+    :showBackIcon="showBackIcon"
+    @goBack="$router.back(-1)"
+  >
     <!-- 插入頁首按鈕區塊 -->
     <HeaderButtonsSection />
   </TheHeader>
