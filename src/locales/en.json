@@ -87,6 +87,14 @@
                 "yes": "yes",
                 "no": "no",
                 "next": "next"
+            },
+            "vehicle_registration": {
+                "vehicle_type": "vehicle_type",
+                "plate": "plate",
+                "main_pass_code": "main_pass_code",
+                "next": "next",
+                "finish": "finish",
+                "plate_registered": "plate_registered"
             }
         }
     }
