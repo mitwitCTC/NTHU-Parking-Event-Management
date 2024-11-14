@@ -1,6 +1,9 @@
 <script setup>
 import { onMounted, ref, watchEffect } from 'vue'
 import VehicleType from '@/components/applyFacultyStudentParking/VehicleType.vue'
+import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
+import router from '@/router'
+const facultyStudentStoreStore = useFacultyStudentStore()
 
 // 車輛類別
 const car_type_title = ref('汽車') // 預設為汽車
@@ -90,10 +93,40 @@ function addVehicle_registered_list() {
 // 腳踏車
 const bike_num = ref(null)
 
+// 處理送出的腳踏車登記資料
+function formatBikeRegisteredList() {
+  vehicle_registered_list.value = vehicle_registered_list.value.flatMap(
+    item => {
+      if (item.car_type_title === '腳踏車' && item.bike_num) {
+        return Array(item.bike_num).fill({
+          plate: item.plate,
+          car_type: item.car_type,
+          car_type_title: item.car_type_title,
+          main_pass_code: item.main_pass_code,
+        })
+      } else {
+        return item
+      }
+    },
+  )
+}
+
 // 前往上傳
 function goToUpload() {
+  facultyStudentStoreStore.setVehicleRegisteredList(
+    vehicle_registered_list.value,
+  )
+  formatBikeRegisteredList()
   console.log(vehicle_registered_list.value)
+
+  router.push({ name: 'ApplyFacultyStudentParking_step3' })
 }
+
+onMounted(() => {
+  facultyStudentStoreStore.getVehicleRegisteredList() // 取得 vehicle_registered_list
+  vehicle_registered_list.value =
+    facultyStudentStoreStore.vehicle_registered_list
+})
 </script>
 <template>
   <VehicleType
