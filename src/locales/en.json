@@ -78,7 +78,16 @@
         "applyFacultyStudentParking": {
             "title": "title",
             "subtitle": "subtitle",
-            "verify_fail": "verify fail"
+            "verify_fail": "verify fail",
+            "basic_info": {
+                "academic_year": "academic_year",
+                "email": "Email",
+                "phone_number": "phone_number",
+                "has_disability_certificate": "has_disability_certificate",
+                "yes": "yes",
+                "no": "no",
+                "next": "next"
+            }
         }
     }
 }

@@ -78,7 +78,16 @@
         "applyFacultyStudentParking": {
             "title": "教職員工生停車證",
             "subtitle": "汽車、機車、腳踏車證申請",
-            "verify_fail": "查無資訊，請聯繫駐警隊承辦"
+            "verify_fail": "查無資訊，請聯繫駐警隊承辦",
+            "basic_info": {
+                "academic_year": "申請學年度",
+                "email": "Email",
+                "phone_number": "連絡電話",
+                "has_disability_certificate": "持有身心障礙手冊",
+                "yes": "是",
+                "no": "否",
+                "next": "下一步，登記車輛"
+            }
         }
     }
 }
