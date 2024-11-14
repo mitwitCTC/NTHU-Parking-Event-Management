@@ -23,6 +23,36 @@ const router = createRouter({
       path: '/apply-faculty-student-parking',
       name: 'ApplyFacultyStudentParking',
       component: applyFacultyStudentParking,
+      children: [
+        {
+          path: 'verify-fail',
+          name: 'ApplyFacultyStudentParking_VerifyFail',
+          component: () =>
+            import('@/views/applyFacultyStudentParking/VerifyFail.vue'),
+        },
+        {
+          path: 'step1',
+          name: 'ApplyFacultyStudentParking_step1',
+          component: () =>
+            import('@/views/applyFacultyStudentParking/Step1BasicInfo.vue'),
+        },
+        {
+          path: 'step2',
+          name: 'ApplyFacultyStudentParking_step2',
+          component: () =>
+            import(
+              '@/views/applyFacultyStudentParking/Step2VehicleRegistration.vue'
+            ),
+        },
+        {
+          path: 'step3',
+          name: 'ApplyFacultyStudentParking_step3',
+          component: () =>
+            import(
+              '@/views/applyFacultyStudentParking/Step3UploadDocuments.vue'
+            ),
+        },
+      ],
     },
     {
       path: '/apply-staff-parking',

@@ -74,6 +74,11 @@
                 "certificateApplicationInstructionsTitle": "辦證說明標題",
                 "certificateApplicationInstructionsContent": "辦證說明內容"
             }
+        },
+        "applyFacultyStudentParking": {
+            "title": "教職員工生停車證",
+            "subtitle": "汽車、機車、腳踏車證申請",
+            "verify_fail": "查無資訊，請聯繫駐警隊承辦"
         }
     }
 }

@@ -74,6 +74,11 @@
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructionsTitle",
                 "certificateApplicationInstructionsContent": "certificateApplicationInstructionsContent"
             }
+        },
+        "applyFacultyStudentParking": {
+            "title": "title",
+            "subtitle": "subtitle",
+            "verify_fail": "verify fail"
         }
     }
 }
