@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
+import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
 
 const applicationData = ref({
@@ -47,6 +48,34 @@ function handleFileUpload(event, index) {
 // 刪除上傳的證件
 function removeFile(index) {
   applicationData.value.document_list[index] = null
+}
+
+// 辦證說明閱讀狀態
+const certificateApplicationInstructionsRead = ref(false)
+
+// 處理送出的腳踏車登記資料
+function formatBikeRegisteredList() {
+  applicationData.value.vehicle_registered_list =
+    applicationData.value.vehicle_registered_list.flatMap(item => {
+      if (item.car_type_title === '腳踏車' && item.bike_num) {
+        return Array(item.bike_num).fill({
+          plate: item.plate,
+          car_type: item.car_type,
+          car_type_title: item.car_type_title,
+          main_pass_code: item.main_pass_code,
+        })
+      } else {
+        return item
+      }
+    })
+}
+
+async function apply() {
+  formatBikeRegisteredList()
+  applicationData.value.document_list =
+    applicationData.value.document_list.filter(file => file !== null)
+  console.log(applicationData.value)
+  router.push('/query-links')
 }
 </script>
 
@@ -149,8 +178,162 @@ function removeFile(index) {
         />
       </div>
     </div>
+    <div class="mb-3">
+      {{
+        $t('pages.applyStaffParking.uploadDocuments.campusToReceiveCertificate')
+      }}
+      <div class="d-flex flex-column flex-md-row gap-md-5">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="campusToReceiveCertificate1"
+            id="campusToReceiveCertificate1"
+            v-model="applicationData.campusToReceiveCertificate"
+            value="1"
+          />
+          <label class="form-check-label" for="campusToReceiveCertificate1">
+            {{ $t('pages.applyStaffParking.uploadDocuments.primaryCampus') }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="campusToReceiveCertificate2"
+            id="campusToReceiveCertificate2"
+            v-model="applicationData.campusToReceiveCertificate"
+            value="2"
+          />
+          <label class="form-check-label" for="campusToReceiveCertificate2">
+            {{ $t('pages.applyStaffParking.uploadDocuments.nanDaCampus') }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <button
+        class="btn btn-secondary fw-bold w-100"
+        :class="{
+          btn: true,
+          'btn-dark': !certificateApplicationInstructionsRead,
+          'btn-secondary': certificateApplicationInstructionsRead,
+          'fw-bold': certificateApplicationInstructionsRead,
+          'w-100': true,
+        }"
+        :style="{
+          color: certificateApplicationInstructionsRead
+            ? '#702f9f'
+            : 'lightgray',
+        }"
+        data-bs-toggle="modal"
+        data-bs-target="#introductionModal"
+      >
+        <i class="bi bi-check-circle"></i>
+        {{
+          $t(
+            'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsRead',
+          )
+        }}
+      </button>
+    </div>
   </form>
-  <router-link to="/query-links">查詢</router-link>
+  <!-- 辦證說明 modal 開始 -->
+  <div
+    class="modal fade"
+    id="introductionModal"
+    tabindex="-1"
+    aria-labelledby="introductionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h5 class="modal-title text-black" id="introductionModalModalLabel">
+            {{
+              $t(
+                'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsTitle',
+              )
+            }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{
+            $t(
+              'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsContent',
+            )
+          }}
+        </div>
+        <div class="modal-footer">
+          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
+            {{ $t('pages.applyStaffParking.basic_info.cancel') }}
+          </p>
+          <p
+            class="pointer text-primary fw-bold"
+            data-bs-dismiss="modal"
+            @click="certificateApplicationInstructionsRead = true"
+          >
+            {{ $t('pages.applyStaffParking.basic_info.confirm') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 辦證說明 modal 結束 -->
+  <div class="text-center">
+    <button
+      class="btn btn-secondary w-100"
+      :disabled="!certificateApplicationInstructionsRead"
+      data-bs-toggle="modal"
+      data-bs-target="#comfirmModal"
+    >
+      {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
+    </button>
+  </div>
+  <div
+    class="modal fade"
+    id="comfirmModal"
+    tabindex="-1"
+    aria-labelledby="comfirmModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h5 class="modal-title text-black" id="comfirmModalLabel">
+            {{ $t('pages.applyStaffParking.uploadDocuments.confirm_title') }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{ $t('pages.applyStaffParking.uploadDocuments.confirm_message') }}
+        </div>
+        <div class="modal-footer">
+          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
+            {{ $t('pages.applyStaffParking.uploadDocuments.cancel') }}
+          </p>
+          <p
+            class="pointer text-primary fw-bold"
+            data-bs-dismiss="modal"
+            @click="apply"
+          >
+            {{ $t('pages.applyStaffParking.uploadDocuments.confirm') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
