@@ -19,6 +19,18 @@ const all_main_pass_code_list = [
   { code: 'TEM', des: '職務宿舍區機車識別證' },
   { code: 'SM', des: '學生機車識別證' },
 ]
+
+// 通勤距離
+const commuteDistances = [
+  '5-10km',
+  '10-20km',
+  '20-30km',
+  '30-40km',
+  '40-50km',
+  '50km 以上',
+]
+// 被選中的通勤距離（假設初始為5-10km）
+applicationData.value.selectedCommuteDistance = '5-10km'
 </script>
 
 <template>
@@ -65,5 +77,20 @@ const all_main_pass_code_list = [
       </ul>
     </div>
   </section>
+  <form class="mt-5">
+    <div class="mb-3">
+      <label for="car_type" class="form-label">
+        {{ $t('pages.applyStaffParking.uploadDocuments.distance') }}
+      </label>
+      <select
+        class="form-select"
+        v-model="applicationData.selectedCommuteDistance"
+      >
+        <option v-for="item in commuteDistances" :key="item" :value="item">
+          {{ item }}
+        </option>
+      </select>
+    </div>
+  </form>
   <router-link to="/query-links">查詢</router-link>
 </template>
