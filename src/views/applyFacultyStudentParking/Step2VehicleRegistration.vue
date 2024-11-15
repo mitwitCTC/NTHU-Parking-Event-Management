@@ -200,7 +200,11 @@ onMounted(() => {
   </div>
   <section>
     <p class="mt-3">
-      {{ $t('pages.applyStaffParking.vehicle_registration.plate_registered') }}
+      {{
+        $t(
+          'pages.applyFacultyStudentParking.vehicle_registration.plate_registered',
+        )
+      }}
     </p>
     <div class="registered-list border rounded vehicle-registration">
       <ul>
@@ -210,7 +214,21 @@ onMounted(() => {
               item.plate
             }}</span>
             <span v-if="item.car_type_title === '腳踏車'">
-              {{ `腳踏車識別證 ${item.bike_num || 0} 張` }}
+              <span>
+                {{
+                  $t(
+                    'pages.applyFacultyStudentParking.vehicle_registration.main_pass_bike',
+                  )
+                }}
+              </span>
+              <span>&nbsp;{{ item.bike_num || 0 }}&nbsp;</span>
+              <span>
+                {{
+                  $t(
+                    'pages.applyFacultyStudentParking.vehicle_registration.unit',
+                  )
+                }}
+              </span>
             </span>
             <span v-else>
               {{

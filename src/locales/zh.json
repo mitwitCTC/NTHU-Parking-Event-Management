@@ -94,7 +94,10 @@
                 "main_pass_code": "車證類別",
                 "next": "登記下一部",
                 "finish": "登記結束",
-                "plate_registered": "已登記車號"
+                "plate_registered": "已登記車號",
+                "bike_num": "申請數量",
+                "main_pass_bike": "腳踏車識別證",
+                "unit": "張"
             }
         }
     }

@@ -94,7 +94,10 @@
                 "main_pass_code": "main_pass_code",
                 "next": "next",
                 "finish": "finish",
-                "plate_registered": "plate_registered"
+                "plate_registered": "plate_registered",
+                "bike_num": "bike_num",
+                "main_pass_bike": "main_pass_bike",
+                "unit": "unit"
             }
         }
     }
