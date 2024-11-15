@@ -7,7 +7,8 @@ const facultyStudentStore = useFacultyStudentStore()
 const applicant_data = ref({})
 applicant_data.value.has_disability_certificate = '0' // 預設未持有身心障礙手冊
 async function getBasic_info() {
-  applicant_data.value.applicant_type = '在職教職員'
+  applicant_data.value.applicant_type = '2'
+  applicant_data.value.applicant_type_title = '在職教職員工'
   applicant_data.value.applicant_source = '課務組'
   applicant_data.value.applicant = '王大明'
   applicant_data.value.applicant_number = 'A09035'
@@ -43,7 +44,7 @@ function next() {
   <div>
     <section>
       <p class="m-0">
-        <span>{{ applicant_data.applicant_type }}</span>
+        <span>{{ applicant_data.applicant_type_title }}</span>
         <span>／</span>
         <span>{{ applicant_data.applicant_source }}</span>
       </p>

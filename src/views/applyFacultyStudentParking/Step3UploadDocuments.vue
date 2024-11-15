@@ -5,6 +5,7 @@ import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
 
 const applicationData = ref({
+  basic_info: {},
   vehicle_registered_list: [],
   selectedCommuteDistance: '',
   document_list: Array(5).fill(null),
@@ -70,11 +71,83 @@ function formatBikeRegisteredList() {
     })
 }
 
+// 取得表單名稱及代碼
+const form_code_list = ref([])
+function getForm_code_list() {
+  form_code_list.value = [
+    [
+      {
+        id: '1',
+        title: '車證',
+        form_code: 'A00001',
+        created_at: '2024-09-24 20:48:25',
+      },
+      {
+        id: '2',
+        title: '工作證',
+        form_code: 'B00002',
+        created_at: '2024-09-24 20:48:25',
+      },
+      {
+        id: '3',
+        title: '活動',
+        form_code: 'C00003',
+        created_at: '2024-09-24 20:48:25',
+      },
+      {
+        id: '4',
+        title: '折抵券',
+        form_code: 'D00004',
+        created_at: '2024-09-24 20:48:25',
+      },
+      {
+        id: '5',
+        title: '活動+折抵券',
+        form_code: 'E00005',
+        created_at: '2024-09-24 20:48:25',
+      },
+    ],
+  ]
+}
+onMounted(() => {
+  getForm_code_list()
+  // 取得 title 為 "車證" 的資料
+  const carTicketForm = form_code_list.value
+    .flat()
+    .find(item => item.title === '車證')
+
+  // 如果找到了該資料，將 title 和 form_code 資料寫入 applicationData
+  if (carTicketForm) {
+    applicationData.value.title = carTicketForm.title
+    applicationData.value.form_code = carTicketForm.form_code
+  }
+})
+
+const formatApplicationData = ref({})
+
 async function apply() {
+  facultyStudentStore.getApplicantData()
+  applicationData.value.basic_info = facultyStudentStore.applicant_data
   formatBikeRegisteredList()
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
   console.log(applicationData.value)
+
+  formatApplicationData.value = {
+    title: applicationData.value.title, // 表單名稱
+    academic_year: applicationData.value.basic_info.academic_year, // 學年
+    form_code: applicationData.value.form_code, // 表單代碼
+    receive_location: applicationData.value.campusToReceiveCertificate, // 領取校區
+    applicant_type: applicationData.value.basic_info.applicant_type, // 申請人類別
+    applicant_number: applicationData.value.basic_info.applicant_number, // 申請人編號(學號或員編)
+    applicant: applicationData.value.basic_info.applicant, // 申請人名稱
+    email: applicationData.value.basic_info.email, // 申請人電子郵件
+    phone_number: applicationData.value.basic_info.phone_number, // 申請人手機
+    applicant_source: applicationData.value.basic_info.applicant_source, // 申請單位
+    content: applicationData.value.vehicle_registered_list, // 申請車牌列表
+  }
+  console.log(formatApplicationData.value)
+
   router.push('/query-links')
 }
 </script>
