@@ -98,6 +98,22 @@
                 "bike_num": "bike_num",
                 "main_pass_bike": "main_pass_bike",
                 "unit": "unit"
+            },
+            "uploadDocuments": {
+                "plate_registered": "plate_registered",
+                "distance": "distance",
+                "upload": "upload",
+                "campusToReceiveCertificate": "campusToReceiveCertificate",
+                "primaryCampus": "primaryCampus",
+                "nanDaCampus": "nanDaCampus",
+                "certificateApplicationInstructionsRead": "certificateApplicationInstructionsRead",
+                "apply": "apply",
+                "confirm_title": "confirm_title",
+                "confirm_message": "confirm_message",
+                "cancel": "cancel",
+                "confirm": "confirm",
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructionsTitle",
+                "certificateApplicationInstructionsContent": "certificateApplicationInstructionsContent"
             }
         }
     }
