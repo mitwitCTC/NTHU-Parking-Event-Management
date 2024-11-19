@@ -99,7 +99,11 @@
                 "plate_registered": "plate_registered",
                 "bike_num": "bike_num",
                 "main_pass_bike": "main_pass_bike",
-                "unit": "unit"
+                "unit": "unit",
+                "delete": "delete",
+                "delete_confirm_title": "delete_confirm_title",
+                "delete_confirm_content": "delete_confirm_content",
+                "cancel": "cancel"
             },
             "uploadDocuments": {
                 "plate_registered": "plate_registered",

@@ -4,6 +4,7 @@ import VehicleType from '@/components/applyFacultyStudentParking/VehicleType.vue
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
 const facultyStudentStoreStore = useFacultyStudentStore()
+import { Modal } from 'bootstrap'
 
 // 車輛類別
 const car_type_title = ref('汽車') // 預設為汽車
@@ -100,6 +101,32 @@ function addVehicle_registered_list() {
   vehicle_registered_list.value.push(vehicle_registration_data.value)
   vehicle_registration_data.value = {}
   bike_num.value = null
+}
+
+let deleteModal = null
+const deleteVehicle_registered_data = ref({})
+function openDeleteModal(index) {
+  const modalElement = document.getElementById('deleteModal')
+  if (!deleteModal) {
+    deleteModal = new Modal(modalElement)
+  }
+  deleteModal.show()
+  deleteVehicle_registered_data.value = vehicle_registered_list.value[index]
+  deleteVehicle_registered_data.value.index = index
+}
+
+function closeDeleteModal() {
+  if (deleteModal) {
+    deleteModal.hide()
+  }
+}
+
+function deleteVehicle_registered() {
+  vehicle_registered_list.value.splice(
+    deleteVehicle_registered_data.value.index,
+    1,
+  )
+  closeDeleteModal()
 }
 
 // 腳踏車
@@ -205,37 +232,150 @@ onMounted(() => {
     <div class="registered-list border rounded vehicle-registration">
       <ul>
         <li v-for="(item, index) in vehicle_registered_list" :key="index">
-          <p>
-            <span class="me-3" v-if="item.plate != '腳踏車'">{{
-              item.plate
-            }}</span>
-            <span v-if="item.car_type_title === '腳踏車'">
-              <span>
+          <div
+            class="d-flex justify-content-between align-items-center px-3 py-1 mt-1"
+          >
+            <p class="m-0 d-flex align-items-center">
+              <span class="me-3" v-if="item.plate != '腳踏車'">
+                {{ item.plate }}
+              </span>
+              <span v-if="item.car_type_title === '腳踏車'">
+                <span>
+                  {{
+                    $t(
+                      'pages.applyFacultyStudentParking.vehicle_registration.main_pass_bike',
+                    )
+                  }}
+                </span>
+                <span>&nbsp;{{ item.bike_num || 0 }}&nbsp;</span>
+                <span>
+                  {{
+                    $t(
+                      'pages.applyFacultyStudentParking.vehicle_registration.unit',
+                    )
+                  }}
+                </span>
+              </span>
+              <span v-else>
                 {{
-                  $t(
-                    'pages.applyFacultyStudentParking.vehicle_registration.main_pass_bike',
-                  )
+                  all_main_pass_code_list.find(
+                    code => code.code === item.main_pass_code,
+                  )?.des || '未知'
                 }}
               </span>
-              <span>&nbsp;{{ item.bike_num || 0 }}&nbsp;</span>
-              <span>
-                {{
-                  $t(
-                    'pages.applyFacultyStudentParking.vehicle_registration.unit',
-                  )
-                }}
-              </span>
-            </span>
-            <span v-else>
+            </p>
+            <button class="btn btn-dark" @click="openDeleteModal(index)">
               {{
-                all_main_pass_code_list.find(
-                  code => code.code === item.main_pass_code,
-                )?.des || '未知'
+                $t(
+                  'pages.applyFacultyStudentParking.vehicle_registration.delete',
+                )
               }}
-            </span>
-          </p>
+            </button>
+          </div>
         </li>
       </ul>
     </div>
+    <!-- 刪除已登記車號 modal 開始 -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary">
+            <h5 class="modal-title text-black" id="deleteModalModalLabel">
+              {{
+                $t(
+                  'pages.applyFacultyStudentParking.vehicle_registration.delete_confirm_title',
+                )
+              }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="closeDeleteModal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <span
+                class="me-3"
+                v-if="deleteVehicle_registered_data.plate != '腳踏車'"
+                >{{ deleteVehicle_registered_data.plate }}</span
+              >
+              <span
+                v-if="deleteVehicle_registered_data.car_type_title === '腳踏車'"
+              >
+                <span>
+                  {{
+                    $t(
+                      'pages.applyFacultyStudentParking.vehicle_registration.main_pass_bike',
+                    )
+                  }}
+                </span>
+                <span
+                  >&nbsp;{{
+                    deleteVehicle_registered_data.bike_num || 0
+                  }}&nbsp;</span
+                >
+                <span>
+                  {{
+                    $t(
+                      'pages.applyFacultyStudentParking.vehicle_registration.unit',
+                    )
+                  }}
+                </span>
+              </span>
+              <span v-else>
+                {{
+                  all_main_pass_code_list.find(
+                    code =>
+                      code.code ===
+                      deleteVehicle_registered_data.main_pass_code,
+                  )?.des || '未知'
+                }}
+              </span>
+            </p>
+            <p>
+              {{
+                $t(
+                  'pages.applyFacultyStudentParking.vehicle_registration.delete_confirm_content',
+                )
+              }}
+            </p>
+          </div>
+          <div class="modal-footer">
+            <p class="pointer text-primary fw-bold" @click="closeDeleteModal">
+              {{
+                $t(
+                  'pages.applyFacultyStudentParking.vehicle_registration.cancel',
+                )
+              }}
+            </p>
+            <p
+              class="pointer text-primary fw-bold"
+              @click="deleteVehicle_registered"
+            >
+              {{
+                $t(
+                  'pages.applyFacultyStudentParking.vehicle_registration.delete',
+                )
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 刪除已登記車號 modal 結束 -->
   </section>
 </template>
+
+<style scoped>
+.pointer {
+  cursor: pointer;
+}
+</style>

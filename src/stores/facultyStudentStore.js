@@ -36,5 +36,14 @@ export const useFacultyStudentStore = defineStore('facultyStudent', {
         this.vehicle_registered_list = JSON.parse(storedData)
       }
     },
+    clear() {
+      sessionStorage.removeItem('faculty_student_applicant_data')
+      sessionStorage.removeItem(
+        'faculty_student_applicant_data_vehicle_registered_list',
+      )
+      // 清空 Pinia 狀態
+      this.applicant_data = {}
+      this.vehicle_registered_list = []
+    },
   },
 })

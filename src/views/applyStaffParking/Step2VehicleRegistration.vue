@@ -1,5 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { Modal } from 'bootstrap'
+
 import { useStaffStore } from '@/stores/staffStore'
 import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
@@ -65,6 +67,32 @@ const main_pass_code_list = [
 async function print() {
   console.log(vehicle_registered_list.value)
 }
+
+let deleteModal = null
+const deleteVehicle_registered_data = ref({})
+function openDeleteModal(index) {
+  const modalElement = document.getElementById('deleteModal')
+  if (!deleteModal) {
+    deleteModal = new Modal(modalElement)
+  }
+  deleteModal.show()
+  deleteVehicle_registered_data.value = vehicle_registered_list.value[index]
+  deleteVehicle_registered_data.value.index = index
+}
+
+function closeDeleteModal() {
+  if (deleteModal) {
+    deleteModal.hide()
+  }
+}
+
+function deleteVehicle_registered() {
+  vehicle_registered_list.value.splice(
+    deleteVehicle_registered_data.value.index,
+    1,
+  )
+  closeDeleteModal()
+}
 </script>
 
 <template>
@@ -110,19 +138,125 @@ async function print() {
     <div class="registered-list border rounded vehicle-registration">
       <ul>
         <li v-for="(item, index) in vehicle_registered_list" :key="index">
-          <p>
-            <span class="me-3">{{ item.plate }}</span>
-            <span>
-              {{
-                main_pass_code_list.find(
-                  code => code.code === item.main_pass_code,
-                )?.des || '未知'
-              }}
-            </span>
-          </p>
+          <div
+            class="d-flex justify-content-between align-items-center px-3 py-1 mt-1"
+          >
+            <p class="m-0 d-flex align-items-center">
+              <span class="me-3" v-if="item.plate != '腳踏車'">
+                {{ item.plate }}
+              </span>
+              <span v-if="item.car_type_title === '腳踏車'">
+                <span>
+                  {{
+                    $t(
+                      'pages.applyStaffParking.vehicle_registration.main_pass_bike',
+                    )
+                  }}
+                </span>
+                <span>&nbsp;{{ item.bike_num || 0 }}&nbsp;</span>
+                <span>
+                  {{ $t('pages.applyStaffParking.vehicle_registration.unit') }}
+                </span>
+              </span>
+              <span v-else>
+                {{
+                  main_pass_code_list.find(
+                    code => code.code === item.main_pass_code,
+                  )?.des || '未知'
+                }}
+              </span>
+            </p>
+            <button class="btn btn-dark" @click="openDeleteModal(index)">
+              {{ $t('pages.applyStaffParking.vehicle_registration.delete') }}
+            </button>
+          </div>
         </li>
       </ul>
     </div>
+    <!-- 刪除已登記車號 modal 開始 -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary">
+            <h5 class="modal-title text-black" id="deleteModalModalLabel">
+              {{
+                $t(
+                  'pages.applyStaffParking.vehicle_registration.delete_confirm_title',
+                )
+              }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="closeDeleteModal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <span
+                class="me-3"
+                v-if="deleteVehicle_registered_data.plate != '腳踏車'"
+                >{{ deleteVehicle_registered_data.plate }}</span
+              >
+              <span
+                v-if="deleteVehicle_registered_data.car_type_title === '腳踏車'"
+              >
+                <span>
+                  {{
+                    $t(
+                      'pages.applyStaffParking.vehicle_registration.main_pass_bike',
+                    )
+                  }}
+                </span>
+                <span
+                  >&nbsp;{{
+                    deleteVehicle_registered_data.bike_num || 0
+                  }}&nbsp;</span
+                >
+                <span>
+                  {{ $t('pages.applyStaffParking.vehicle_registration.unit') }}
+                </span>
+              </span>
+              <span v-else>
+                {{
+                  main_pass_code_list.find(
+                    code =>
+                      code.code ===
+                      deleteVehicle_registered_data.main_pass_code,
+                  )?.des || '未知'
+                }}
+              </span>
+            </p>
+            <p>
+              {{
+                $t(
+                  'pages.applyStaffParking.vehicle_registration.delete_confirm_content',
+                )
+              }}
+            </p>
+          </div>
+          <div class="modal-footer">
+            <p class="pointer text-primary fw-bold" @click="closeDeleteModal">
+              {{ $t('pages.applyStaffParking.vehicle_registration.cancel') }}
+            </p>
+            <p
+              class="pointer text-primary fw-bold"
+              @click="deleteVehicle_registered"
+            >
+              {{ $t('pages.applyStaffParking.vehicle_registration.delete') }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 刪除已登記車號 modal 結束 -->
   </section>
 </template>
 

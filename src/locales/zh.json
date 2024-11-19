@@ -102,7 +102,11 @@
                 "plate_registered": "已登記車號",
                 "bike_num": "申請數量",
                 "main_pass_bike": "腳踏車識別證",
-                "unit": "張"
+                "unit": "張",
+                "delete": "刪除",
+                "delete_confirm_title": "刪除確認",
+                "delete_confirm_content": "是否確認刪除",
+                "cancel": "取消"
             },
             "uploadDocuments": {
                 "plate_registered": "已登記車號",
