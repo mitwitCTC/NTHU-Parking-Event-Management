@@ -1,7 +1,28 @@
 <script setup>
 import router from '@/router'
 import { onMounted, ref } from 'vue'
+import { Modal } from 'bootstrap'
+import PdfViewer from '@/components/PdfViewer.vue'
+const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+let introductionModal = null
+const showIntroductionModal = () => {
+  const modalElement = document.getElementById('introductionModal')
+  if (!introductionModal) {
+    introductionModal = new Modal(modalElement)
+  }
+  introductionModal.show()
+}
 
+const closeIntroductionModal = () => {
+  if (introductionModal) {
+    introductionModal.hide()
+  }
+}
+
+const confirmAction = () => {
+  certificateApplicationInstructionsRead.value = true
+  closeIntroductionModal()
+}
 const applicationData = ref({
   vehicle_registered_list: [],
   selectedCommuteDistance: '',
@@ -138,7 +159,7 @@ async function apply() {
         </p>
 
         <div v-if="!file" class="img-container">
-          <img src="/public/images/upload/upload.svg" alt="upload" />
+          <img src="/images/upload/upload.svg" alt="upload" />
         </div>
 
         <button
@@ -167,7 +188,6 @@ async function apply() {
           <input
             class="form-check-input"
             type="radio"
-            name="campusToReceiveCertificate1"
             id="campusToReceiveCertificate1"
             v-model="applicationData.campusToReceiveCertificate"
             value="1"
@@ -180,7 +200,6 @@ async function apply() {
           <input
             class="form-check-input"
             type="radio"
-            name="campusToReceiveCertificate2"
             id="campusToReceiveCertificate2"
             v-model="applicationData.campusToReceiveCertificate"
             value="2"
@@ -193,6 +212,7 @@ async function apply() {
     </div>
     <div class="mb-3">
       <button
+        type="button"
         class="btn btn-secondary fw-bold w-100"
         :class="{
           btn: true,
@@ -206,8 +226,7 @@ async function apply() {
             ? '#702f9f'
             : 'lightgray',
         }"
-        data-bs-toggle="modal"
-        data-bs-target="#introductionModal"
+        @click="showIntroductionModal"
       >
         <i class="bi bi-check-circle"></i>
         {{
@@ -226,7 +245,7 @@ async function apply() {
     aria-labelledby="introductionModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary">
           <h5 class="modal-title text-black" id="introductionModalModalLabel">
@@ -239,27 +258,22 @@ async function apply() {
           <button
             type="button"
             class="btn-close"
-            data-bs-dismiss="modal"
+            @click="closeIntroductionModal"
             aria-label="Close"
           ></button>
         </div>
         <div class="modal-body">
-          {{
-            $t(
-              'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsContent',
-            )
-          }}
+          <PdfViewer :pdfUrl="pdfUrl" />
         </div>
         <div class="modal-footer">
-          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
-            {{ $t('pages.applyStaffParking.basic_info.cancel') }}
-          </p>
           <p
             class="pointer text-primary fw-bold"
-            data-bs-dismiss="modal"
-            @click="certificateApplicationInstructionsRead = true"
+            @click="closeIntroductionModal"
           >
-            {{ $t('pages.applyStaffParking.basic_info.confirm') }}
+            {{ $t('pages.applyStaffParking.uploadDocuments.cancel') }}
+          </p>
+          <p class="pointer text-primary fw-bold" @click="confirmAction">
+            {{ $t('pages.applyStaffParking.uploadDocuments.confirm') }}
           </p>
         </div>
       </div>

@@ -3,6 +3,28 @@ import { onMounted, ref } from 'vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
+import { Modal } from 'bootstrap'
+import PdfViewer from '@/components/PdfViewer.vue'
+const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+let introductionModal = null
+const showIntroductionModal = () => {
+  const modalElement = document.getElementById('introductionModal')
+  if (!introductionModal) {
+    introductionModal = new Modal(modalElement)
+  }
+  introductionModal.show()
+}
+
+const closeIntroductionModal = () => {
+  if (introductionModal) {
+    introductionModal.hide()
+  }
+}
+
+const confirmAction = () => {
+  certificateApplicationInstructionsRead.value = true
+  closeIntroductionModal()
+}
 
 const applicationData = ref({
   basic_info: {},
@@ -253,39 +275,46 @@ async function apply() {
     </div>
     <div class="mb-3">
       {{
-        $t('pages.applyStaffParking.uploadDocuments.campusToReceiveCertificate')
+        $t(
+          'pages.applyFacultyStudentParking.uploadDocuments.campusToReceiveCertificate',
+        )
       }}
       <div class="d-flex flex-column flex-md-row gap-md-5">
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
-            name="campusToReceiveCertificate1"
             id="campusToReceiveCertificate1"
             v-model="applicationData.campusToReceiveCertificate"
             value="1"
           />
           <label class="form-check-label" for="campusToReceiveCertificate1">
-            {{ $t('pages.applyStaffParking.uploadDocuments.primaryCampus') }}
+            {{
+              $t(
+                'pages.applyFacultyStudentParking.uploadDocuments.primaryCampus',
+              )
+            }}
           </label>
         </div>
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
-            name="campusToReceiveCertificate2"
             id="campusToReceiveCertificate2"
             v-model="applicationData.campusToReceiveCertificate"
             value="2"
           />
           <label class="form-check-label" for="campusToReceiveCertificate2">
-            {{ $t('pages.applyStaffParking.uploadDocuments.nanDaCampus') }}
+            {{
+              $t('pages.applyFacultyStudentParking.uploadDocuments.nanDaCampus')
+            }}
           </label>
         </div>
       </div>
     </div>
     <div class="mb-3">
       <button
+        type="button"
         class="btn btn-secondary fw-bold w-100"
         :class="{
           btn: true,
@@ -299,13 +328,12 @@ async function apply() {
             ? '#702f9f'
             : 'lightgray',
         }"
-        data-bs-toggle="modal"
-        data-bs-target="#introductionModal"
+        @click="showIntroductionModal"
       >
         <i class="bi bi-check-circle"></i>
         {{
           $t(
-            'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsRead',
+            'pages.applyFacultyStudentParking.uploadDocuments.certificateApplicationInstructionsRead',
           )
         }}
       </button>
@@ -319,40 +347,35 @@ async function apply() {
     aria-labelledby="introductionModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary">
           <h5 class="modal-title text-black" id="introductionModalModalLabel">
             {{
               $t(
-                'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsTitle',
+                'pages.applyFacultyStudentParking.uploadDocuments.certificateApplicationInstructionsTitle',
               )
             }}
           </h5>
           <button
             type="button"
             class="btn-close"
-            data-bs-dismiss="modal"
+            @click="closeIntroductionModal"
             aria-label="Close"
           ></button>
         </div>
         <div class="modal-body">
-          {{
-            $t(
-              'pages.applyStaffParking.uploadDocuments.certificateApplicationInstructionsContent',
-            )
-          }}
+          <PdfViewer :pdfUrl="pdfUrl" />
         </div>
         <div class="modal-footer">
-          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
-            {{ $t('pages.applyStaffParking.basic_info.cancel') }}
-          </p>
           <p
             class="pointer text-primary fw-bold"
-            data-bs-dismiss="modal"
-            @click="certificateApplicationInstructionsRead = true"
+            @click="closeIntroductionModal"
           >
-            {{ $t('pages.applyStaffParking.basic_info.confirm') }}
+            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.cancel') }}
+          </p>
+          <p class="pointer text-primary fw-bold" @click="confirmAction">
+            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.confirm') }}
           </p>
         </div>
       </div>
@@ -366,7 +389,7 @@ async function apply() {
       data-bs-toggle="modal"
       data-bs-target="#comfirmModal"
     >
-      {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
+      {{ $t('pages.applyFacultyStudentParking.uploadDocuments.apply') }}
     </button>
   </div>
   <div
@@ -380,7 +403,11 @@ async function apply() {
       <div class="modal-content">
         <div class="modal-header bg-secondary">
           <h5 class="modal-title text-black" id="comfirmModalLabel">
-            {{ $t('pages.applyStaffParking.uploadDocuments.confirm_title') }}
+            {{
+              $t(
+                'pages.applyFacultyStudentParking.uploadDocuments.confirm_title',
+              )
+            }}
           </h5>
           <button
             type="button"
@@ -390,18 +417,22 @@ async function apply() {
           ></button>
         </div>
         <div class="modal-body">
-          {{ $t('pages.applyStaffParking.uploadDocuments.confirm_message') }}
+          {{
+            $t(
+              'pages.applyFacultyStudentParking.uploadDocuments.confirm_message',
+            )
+          }}
         </div>
         <div class="modal-footer">
           <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
-            {{ $t('pages.applyStaffParking.uploadDocuments.cancel') }}
+            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.cancel') }}
           </p>
           <p
             class="pointer text-primary fw-bold"
             data-bs-dismiss="modal"
             @click="apply"
           >
-            {{ $t('pages.applyStaffParking.uploadDocuments.confirm') }}
+            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.confirm') }}
           </p>
         </div>
       </div>

@@ -71,8 +71,7 @@
                 "confirm_message": "confirm_message",
                 "cancel": "cancel",
                 "confirm": "confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructionsTitle",
-                "certificateApplicationInstructionsContent": "certificateApplicationInstructionsContent"
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         },
         "applyFacultyStudentParking": {
@@ -112,8 +111,7 @@
                 "confirm_message": "confirm_message",
                 "cancel": "cancel",
                 "confirm": "confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructionsTitle",
-                "certificateApplicationInstructionsContent": "certificateApplicationInstructionsContent"
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         }
     }
