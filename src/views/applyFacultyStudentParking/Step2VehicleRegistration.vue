@@ -7,10 +7,22 @@ const facultyStudentStoreStore = useFacultyStudentStore()
 
 // 車輛類別
 const car_type_title = ref('汽車') // 預設為汽車
-
+const vehicleTypeSelected = ref(
+  'pages.applyFacultyStudentParking.vehicle_registration.vehicle_type_car',
+)
 // 更新車輛類別
 function updateCar_type_title(item) {
   car_type_title.value = item
+  if (car_type_title.value == '汽車') {
+    vehicleTypeSelected.value =
+      'pages.applyFacultyStudentParking.vehicle_registration.vehicle_type_car'
+  } else if (car_type_title.value == '機車') {
+    vehicleTypeSelected.value =
+      'pages.applyFacultyStudentParking.vehicle_registration.vehicle_type_scooter'
+  } else {
+    vehicleTypeSelected.value =
+      'pages.applyFacultyStudentParking.vehicle_registration.vehicle_type_bike'
+  }
 }
 
 // 全部車證型態列表
@@ -114,7 +126,10 @@ onMounted(() => {
     :car_type_title="car_type_title"
     @updateCar_type_title="updateCar_type_title"
   />
-  <form class="mt-5">
+  <h3 class="mt-3 fw-bold">
+    {{ $t(vehicleTypeSelected) }}
+  </h3>
+  <form class="mt-3">
     <div class="mb-3" v-if="car_type_title != '腳踏車'">
       <label for="plate" class="form-label">
         {{ $t('pages.applyFacultyStudentParking.vehicle_registration.plate') }}
@@ -173,10 +188,10 @@ onMounted(() => {
   </form>
   <div class="d-flex justify-content-between">
     <button class="btn btn-secondary" @click="addVehicle_registered_list">
-      {{ $t('pages.applyFacultyStudentParking.vehicle_registration.next') }}
+      {{ $t('pages.applyFacultyStudentParking.vehicle_registration.register') }}
     </button>
     <button class="btn btn-secondary" @click="goToUpload">
-      {{ $t('pages.applyFacultyStudentParking.vehicle_registration.finish') }}
+      {{ $t('pages.applyFacultyStudentParking.vehicle_registration.next') }}
     </button>
   </div>
   <section>

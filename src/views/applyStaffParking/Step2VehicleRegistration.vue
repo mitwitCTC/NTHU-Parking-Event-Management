@@ -68,9 +68,6 @@ async function print() {
 </script>
 
 <template>
-  <p class="fw-bold">
-    {{ $t('pages.applyStaffParking.vehicle_registration.vehicle_type') }}
-  </p>
   <VehicleType
     :mainPassCode="mainPassCode"
     @updateMainPassCode="updateMainPassCode"

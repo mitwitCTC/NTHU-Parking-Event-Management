@@ -15,6 +15,9 @@ function handleClick(code) {
 
 <template>
   <section>
+    <p class="fw-bold">
+      {{ $t('pages.applyStaffParking.vehicle_registration.vehicle_type') }}
+    </p>
     <div class="d-flex justify-content-start gap-5">
       <div
         class="d-flex flex-column align-items-center pointer"
