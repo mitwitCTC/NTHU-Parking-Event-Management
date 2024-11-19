@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 defineProps({
   car_type_title: {
     type: String,
