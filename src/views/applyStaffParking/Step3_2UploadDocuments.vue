@@ -3,7 +3,8 @@ import router from '@/router'
 import { onMounted, ref } from 'vue'
 import { Modal } from 'bootstrap'
 import PdfViewer from '@/components/PdfViewer.vue'
-const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+const pdfUrl =
+  '/NTHU-Parking-Event-Management/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
 let introductionModal = null
 const showIntroductionModal = () => {
   const modalElement = document.getElementById('introductionModal')
