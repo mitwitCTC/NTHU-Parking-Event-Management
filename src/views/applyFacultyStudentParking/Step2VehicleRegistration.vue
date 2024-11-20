@@ -160,6 +160,15 @@ onMounted(() => {
     <div class="mb-3" v-if="car_type_title != '腳踏車'">
       <label for="plate" class="form-label">
         {{ $t('pages.applyFacultyStudentParking.vehicle_registration.plate') }}
+        <span class="text-warning">
+          (
+          {{
+            $t(
+              'pages.applyFacultyStudentParking.vehicle_registration.licensePlateInputFormat',
+            )
+          }}
+          )
+        </span>
       </label>
       <input
         type="text"

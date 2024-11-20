@@ -89,6 +89,15 @@ function deleteVehicle_registered() {
     <div class="mb-3">
       <label for="plate" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.plate') }}
+        <span class="text-warning">
+          (
+          {{
+            $t(
+              'pages.applyStaffParking.vehicle_registration.licensePlateInputFormat',
+            )
+          }}
+          )
+        </span>
       </label>
       <input
         type="text"

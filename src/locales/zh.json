@@ -47,6 +47,7 @@
                 "vehicle_type_scooter": "機車車證登記",
                 "vehicle_type_bike": "腳踏車車證登記",
                 "plate": "車牌號碼",
+                "licensePlateInputFormat": "輸入時請加\"-\"",
                 "car_type": "車輛型式",
                 "next": "登記下一部",
                 "print": "列印申請書",
@@ -58,6 +59,7 @@
             },
             "loginAndUpload": {
                 "plate": "車號",
+                "licensePlateInputFormat": "輸入時請加\"-\"",
                 "phone_number": "聯絡電話",
                 "academic_year": "申請學年度",
                 "loginAndUpload": "登入上傳",
@@ -100,6 +102,7 @@
                 "vehicle_type_scooter": "機車車證登記",
                 "vehicle_type_bike": "腳踏車車證登記",
                 "plate": "車牌號碼",
+                "licensePlateInputFormat": "輸入時請加\"-\"",
                 "main_pass_code": "車證類別",
                 "register": "登記",
                 "next": "下一步上傳證件",

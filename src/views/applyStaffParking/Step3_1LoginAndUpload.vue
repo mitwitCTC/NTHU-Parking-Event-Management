@@ -58,6 +58,13 @@ function clearLogin_result() {
     <div class="mb-3">
       <label for="plate" class="form-label">
         {{ $t('pages.applyStaffParking.loginAndUpload.plate') }}
+        <span class="text-warning">
+          (
+          {{
+            $t('pages.applyStaffParking.loginAndUpload.licensePlateInputFormat')
+          }}
+          )
+        </span>
       </label>
       <input
         type="text"

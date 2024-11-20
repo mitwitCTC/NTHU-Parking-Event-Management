@@ -44,6 +44,7 @@
             "vehicle_registration": {
                 "vehicle_type": "vehicle_type",
                 "plate": "plate",
+                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
                 "car_type": "car_type",
                 "next": "next",
                 "print": "print",
@@ -55,6 +56,7 @@
             },
             "loginAndUpload": {
                 "plate": "plate",
+                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
                 "phone_number": "phone_number",
                 "academic_year": "academic_year",
                 "loginAndUpload": "loginAndUpload",
@@ -97,6 +99,7 @@
                 "vehicle_type_scooter": "scooter",
                 "vehicle_type_bike": "bike",
                 "plate": "plate",
+                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
                 "main_pass_code": "main_pass_code",
                 "register": "register",
                 "next": "next",
