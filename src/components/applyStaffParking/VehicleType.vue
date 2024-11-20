@@ -1,15 +1,15 @@
 <script setup>
 defineProps({
-  mainPassCode: {
+  car_type_title: {
     type: String,
     required: true,
   },
 })
 
-const emit = defineEmits(['updateMainPassCode'])
+const emit = defineEmits(['updateCar_type_title'])
 
-function handleClick(code) {
-  emit('updateMainPassCode', code)
+function handleClick(item) {
+  emit('updateCar_type_title', item)
 }
 </script>
 
@@ -21,8 +21,8 @@ function handleClick(code) {
     <div class="d-flex justify-content-start gap-5">
       <div
         class="d-flex flex-column align-items-center pointer"
-        :class="{ 'gray-overlay': mainPassCode != 'WC' }"
-        @click="handleClick('WC')"
+        :class="{ 'gray-overlay': car_type_title != '汽車' }"
+        @click="handleClick('汽車')"
       >
         <div class="img-container">
           <img src="/images/vehicle/汽車.svg" alt="汽車" />
@@ -30,8 +30,8 @@ function handleClick(code) {
       </div>
       <div
         class="d-flex flex-column align-items-center pointer"
-        :class="{ 'gray-overlay': mainPassCode != 'WM' }"
-        @click="handleClick('WM')"
+        :class="{ 'gray-overlay': car_type_title != '機車' }"
+        @click="handleClick('機車')"
       >
         <div class="img-container">
           <img src="/images/vehicle/機車.svg" alt="機車" />

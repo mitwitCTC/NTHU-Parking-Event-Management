@@ -47,7 +47,11 @@
                 "car_type": "car_type",
                 "next": "next",
                 "print": "print",
-                "plate_registered": "plate_registered"
+                "plate_registered": "plate_registered",
+                "delete": "delete",
+                "delete_confirm_title": "delete_confirm_title",
+                "delete_confirm_content": "delete_confirm_content",
+                "cancel": "cancel"
             },
             "loginAndUpload": {
                 "plate": "plate",

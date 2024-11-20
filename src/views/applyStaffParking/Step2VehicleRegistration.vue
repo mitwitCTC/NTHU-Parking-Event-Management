@@ -6,8 +6,8 @@ import { useStaffStore } from '@/stores/staffStore'
 import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
 const staffStore = useStaffStore()
-// 車證型態
-const mainPassCode = ref('WC') // 預設為汽車
+// 車輛型式名稱 (汽車/機車)
+const car_type_title = ref('汽車') // 預設為汽車
 
 onMounted(() => {
   staffStore.getApplicantData()
@@ -33,36 +33,21 @@ const car_types = [
   },
 ]
 
-// 更新車證型態
-function updateMainPassCode(type) {
-  mainPassCode.value = type
+// 更新車輛型式名稱 (汽車/機車)
+function updateCar_type_title(type) {
+  car_type_title.value = type
 }
 
 const vehicle_registration_data = ref({})
 const vehicle_registered_list = ref([])
 function addVehicle_registered_list() {
-  vehicle_registration_data.value.main_pass_code = mainPassCode.value
-  // 判斷為汽車或機車
-  if (vehicle_registration_data.value.main_pass_code == 'WC') {
-    vehicle_registration_data.value.car_type_title = '汽車'
-  } else {
-    vehicle_registration_data.value.car_type_title = '機車'
+  vehicle_registration_data.value.car_type_title = car_type_title.value
+  if (vehicle_registration_data.value.car_type_title == '機車') {
     vehicle_registration_data.value.car_type = 5
   }
   vehicle_registered_list.value.push(vehicle_registration_data.value)
   vehicle_registration_data.value = {}
 }
-// 車證型態對照表
-const main_pass_code_list = [
-  {
-    code: 'WC',
-    des: '工作證汽車識別證',
-  },
-  {
-    code: 'WM',
-    des: '工作機車識別證',
-  },
-]
 
 async function print() {
   console.log(vehicle_registered_list.value)
@@ -97,8 +82,8 @@ function deleteVehicle_registered() {
 
 <template>
   <VehicleType
-    :mainPassCode="mainPassCode"
-    @updateMainPassCode="updateMainPassCode"
+    :car_type_title="car_type_title"
+    @updateCar_type_title="updateCar_type_title"
   />
   <form class="mt-5">
     <div class="mb-3">
@@ -112,7 +97,7 @@ function deleteVehicle_registered() {
         v-model="vehicle_registration_data.plate"
       />
     </div>
-    <div class="mb-3" v-if="mainPassCode != 'WM'">
+    <div class="mb-3" v-if="car_type_title == '汽車'">
       <label for="car_type" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.car_type') }}
       </label>
@@ -141,29 +126,9 @@ function deleteVehicle_registered() {
           <div
             class="d-flex justify-content-between align-items-center px-3 py-1 mt-1"
           >
-            <p class="m-0 d-flex align-items-center">
-              <span class="me-3" v-if="item.plate != '腳踏車'">
+            <p class="m-0">
+              <span>
                 {{ item.plate }}
-              </span>
-              <span v-if="item.car_type_title === '腳踏車'">
-                <span>
-                  {{
-                    $t(
-                      'pages.applyStaffParking.vehicle_registration.main_pass_bike',
-                    )
-                  }}
-                </span>
-                <span>&nbsp;{{ item.bike_num || 0 }}&nbsp;</span>
-                <span>
-                  {{ $t('pages.applyStaffParking.vehicle_registration.unit') }}
-                </span>
-              </span>
-              <span v-else>
-                {{
-                  main_pass_code_list.find(
-                    code => code.code === item.main_pass_code,
-                  )?.des || '未知'
-                }}
               </span>
             </p>
             <button class="btn btn-dark" @click="openDeleteModal(index)">
@@ -200,39 +165,7 @@ function deleteVehicle_registered() {
           </div>
           <div class="modal-body">
             <p>
-              <span
-                class="me-3"
-                v-if="deleteVehicle_registered_data.plate != '腳踏車'"
-                >{{ deleteVehicle_registered_data.plate }}</span
-              >
-              <span
-                v-if="deleteVehicle_registered_data.car_type_title === '腳踏車'"
-              >
-                <span>
-                  {{
-                    $t(
-                      'pages.applyStaffParking.vehicle_registration.main_pass_bike',
-                    )
-                  }}
-                </span>
-                <span
-                  >&nbsp;{{
-                    deleteVehicle_registered_data.bike_num || 0
-                  }}&nbsp;</span
-                >
-                <span>
-                  {{ $t('pages.applyStaffParking.vehicle_registration.unit') }}
-                </span>
-              </span>
-              <span v-else>
-                {{
-                  main_pass_code_list.find(
-                    code =>
-                      code.code ===
-                      deleteVehicle_registered_data.main_pass_code,
-                  )?.des || '未知'
-                }}
-              </span>
+              <span>{{ deleteVehicle_registered_data.plate }}</span>
             </p>
             <p>
               {{

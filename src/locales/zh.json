@@ -50,7 +50,11 @@
                 "car_type": "車輛型式",
                 "next": "登記下一部",
                 "print": "列印申請書",
-                "plate_registered": "已登記車號"
+                "plate_registered": "已登記車號",
+                "delete": "刪除",
+                "delete_confirm_title": "刪除確認",
+                "delete_confirm_content": "是否確認刪除",
+                "cancel": "取消"
             },
             "loginAndUpload": {
                 "plate": "車號",
