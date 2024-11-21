@@ -131,5 +131,10 @@
                 "certificateApplicationInstructionsTitle": "辦證說明"
             }
         }
+    },
+    "validation": {
+        "title": "資訊確認",
+        "content": "欄位未正確填寫，請確認，謝謝！",
+        "confirm": "確認"
     }
 }

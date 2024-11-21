@@ -128,5 +128,10 @@
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         }
+    },
+    "validation": {
+        "title": "Information Confirmation",
+        "content": "Incorrect information . Please confirm. Thank you!",
+        "confirm": "Confirm"
     }
 }
