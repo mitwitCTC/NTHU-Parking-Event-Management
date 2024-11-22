@@ -268,7 +268,11 @@ onMounted(() => {
     <button class="btn btn-secondary" @click="addVehicle_registered_list">
       {{ $t('pages.applyFacultyStudentParking.vehicle_registration.register') }}
     </button>
-    <button class="btn btn-secondary" @click="goToUpload">
+    <button
+      class="btn btn-secondary"
+      @click="goToUpload"
+      :disabled="vehicle_registered_list.length <= 0"
+    >
       {{ $t('pages.applyFacultyStudentParking.vehicle_registration.next') }}
     </button>
   </div>

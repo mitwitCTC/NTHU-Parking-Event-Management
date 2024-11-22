@@ -168,7 +168,11 @@ function deleteVehicle_registered() {
     <button class="btn btn-secondary" @click="addVehicle_registered_list">
       {{ $t('pages.applyStaffParking.vehicle_registration.next') }}
     </button>
-    <button class="btn btn-secondary" @click="print">
+    <button
+      class="btn btn-secondary"
+      @click="print"
+      :disabled="vehicle_registered_list.length <= 0"
+    >
       {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
     </button>
   </div>
