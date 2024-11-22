@@ -5,6 +5,9 @@ import { Modal } from 'bootstrap'
 import { useStaffStore } from '@/stores/staffStore'
 import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
+import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
+import ValidationModal from '@/components/ValidationModal.vue'
+
 const staffStore = useStaffStore()
 // 車輛型式名稱 (汽車/機車)
 const car_type_title = ref('汽車') // 預設為汽車
@@ -38,15 +41,51 @@ function updateCar_type_title(type) {
   car_type_title.value = type
 }
 
+const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
+const showModal = ref(false) // 控制 Modal 顯示
+const errors = ref({}) // 儲存錯誤訊息
+
+function formValidate() {
+  const rules = {
+    plate: { required: true },
+    car_type: { required: true },
+  }
+
+  // 確保 formValidatorRef 正確引用 FormValidator 組件
+  if (formValidatorRef.value) {
+    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
+      vehicle_registration_data.value,
+      rules,
+    )
+
+    // 如果驗證失敗
+    if (!isValid) {
+      errors.value = errorsResult // 設定錯誤訊息
+      showModal.value = true // 顯示 Modal
+    }
+
+    return isValid
+  } else {
+    console.error('FormValidator reference is not correctly initialized.')
+    return false
+  }
+}
+// 這個方法將由 ValidationModal 觸發來關閉 Modal
+function closeValidatorModal() {
+  showModal.value = false
+}
+
 const vehicle_registration_data = ref({})
 const vehicle_registered_list = ref([])
 function addVehicle_registered_list() {
   vehicle_registration_data.value.car_type_title = car_type_title.value
-  if (vehicle_registration_data.value.car_type_title == '機車') {
-    vehicle_registration_data.value.car_type = 5
+  if (formValidate()) {
+    if (vehicle_registration_data.value.car_type_title == '機車') {
+      vehicle_registration_data.value.car_type = 5
+    }
+    vehicle_registered_list.value.push(vehicle_registration_data.value)
+    vehicle_registration_data.value = {}
   }
-  vehicle_registered_list.value.push(vehicle_registration_data.value)
-  vehicle_registration_data.value = {}
 }
 
 async function print() {
@@ -85,6 +124,8 @@ function deleteVehicle_registered() {
     :car_type_title="car_type_title"
     @updateCar_type_title="updateCar_type_title"
   />
+  <!-- 引入 FormValidator 元件 -->
+  <FormValidator ref="formValidatorRef" />
   <form class="mt-5">
     <div class="mb-3">
       <label for="plate" class="form-label">
@@ -117,6 +158,12 @@ function deleteVehicle_registered() {
       </select>
     </div>
   </form>
+  <!-- 引入 ValidationModal 元件 -->
+  <ValidationModal
+    :showModal="showModal"
+    :errors="errors"
+    @close="closeValidatorModal"
+  />
   <div class="d-flex justify-content-between">
     <button class="btn btn-secondary" @click="addVehicle_registered_list">
       {{ $t('pages.applyStaffParking.vehicle_registration.next') }}

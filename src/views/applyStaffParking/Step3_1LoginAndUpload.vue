@@ -2,6 +2,8 @@
 import { ref, onMounted } from 'vue'
 import StepNavigator from '@/components/applyStaffParking/StepNavigator.vue'
 import router from '@/router'
+import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
+import ValidationModal from '@/components/ValidationModal.vue'
 
 const current_step = ref(3)
 const login_data = ref({})
@@ -18,18 +20,54 @@ onMounted(() => {
   login_data.value.academic_year = currentAcademicYear
 })
 
+const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
+const showModal = ref(false) // 控制 Modal 顯示
+const errors = ref({}) // 儲存錯誤訊息
+
+function formValidate() {
+  const rules = {
+    plate: { required: true },
+    phone_number: { required: true, phone_number: true },
+  }
+
+  // 確保 formValidatorRef 正確引用 FormValidator 組件
+  if (formValidatorRef.value) {
+    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
+      login_data.value,
+      rules,
+    )
+
+    // 如果驗證失敗
+    if (!isValid) {
+      errors.value = errorsResult // 設定錯誤訊息
+      showModal.value = true // 顯示 Modal
+    }
+
+    return isValid
+  } else {
+    console.error('FormValidator reference is not correctly initialized.')
+    return false
+  }
+}
+// 這個方法將由 ValidationModal 觸發來關閉 Modal
+function closeValidatorModal() {
+  showModal.value = false
+}
+
 const login_result = ref('')
 function loginAndUpload() {
-  if (
-    login_data.value.plate == 'AAA-1111' &&
-    login_data.value.phone_number == '0909123456'
-  ) {
-    login_result.value = 'success'
-    router.push('/apply-staff-parking/step3_2')
-  } else {
-    login_result.value = 'fail'
+  if (formValidate()) {
+    if (
+      login_data.value.plate == 'AAA-1111' &&
+      login_data.value.phone_number == '0909123456'
+    ) {
+      login_result.value = 'success'
+      router.push('/apply-staff-parking/step3_2')
+    } else {
+      login_result.value = 'fail'
+    }
+    clearLogin_result()
   }
-  clearLogin_result()
 }
 function clearLogin_result() {
   setTimeout(() => {
@@ -54,6 +92,8 @@ function clearLogin_result() {
     }}
   </div>
   <StepNavigator :currentStep="current_step" />
+  <!-- 引入 FormValidator 元件 -->
+  <FormValidator ref="formValidatorRef" />
   <form>
     <div class="mb-3">
       <label for="plate" class="form-label">
@@ -95,6 +135,12 @@ function clearLogin_result() {
       </div>
     </div>
   </form>
+  <!-- 引入 ValidationModal 元件 -->
+  <ValidationModal
+    :showModal="showModal"
+    :errors="errors"
+    @close="closeValidatorModal"
+  />
   <button class="btn btn-secondary w-100" @click="loginAndUpload">
     {{ $t('pages.applyStaffParking.loginAndUpload.loginAndUpload') }}
   </button>

@@ -1,9 +1,9 @@
 <script setup>
 import router from '@/router'
 import { onMounted, ref } from 'vue'
-import FormValidator from '@/components/FormValidator.vue'
+import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
+import ValidationModal from '@/components/ValidationModal.vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
-import { Modal } from 'bootstrap'
 
 const facultyStudentStore = useFacultyStudentStore()
 
@@ -24,24 +24,10 @@ async function getBasic_info() {
   applicant_data.value.email = 'DM.Wang@ess.nthu.edu.tw'
   applicant_data.value.phone_number = '0960712213'
 }
+
 onMounted(() => {
   getBasic_info()
 })
-
-let validatorModal = null
-onMounted(() => {
-  // 初始化驗證 Modal
-  const validatorModalElement = document.getElementById('validatorModal')
-  if (validatorModalElement) {
-    validatorModal = new Modal(validatorModalElement)
-  }
-})
-
-function closeValidatorModal() {
-  if (validatorModal) {
-    validatorModal.hide()
-  }
-}
 
 const academicYears = ref([]) // 用來儲存學年選項
 // 計算學年
@@ -57,6 +43,8 @@ onMounted(() => {
 })
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
+const showModal = ref(false) // 控制 Modal 顯示
+const errors = ref({}) // 儲存錯誤訊息
 
 function formValidate() {
   const rules = {
@@ -65,19 +53,24 @@ function formValidate() {
     academic_year: { required: true },
   }
 
-  const { isValid, errors } = formValidatorRef.value.validateForm(
-    applicant_data.value,
-    rules,
-  )
+  // 確保 formValidatorRef 正確引用 FormValidator 組件
+  if (formValidatorRef.value) {
+    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
+      applicant_data.value,
+      rules,
+    )
 
-  if (!isValid) {
-    console.error('Form Validation Error', errors)
-    if (validatorModal) {
-      validatorModal.show()
+    // 如果驗證失敗
+    if (!isValid) {
+      errors.value = errorsResult // 設定錯誤訊息
+      showModal.value = true // 顯示 Modal
     }
-  }
 
-  return isValid
+    return isValid
+  } else {
+    console.error('FormValidator reference is not correctly initialized.')
+    return false
+  }
 }
 
 // 前往登記車輛頁面
@@ -87,10 +80,16 @@ function next() {
     router.push({ name: 'ApplyFacultyStudentParking_step2' })
   }
 }
+
+// 這個方法將由 ValidationModal 觸發來關閉 Modal
+function closeValidatorModal() {
+  showModal.value = false
+}
 </script>
 
 <template>
   <div>
+    <!-- 引入 FormValidator 元件 -->
     <FormValidator ref="formValidatorRef" />
 
     <section>
@@ -185,44 +184,11 @@ function next() {
       </div>
     </section>
 
-    <!-- 驗證訊息 modal 開始 -->
-    <div
-      class="modal fade"
-      id="validatorModal"
-      tabindex="-1"
-      aria-labelledby="validatorModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-secondary">
-            <h5 class="modal-title text-black" id="validatorModalLabel">
-              {{ $t('validation.title') }}
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              @click="closeValidatorModal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>{{ $t('validation.content') }}</p>
-          </div>
-          <div class="modal-footer">
-            <p class="pointer text-primary" @click="closeValidatorModal">
-              {{ $t('validation.confirm') }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 驗證訊息 modal 結束 -->
+    <!-- 引入 ValidationModal 元件 -->
+    <ValidationModal
+      :showModal="showModal"
+      :errors="errors"
+      @close="closeValidatorModal"
+    />
   </div>
 </template>
-
-<style scoped>
-.pointer {
-  cursor: pointer;
-}
-</style>

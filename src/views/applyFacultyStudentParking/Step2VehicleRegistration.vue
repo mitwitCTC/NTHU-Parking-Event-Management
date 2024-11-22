@@ -5,6 +5,8 @@ import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
 const facultyStudentStoreStore = useFacultyStudentStore()
 import { Modal } from 'bootstrap'
+import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
+import ValidationModal from '@/components/ValidationModal.vue'
 
 // 車輛類別
 const car_type_title = ref('汽車') // 預設為汽車
@@ -89,18 +91,56 @@ const vehicle_registration_data = ref({
 })
 const vehicle_registered_list = ref([])
 function addVehicle_registered_list() {
-  if (car_type_title.value == '機車') {
-    vehicle_registration_data.value.car_type = 5
-  } else if (car_type_title.value == '腳踏車') {
-    vehicle_registration_data.value.car_type = 6
-    vehicle_registration_data.value.main_pass_code = 'BS'
-    vehicle_registration_data.value.plate = '腳踏車'
-    vehicle_registration_data.value.bike_num = bike_num.value
+  if (formValidate()) {
+    if (car_type_title.value == '機車') {
+      vehicle_registration_data.value.car_type = 5
+    } else if (car_type_title.value == '腳踏車') {
+      vehicle_registration_data.value.car_type = 6
+      vehicle_registration_data.value.main_pass_code = 'BS'
+      vehicle_registration_data.value.plate = '腳踏車'
+      vehicle_registration_data.value.bike_num = bike_num.value
+    }
+    vehicle_registration_data.value.car_type_title = car_type_title.value
+    vehicle_registered_list.value.push(vehicle_registration_data.value)
+    console.log(vehicle_registration_data.value)
+    vehicle_registration_data.value = {}
+    bike_num.value = null
   }
-  vehicle_registration_data.value.car_type_title = car_type_title.value
-  vehicle_registered_list.value.push(vehicle_registration_data.value)
-  vehicle_registration_data.value = {}
-  bike_num.value = null
+}
+
+const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
+const showModal = ref(false) // 控制 Modal 顯示
+const errors = ref({}) // 儲存錯誤訊息
+
+function formValidate() {
+  const rules = {
+    plate: { required: true },
+    main_pass_code: { required: true },
+    car_type: { required: true },
+  }
+
+  // 確保 formValidatorRef 正確引用 FormValidator 組件
+  if (formValidatorRef.value) {
+    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
+      vehicle_registration_data.value,
+      rules,
+    )
+
+    // 如果驗證失敗
+    if (!isValid) {
+      errors.value = errorsResult // 設定錯誤訊息
+      showModal.value = true // 顯示 Modal
+    }
+
+    return isValid
+  } else {
+    console.error('FormValidator reference is not correctly initialized.')
+    return false
+  }
+}
+// 這個方法將由 ValidationModal 觸發來關閉 Modal
+function closeValidatorModal() {
+  showModal.value = false
 }
 
 let deleteModal = null
@@ -156,6 +196,8 @@ onMounted(() => {
   <h3 class="mt-3 fw-bold">
     {{ $t(vehicleTypeSelected) }}
   </h3>
+  <!-- 引入 FormValidator 元件 -->
+  <FormValidator ref="formValidatorRef" />
   <form class="mt-3">
     <div class="mb-3" v-if="car_type_title != '腳踏車'">
       <label for="plate" class="form-label">
@@ -178,7 +220,7 @@ onMounted(() => {
       />
     </div>
     <div class="mb-3" v-if="car_type_title != '腳踏車'">
-      <label for="car_type" class="form-label">
+      <label for="main_pass_code" class="form-label">
         {{
           $t(
             'pages.applyFacultyStudentParking.vehicle_registration.main_pass_code',
@@ -230,6 +272,12 @@ onMounted(() => {
       {{ $t('pages.applyFacultyStudentParking.vehicle_registration.next') }}
     </button>
   </div>
+  <!-- 引入 ValidationModal 元件 -->
+  <ValidationModal
+    :showModal="showModal"
+    :errors="errors"
+    @close="closeValidatorModal"
+  />
   <section>
     <p class="mt-3">
       {{

@@ -3,6 +3,9 @@ import { ref, onMounted } from 'vue'
 import StepNavigator from '@/components/applyStaffParking/StepNavigator.vue'
 import router from '@/router'
 import { useStaffStore } from '@/stores/staffStore'
+import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
+import ValidationModal from '@/components/ValidationModal.vue'
+import { Modal } from 'bootstrap'
 
 const current_step = ref(1)
 const staffStore = useStaffStore()
@@ -23,14 +26,61 @@ onMounted(() => {
   staffStore.getApplicantData()
 })
 
+const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
+const showModal = ref(false) // 控制 Modal 顯示
+const errors = ref({}) // 儲存錯誤訊息
+
+function formValidate() {
+  const rules = {
+    applicant: { required: true },
+    applicant_source: { required: true },
+    email: { required: true, email: true },
+    phone_number: { required: true, phone_number: true },
+    academic_year: { required: true },
+  }
+
+  // 確保 formValidatorRef 正確引用 FormValidator 組件
+  if (formValidatorRef.value) {
+    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
+      applicant_data.value,
+      rules,
+    )
+
+    // 如果驗證失敗
+    if (!isValid) {
+      errors.value = errorsResult // 設定錯誤訊息
+      showModal.value = true // 顯示 Modal
+    }
+
+    return isValid
+  } else {
+    console.error('FormValidator reference is not correctly initialized.')
+    return false
+  }
+}
+// 這個方法將由 ValidationModal 觸發來關閉 Modal
+function closeValidatorModal() {
+  showModal.value = false
+}
+function handleNext() {
+  if (formValidate()) {
+    const comfirmModal = new Modal(document.getElementById('comfirmModal'))
+    comfirmModal.show()
+  }
+}
+
 function apply() {
-  staffStore.setApplicantData(applicant_data.value)
-  router.push('/apply-staff-parking/step2')
+  if (formValidate()) {
+    staffStore.setApplicantData(applicant_data.value)
+    router.push('/apply-staff-parking/step2')
+  }
 }
 </script>
 
 <template>
   <StepNavigator :currentStep="current_step" />
+  <!-- 引入 FormValidator 元件 -->
+  <FormValidator ref="formValidatorRef" />
   <form>
     <div class="mb-3">
       <label for="applicant" class="form-label">
@@ -87,12 +137,14 @@ function apply() {
       </select>
     </div>
   </form>
+  <!-- 引入 ValidationModal 元件 -->
+  <ValidationModal
+    :showModal="showModal"
+    :errors="errors"
+    @close="closeValidatorModal"
+  />
   <div class="text-center">
-    <button
-      class="btn btn-secondary"
-      data-bs-toggle="modal"
-      data-bs-target="#comfirmModal"
-    >
+    <button class="btn btn-secondary" @click="handleNext">
       {{ $t('pages.applyStaffParking.basic_info.next') }}
     </button>
   </div>
