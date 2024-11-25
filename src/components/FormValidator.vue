@@ -45,3 +45,6 @@ defineExpose({
   validateForm,
 })
 </script>
+<template>
+  <div></div>
+</template>

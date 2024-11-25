@@ -48,7 +48,9 @@ const errors = ref({}) // 儲存錯誤訊息
 function formValidate() {
   const rules = {
     plate: { required: true },
-    car_type: { required: true },
+  }
+  if (car_type_title.value == '汽車') {
+    rules.car_type = { required: true }
   }
 
   // 確保 formValidatorRef 正確引用 FormValidator 組件
@@ -83,8 +85,24 @@ function addVehicle_registered_list() {
     if (vehicle_registration_data.value.car_type_title == '機車') {
       vehicle_registration_data.value.car_type = 5
     }
-    vehicle_registered_list.value.push(vehicle_registration_data.value)
+    handleAddVehicle(vehicle_registration_data.value)
     vehicle_registration_data.value = {}
+  }
+}
+
+// 檢查是否重複車牌並處理新增車輛
+function handleAddVehicle(vehicleData) {
+  const existingIndex = vehicle_registered_list.value.findIndex(
+    vehicle => vehicle.plate === vehicleData.plate,
+  )
+
+  if (existingIndex !== -1) {
+    alert(
+      '車牌已經存在，請重新輸入。The License Plate Number already exists, please re-enter it.',
+    )
+    return
+  } else {
+    vehicle_registered_list.value.push(vehicleData)
   }
 }
 

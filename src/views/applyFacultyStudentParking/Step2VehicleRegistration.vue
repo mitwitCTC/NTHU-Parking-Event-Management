@@ -91,21 +91,75 @@ const vehicle_registration_data = ref({
 })
 const vehicle_registered_list = ref([])
 function addVehicle_registered_list() {
+  // 在進行驗證之前，處理腳踏車特殊邏輯
+  if (car_type_title.value == '腳踏車') {
+    vehicle_registration_data.value.plate = '腳踏車'
+    vehicle_registration_data.value.car_type = 6
+    vehicle_registration_data.value.main_pass_code = 'BS'
+    vehicle_registration_data.value.bike_num = bike_num.value
+  } else if (car_type_title.value == '機車') {
+    vehicle_registration_data.value.car_type = 5
+  }
+
+  // 驗證資料
   if (formValidate()) {
-    if (car_type_title.value == '機車') {
-      vehicle_registration_data.value.car_type = 5
-    } else if (car_type_title.value == '腳踏車') {
-      vehicle_registration_data.value.car_type = 6
-      vehicle_registration_data.value.main_pass_code = 'BS'
-      vehicle_registration_data.value.plate = '腳踏車'
-      vehicle_registration_data.value.bike_num = bike_num.value
-    }
     vehicle_registration_data.value.car_type_title = car_type_title.value
-    vehicle_registered_list.value.push(vehicle_registration_data.value)
-    console.log(vehicle_registration_data.value)
+
+    // 驗證成功，新增車輛
+    handleAddVehicle(vehicle_registration_data.value)
+
+    // 重置輸入值
     vehicle_registration_data.value = {}
     bike_num.value = null
   }
+}
+// 檢查是否重複車牌並處理新增車輛（腳踏車除外）
+function handleAddVehicle(vehicleData) {
+  const existingIndex = vehicle_registered_list.value.findIndex(
+    vehicle =>
+      vehicle.plate === vehicleData.plate && vehicle.plate !== '腳踏車',
+  )
+
+  if (existingIndex !== -1) {
+    alert(
+      '車牌已經存在，請重新輸入。The License Plate Number already exists, please re-enter it.',
+    )
+    return
+  }
+
+  // 處理腳踏車特殊邏輯
+  if (vehicleData.plate === '腳踏車') {
+    const bikeIndex = vehicle_registered_list.value.findIndex(
+      vehicle => vehicle.plate === '腳踏車',
+    )
+
+    if (bikeIndex !== -1) {
+      // 更新已存在的腳踏車數據
+      vehicle_registered_list.value[bikeIndex] = {
+        ...vehicle_registered_list.value[bikeIndex],
+        bike_num: vehicleData.bike_num,
+      }
+    } else {
+      // 新增腳踏車數據並確保在陣列最後
+      vehicle_registered_list.value.push(vehicleData)
+    }
+  } else {
+    // 一般車輛直接新增
+    vehicle_registered_list.value.push(vehicleData)
+  }
+
+  // 確保腳踏車永遠在最後
+  ensureBikeAtEnd()
+}
+function ensureBikeAtEnd() {
+  const bikeData = vehicle_registered_list.value.filter(
+    vehicle => vehicle.plate === '腳踏車',
+  )
+  const otherVehicles = vehicle_registered_list.value.filter(
+    vehicle => vehicle.plate !== '腳踏車',
+  )
+
+  vehicle_registered_list.value = [...otherVehicles, ...bikeData]
 }
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
@@ -117,6 +171,9 @@ function formValidate() {
     plate: { required: true },
     main_pass_code: { required: true },
     car_type: { required: true },
+  }
+  if (car_type_title.value === '腳踏車') {
+    rules.bike_num = { required: true }
   }
 
   // 確保 formValidatorRef 正確引用 FormValidator 組件
