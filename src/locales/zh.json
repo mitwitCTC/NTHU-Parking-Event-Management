@@ -130,11 +130,25 @@
                 "confirm": "確認",
                 "certificateApplicationInstructionsTitle": "辦證說明"
             }
+        },
+        "applicationSuccess": {
+            "title": "已收到申請",
+            "subtitle": "",
+            "received": "已收到您的申請，若要查詢進度請至",
+            "index": "『申請首頁』",
+            "checkProgress": "選擇",
+            "queryLinks": "『申請進度查詢』",
+            "progressInquiry": "。相關進度系統也會透過 email 發送，謝謝！"
         }
     },
     "validation": {
         "title": "資訊確認",
         "content": "欄位未正確填寫，請確認，謝謝！",
+        "confirm": "確認"
+    },
+    "applicationFail": {
+        "title": "申請尚未完成",
+        "content": "目前網路或系統無回應，請稍後再上傳。",
         "confirm": "確認"
     }
 }

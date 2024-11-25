@@ -2,6 +2,8 @@
 import router from '@/router'
 import { onMounted, ref } from 'vue'
 import { Modal } from 'bootstrap'
+import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
+
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl =
   '/NTHU-Parking-Event-Management/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
@@ -97,10 +99,26 @@ function removeFile(index) {
 const certificateApplicationInstructionsRead = ref(false)
 
 async function apply() {
+  // 備份原始 document_list 資料
+  const originalDocumentList = [...applicationData.value.document_list]
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
-  console.log(applicationData.value)
-  router.push('/query-links')
+  isApplicationSuccess.value = true
+  if (isApplicationSuccess.value) {
+    console.log(applicationData.value)
+    router.push('/application-success')
+  } else {
+    // 恢復 document_list 原始資料
+    applicationData.value.document_list = [...originalDocumentList]
+    showApplicatioinResultModal.value = true
+  }
+}
+// 是否成功送出申請
+const isApplicationSuccess = ref(false)
+const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
+
+function closeApplicatioinResultModal() {
+  showApplicatioinResultModal.value = false
 }
 </script>
 <template>
@@ -329,6 +347,12 @@ async function apply() {
       </div>
     </div>
   </div>
+  <!-- 提交申請結果 modal 開始 -->
+  <ApplicatioinResultModal
+    :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal"
+  />
+  <!-- 提交申請結果 modal 結束 -->
 </template>
 
 <style scoped>

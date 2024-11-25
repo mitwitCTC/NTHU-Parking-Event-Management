@@ -127,11 +127,25 @@
                 "confirm": "confirm",
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
+        },
+        "applicationSuccess": {
+            "title": "Application Received",
+            "subtitle": "",
+            "received": "Application Received. To check the application progress, please go to the ",
+            "index": "\"Application Homepage\" ",
+            "checkProgress": "and select ",
+            "queryLinks": " \"Application Progress Inquiry.\" ",
+            "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
         }
     },
     "validation": {
         "title": "Information Confirmation",
         "content": "Incorrect information . Please confirm. Thank you!",
+        "confirm": "Confirm"
+    },
+    "applicationFail": {
+        "title": "Application Incomplete",
+        "content": "The network or system is not responding currently. Please try uploading later.",
         "confirm": "Confirm"
     }
 }

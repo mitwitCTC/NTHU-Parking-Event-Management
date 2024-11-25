@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
+import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import { Modal } from 'bootstrap'
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl =
@@ -179,6 +180,8 @@ onMounted(() => {
 const formatApplicationData = ref({})
 
 async function apply() {
+  // 備份原始 document_list 資料
+  const originalDocumentList = [...applicationData.value.document_list]
   facultyStudentStore.getApplicantData()
   applicationData.value.basic_info = facultyStudentStore.applicant_data
   formatBikeRegisteredList()
@@ -198,9 +201,26 @@ async function apply() {
     applicant_source: applicationData.value.basic_info.applicant_source, // 申請單位
     content: applicationData.value.vehicle_registered_list, // 申請車牌列表
   }
-  console.log(formatApplicationData.value)
-  facultyStudentStore.clear()
-  router.push('/query-links')
+  isApplicationSuccess.value = true
+  if (isApplicationSuccess.value) {
+    console.log(formatApplicationData.value)
+    facultyStudentStore.clear()
+    router.push('/application-success')
+  } else {
+    applicationData.value.vehicle_registered_list =
+      facultyStudentStore.vehicle_registered_list
+    // 恢復 document_list 為原始資料
+    applicationData.value.document_list = [...originalDocumentList]
+    console.log(applicationData.value)
+    showApplicatioinResultModal.value = true
+  }
+}
+// 是否成功送出申請
+const isApplicationSuccess = ref(false)
+const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
+
+function closeApplicatioinResultModal() {
+  showApplicatioinResultModal.value = false
 }
 </script>
 
@@ -575,6 +595,12 @@ async function apply() {
       </div>
     </div>
   </div>
+  <!-- 提交申請結果 modal 開始 -->
+  <ApplicatioinResultModal
+    :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal"
+  />
+  <!-- 提交申請結果 modal 結束 -->
 </template>
 
 <style scoped>

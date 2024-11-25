@@ -5,6 +5,7 @@ import applyStaffParking from '@/views/applyStaffParking.vue'
 import applyEvent from '@/views/applyEvent.vue'
 import applyEventCoupon from '@/views/applyEventCoupon.vue'
 import preorderCoupon from '@/views/preorderCoupon.vue'
+import applicationSuccess from '@/views/applicationSuccess.vue'
 import queryLinks from '@/views/queryLinks.vue'
 import queryFacultyStudentParking from '@/views/queryFacultyStudentParking.vue'
 import queryStaffParking from '@/views/queryStaffParking.vue'
@@ -105,6 +106,11 @@ const router = createRouter({
       path: '/preorder-coupon',
       name: 'PreorderCoupon',
       component: preorderCoupon,
+    },
+    {
+      path: '/application-success',
+      name: 'applicationSuccess',
+      component: applicationSuccess,
     },
     {
       path: '/query-links',
