@@ -129,7 +129,7 @@
             }
         },
         "applicationSuccess": {
-            "title": "Application Received",
+            "title": "",
             "subtitle": "",
             "received": "Application Received. To check the application progress, please go to the ",
             "index": "\"Application Homepage\" ",
