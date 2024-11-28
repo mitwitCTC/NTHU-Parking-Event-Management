@@ -234,7 +234,6 @@ function goToUpload() {
   facultyStudentStoreStore.setVehicleRegisteredList(
     vehicle_registered_list.value,
   )
-  console.log(vehicle_registered_list.value)
 
   router.push({ name: 'ApplyFacultyStudentParking_step3' })
 }

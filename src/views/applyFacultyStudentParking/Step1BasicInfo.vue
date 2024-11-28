@@ -23,6 +23,24 @@ async function getBasic_info() {
   applicant_data.value.applicant_number = 'A09035'
   applicant_data.value.email = 'DM.Wang@ess.nthu.edu.tw'
   applicant_data.value.phone_number = '0960712213'
+  generateSerialNumber()
+}
+// 建立表單序號
+function generateSerialNumber() {
+  const now = new Date()
+  const year = now.getFullYear().toString().slice(-2) // 取西元年後兩碼
+  const month = String(now.getMonth() + 1).padStart(2, '0') // 月份補零
+  const date = String(now.getDate()).padStart(2, '0') // 日期補零
+  const hours = String(now.getHours()).padStart(2, '0') // 小時補零
+  const minutes = String(now.getMinutes()).padStart(2, '0') // 分鐘補零
+  const seconds = String(now.getSeconds()).padStart(2, '0') // 秒數補零
+  const milliseconds = String(now.getMilliseconds()).padStart(3, '0') // 毫秒補零
+
+  // 組合表單序號
+  const serialNumber = `C${year}${month}${date}${hours}${minutes}${seconds}${milliseconds}`
+
+  // 將表單序號寫入 applicant_data.value
+  applicant_data.value.serial_number = serialNumber
 }
 
 onMounted(() => {

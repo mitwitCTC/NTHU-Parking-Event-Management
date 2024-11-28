@@ -5,8 +5,7 @@ import { Modal } from 'bootstrap'
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 
 import PdfViewer from '@/components/PdfViewer.vue'
-const pdfUrl =
-  '/NTHU-Parking-Event-Management/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
 let introductionModal = null
 const showIntroductionModal = () => {
   const modalElement = document.getElementById('introductionModal')

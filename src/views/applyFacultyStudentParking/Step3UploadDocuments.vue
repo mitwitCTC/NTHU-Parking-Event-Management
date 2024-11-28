@@ -7,9 +7,9 @@ import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import { Modal } from 'bootstrap'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
+import Api from '@/api'
 import PdfViewer from '@/components/PdfViewer.vue'
-const pdfUrl =
-  '/NTHU-Parking-Event-Management/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
 let introductionModal = null
 const showIntroductionModal = () => {
   const modalElement = document.getElementById('introductionModal')
@@ -139,6 +139,7 @@ async function apply() {
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
   formatApplicationData.value = {
+    serial_number: applicationData.value.basic_info.serial_number, //表單序號
     title: form_info.value.title, // 表單名稱
     academic_year: applicationData.value.basic_info.academic_year, // 學年
     form_code: form_info.value.form_code, // 表單代碼
@@ -157,11 +158,23 @@ async function apply() {
     facultyStudentStore.clear()
     router.push('/application-success')
   } else {
+  try {
+    const response = await Api.post(
+      '/main/applicationForm',
+      formatApplicationData.value,
+    )
+    if (response.data.returnCode == 0 && response.data.data != {}) {
+      isApplicationSuccess.value = true
+      facultyStudentStore.clear()
+      router.push('/application-success')
+    }
+  } catch (error) {
+    isApplicationSuccess.value = false
+    console.error(error)
     applicationData.value.vehicle_registered_list =
       facultyStudentStore.vehicle_registered_list
     // 恢復 document_list 為原始資料
     applicationData.value.document_list = [...originalDocumentList]
-    console.log(applicationData.value)
     showApplicatioinResultModal.value = true
   }
 }
@@ -492,7 +505,10 @@ function closeApplicatioinResultModal() {
   <div class="text-center">
     <button
       class="btn btn-secondary w-100"
-      :disabled="!certificateApplicationInstructionsRead"
+      :disabled="
+        !certificateApplicationInstructionsRead ||
+        applicationData.document_list.every(doc => doc === null)
+      "
       data-bs-toggle="modal"
       data-bs-target="#comfirmModal"
     >
