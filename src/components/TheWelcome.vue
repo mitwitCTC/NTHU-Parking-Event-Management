@@ -1,4 +1,8 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 import TheLayout from '@/components/TheLayout.vue'
 
 const navItems = [
@@ -17,27 +21,38 @@ const navItems = [
     subtitle: 'pages.index.applyStaffParking_subtitle',
   },
   {
-    to: 'apply-faculty-student-parking',
+    to: 'apply-event',
     imageSrc: 'images/index/自辦活動.svg',
     alt: '各單位自辦活動',
     title: 'pages.index.applyEvent',
     subtitle: 'pages.index.applyEvent_subtitle',
   },
   {
-    to: 'apply-faculty-student-parking',
+    to: 'apply-event-coupon',
     imageSrc: 'images/index/自辦活動與抵用券.svg',
     alt: '自辦活動與抵用券',
     title: 'pages.index.applyEventCoupon',
     subtitle: 'pages.index.applyEventCoupon_subtitle',
   },
   {
-    to: 'apply-faculty-student-parking',
+    to: 'preorder-coupon',
     imageSrc: 'images/index/預購抵用券.svg',
     alt: '預購抵用券',
     title: 'pages.index.preorderCoupon',
     subtitle: 'pages.index.preorderCoupon_subtitle',
   },
 ]
+
+// 根據當前語系決定subtitle的字型大小
+const formattedNavItems = computed(() => {
+  return navItems.map(item => {
+    return {
+      ...item,
+      titleClass: locale.value === 'en' ? 'fs-6' : 'fs-5',
+      subtitleClass: locale.value === 'en' ? 'fs-12' : 'fs-6',
+    }
+  })
+})
 </script>
 
 <template>
@@ -50,7 +65,7 @@ const navItems = [
       <div class="container mt-3">
         <ul class="nav-links">
           <li
-            v-for="(item, index) in navItems"
+            v-for="(item, index) in formattedNavItems"
             :key="index"
             class="d-flex justify-content-center"
           >
@@ -64,13 +79,13 @@ const navItems = [
                     <img :src="item.imageSrc" :alt="item.alt" />
                   </div>
                 </div>
-                <div class="col-7 col-md-7">
-                  <p class="d-flex flex-column mb-0 text-start text-nowrap">
-                    <span class="fw-bold fs-5">
-                      {{ $t(item.title) }}
+                <div class="col-9 col-md-7">
+                  <p class="d-flex flex-column mb-0 text-start">
+                    <span :class="item.titleClass" class="fw-bold">
+                      {{ t(item.title) }}
                     </span>
-                    <span class="fw-light fs-6">
-                      {{ $t(item.subtitle) }}
+                    <span :class="item.subtitleClass" class="fw-light">
+                      {{ t(item.subtitle) }}
                     </span>
                   </p>
                 </div>

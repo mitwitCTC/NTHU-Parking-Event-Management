@@ -3,7 +3,18 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
+
+// 根據當前語言，處理翻譯中的換行
+const formattedQueryLinks = computed(() => {
+  const text = t('pages.index.queryLinks')
+
+  // 只在英文中處理換行
+  if (locale.value === 'en') {
+    return text.split('\n').join('<br />')
+  }
+  return text
+})
 
 const languageDisplay = computed(() => {
   return locale.value === 'zh' ? '中文/EN' : '中文/EN'
@@ -31,7 +42,7 @@ const buttonsClass = computed(() => {
         <div v-if="isHomeRoute" class="query-btn">
           <button class="btn btn-primary">
             <router-link to="query-links" class="text-white">
-              {{ $t('pages.index.queryLinks') }}
+              <span v-html="formattedQueryLinks"></span>
             </router-link>
           </button>
         </div>
