@@ -7,9 +7,9 @@ const router = useRouter()
 const isValid = ref(true)
 onMounted(() => {
   if (isValid.value) {
-    router.push({ name: 'ApplyFacultyStudentParking_step1' })
+    router.replace({ name: 'ApplyFacultyStudentParking_step1' })
   } else {
-    router.push({ name: 'ApplyFacultyStudentParking_VerifyFail' })
+    router.replace({ name: 'ApplyFacultyStudentParking_VerifyFail' })
   }
 })
 </script>
