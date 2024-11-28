@@ -5,6 +5,8 @@ import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import { Modal } from 'bootstrap'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl =
   '/NTHU-Parking-Event-Management/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
@@ -125,61 +127,10 @@ function formatBikeRegisteredList() {
     })
 }
 
-// 取得表單名稱及代碼
-const form_code_list = ref([])
-function getForm_code_list() {
-  form_code_list.value = [
-    [
-      {
-        id: '1',
-        title: '車證',
-        form_code: 'A00001',
-        created_at: '2024-09-24 20:48:25',
-      },
-      {
-        id: '2',
-        title: '工作證',
-        form_code: 'B00002',
-        created_at: '2024-09-24 20:48:25',
-      },
-      {
-        id: '3',
-        title: '活動',
-        form_code: 'C00003',
-        created_at: '2024-09-24 20:48:25',
-      },
-      {
-        id: '4',
-        title: '折抵券',
-        form_code: 'D00004',
-        created_at: '2024-09-24 20:48:25',
-      },
-      {
-        id: '5',
-        title: '活動+折抵券',
-        form_code: 'E00005',
-        created_at: '2024-09-24 20:48:25',
-      },
-    ],
-  ]
-}
-onMounted(() => {
-  getForm_code_list()
-  // 取得 title 為 "車證" 的資料
-  const carTicketForm = form_code_list.value
-    .flat()
-    .find(item => item.title === '車證')
-
-  // 如果找到了該資料，將 title 和 form_code 資料寫入 applicationData
-  if (carTicketForm) {
-    applicationData.value.title = carTicketForm.title
-    applicationData.value.form_code = carTicketForm.form_code
-  }
-})
-
 const formatApplicationData = ref({})
 
 async function apply() {
+  await getFormInfo('停車證')
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
   facultyStudentStore.getApplicantData()
@@ -187,11 +138,10 @@ async function apply() {
   formatBikeRegisteredList()
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
-
   formatApplicationData.value = {
-    title: applicationData.value.title, // 表單名稱
+    title: form_info.value.title, // 表單名稱
     academic_year: applicationData.value.basic_info.academic_year, // 學年
-    form_code: applicationData.value.form_code, // 表單代碼
+    form_code: form_info.value.form_code, // 表單代碼
     receive_location: applicationData.value.campusToReceiveCertificate, // 領取校區
     applicant_type: applicationData.value.basic_info.applicant_type, // 申請人類別
     applicant_number: applicationData.value.basic_info.applicant_number, // 申請人編號(學號或員編)
