@@ -34,7 +34,7 @@ function formValidate() {
   const rules = {
     applicant: { required: true },
     applicant_source: { required: true },
-    email: { required: true, email: true },
+    email: { email: true },
     phone_number: { required: true, phone_number: true },
     academic_year: { required: true },
   }
