@@ -36,6 +36,16 @@ const validateForm = (formData, rules) => {
       isValid = false
       errors[field] = `${field} 格式不正確`
     }
+
+    // // 車牌需包含"-"
+    if (
+      rule.plate &&
+      stringValue &&
+      !/^[A-Za-z0-9]+-[A-Za-z0-9]+$/.test(stringValue)
+    ) {
+      isValid = false
+      errors[field] = `${field} 必須包含且僅包含一個 "-"，不得有其他符號`
+    }
   })
 
   return { isValid, errors }

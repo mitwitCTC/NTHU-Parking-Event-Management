@@ -168,7 +168,7 @@ const errors = ref({}) // 儲存錯誤訊息
 
 function formValidate() {
   const rules = {
-    plate: { required: true },
+    plate: { required: true, plate: true },
     main_pass_code: { required: true },
     car_type: { required: true },
   }
