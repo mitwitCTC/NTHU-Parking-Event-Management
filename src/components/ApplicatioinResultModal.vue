@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 defineProps({
   showApplicatioinResultModal: Boolean, // 控制 modal 顯示
 })

@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 defineProps({
   showModal: Boolean, // 控制 modal 顯示
   errors: Object, // 來自父組件的錯誤訊息
