@@ -95,16 +95,87 @@ const commuteDistances = [
 // 被選中的通勤距離（假設初始為5-10km）
 applicationData.value.selectedCommuteDistance = '5-10km'
 
-// 上傳證件
+// 上傳單筆證件
 function handleFileUpload(event, index) {
   const file = event.target.files[0]
+  const maxFileSize = 1 * 1024 * 1024 // 1MB in bytes
   if (file) {
+    if (file.size > maxFileSize) {
+      alert(
+        '檔案大小不可超過 1MB，請重新上傳！The file size cannot exceed 1MB, please re-upload!',
+      )
+      event.target.value = '' // 清空檔案輸入
+      return
+    }
     applicationData.value.document_list[index] = file
   }
 }
 // 刪除上傳的證件
 function removeFile(index) {
   applicationData.value.document_list[index] = null
+}
+// 上傳證件
+async function uploadDocuments() {
+  // 備份原始 document_list 資料
+  const originalDocumentList = [...applicationData.value.document_list]
+
+  const formData = new FormData()
+
+  // 檢查 serial_number 是否存在
+  const serialNumber = formatApplicationData.value.serial_number
+  if (!serialNumber) {
+    console.error('表單序號不存在')
+    return false
+  }
+  // 添加 serial_number 至 formData
+  formData.append('serial_number', serialNumber)
+
+  // 檢查文件列表是否有效
+  const validFiles = applicationData.value.document_list.filter(file => file)
+  if (validFiles.length === 0) {
+    console.error('沒有可用的檔案上傳')
+    return false
+  }
+
+  // 添加檔案至 FormData
+  validFiles.forEach(file => {
+    if (file instanceof File) {
+      formData.append('file', file)
+    } else {
+      console.error('無效檔案', file)
+    }
+  })
+
+  try {
+    const response = await Api.post('/main/uploadDocuments', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    if (response.data.returnCode == 0) {
+      isApplicationSuccess.value = true
+      facultyStudentStore.clear()
+      router.push('/application-success')
+      return true
+    } else {
+      console.error('文件上傳失敗', response)
+      // 恢復 document_list 為原始資料
+      applicationData.value.document_list = [...originalDocumentList]
+      applicationData.value.vehicle_registered_list =
+        facultyStudentStore.vehicle_registered_list
+      showApplicatioinResultModal.value = true
+      return false
+    }
+  } catch (error) {
+    //  恢復 document_list 為原始資料
+    applicationData.value.vehicle_registered_list =
+      facultyStudentStore.vehicle_registered_list
+    applicationData.value.document_list = [...originalDocumentList]
+    console.error('上傳文件時發生錯誤', error)
+    showApplicatioinResultModal.value = true
+    return false
+  }
 }
 
 // 辦證說明閱讀狀態
@@ -136,8 +207,6 @@ async function apply() {
   facultyStudentStore.getApplicantData()
   applicationData.value.basic_info = facultyStudentStore.applicant_data
   formatBikeRegisteredList()
-  applicationData.value.document_list =
-    applicationData.value.document_list.filter(file => file !== null)
   formatApplicationData.value = {
     serial_number: applicationData.value.basic_info.serial_number, //表單序號
     title: form_info.value.title, // 表單名稱
@@ -152,21 +221,19 @@ async function apply() {
     applicant_source: applicationData.value.basic_info.applicant_source, // 申請單位
     content: applicationData.value.vehicle_registered_list, // 申請車牌列表
   }
-  isApplicationSuccess.value = true
-  if (isApplicationSuccess.value) {
-    console.log(formatApplicationData.value)
-    facultyStudentStore.clear()
-    router.push('/application-success')
-  } else {
   try {
     const response = await Api.post(
       '/main/applicationForm',
       formatApplicationData.value,
     )
-    if (response.data.returnCode == 0 && response.data.data != {}) {
-      isApplicationSuccess.value = true
-      facultyStudentStore.clear()
-      router.push('/application-success')
+    if (response.data.returnCode == 0) {
+      // 申請表單成功則執行上傳證件
+      uploadDocuments()
+    } else {
+      isApplicationSuccess.value = false
+      applicationData.value.vehicle_registered_list =
+        facultyStudentStore.vehicle_registered_list
+      showApplicatioinResultModal.value = true
     }
   } catch (error) {
     isApplicationSuccess.value = false
@@ -178,7 +245,7 @@ async function apply() {
     showApplicatioinResultModal.value = true
   }
 }
-// 是否成功送出申請
+// 是否成功送出申請，送出申請表單成功+上傳證件成功
 const isApplicationSuccess = ref(false)
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
 
