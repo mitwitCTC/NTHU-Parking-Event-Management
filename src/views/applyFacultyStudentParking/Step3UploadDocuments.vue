@@ -98,18 +98,46 @@ applicationData.value.selectedCommuteDistance = '5-10km'
 // 上傳單筆證件
 function handleFileUpload(event, index) {
   const file = event.target.files[0]
-  const maxFileSize = 1 * 1024 * 1024 // 1MB in bytes
-  if (file) {
-    if (file.size > maxFileSize) {
-      alert(
-        '檔案大小不可超過 1MB，請重新上傳！The file size cannot exceed 1MB, please re-upload!',
-      )
-      event.target.value = '' // 清空檔案輸入
-      return
-    }
-    applicationData.value.document_list[index] = file
+  if (!file) return
+
+  const allowedImageTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'image/heic',
+  ]
+  const isPdf = file.type === 'application/pdf'
+  const isImage = allowedImageTypes.includes(file.type)
+  const maxPdfSize = 1 * 1024 * 1024 // 1MB for PDFs
+  const maxImageSize = 5 * 1024 * 1024 // 5MB for images
+
+  // 驗證檔案類型
+  if (!isPdf && !isImage) {
+    alert('只支援上傳 PDF 或圖片檔案！Only PDF or image files are supported.')
+    event.target.value = '' // 清空檔案輸入
+    return
   }
+
+  // 驗證檔案大小
+  if (isPdf && file.size > maxPdfSize) {
+    alert(
+      'PDF 檔案大小不可超過 1MB，請重新上傳！The PDF file size cannot exceed 1MB, please re-upload.',
+    )
+    event.target.value = '' // 清空檔案輸入
+    return
+  }
+  if (isImage && file.size > maxImageSize) {
+    alert(
+      '圖片檔案大小不可超過 5MB，請重新上傳！The image file size cannot exceed 5MB, please re-upload.',
+    )
+    event.target.value = '' // 清空檔案輸入
+    return
+  }
+
+  // 通過驗證，更新檔案
+  applicationData.value.document_list[index] = file
 }
+
 // 刪除上傳的證件
 function removeFile(index) {
   applicationData.value.document_list[index] = null
