@@ -220,6 +220,8 @@ async function apply() {
     phone_number: applicationData.value.basic_info.phone_number, // 申請人手機
     applicant_source: applicationData.value.basic_info.applicant_source, // 申請單位
     content: applicationData.value.vehicle_registered_list, // 申請車牌列表
+    distance_title: applicationData.value.selectedCommuteDistance, //  每日單趟通勤距離-距離文字
+    distance: 0, //  每日單趟通勤距離-距離
   }
   try {
     const response = await Api.post(
