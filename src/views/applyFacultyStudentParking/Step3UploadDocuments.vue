@@ -4,6 +4,8 @@ import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
 const facultyStudentStore = useFacultyStudentStore()
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
+import NotReadModal from '@/components/NotReadModal.vue'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 import { Modal } from 'bootstrap'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
@@ -281,6 +283,24 @@ const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
 
 function closeApplicatioinResultModal() {
   showApplicatioinResultModal.value = false
+  showConfirmModal.value = false
+}
+
+const showNotReadModal = ref(false) // 控制 未閱讀辦證說明Modal 顯示
+const showConfirmModal = ref(false) // 控制 確認送出申請Modal 顯示
+function handleSubmit() {
+  if (!certificateApplicationInstructionsRead.value) {
+    showNotReadModal.value = true
+  } else if (certificateApplicationInstructionsRead.value) {
+    showConfirmModal.value = true
+  }
+}
+
+function closeNotReadModal() {
+  showNotReadModal.value = false
+}
+function closeConfirmModal() {
+  showConfirmModal.value = false
 }
 </script>
 
@@ -604,70 +624,26 @@ function closeApplicatioinResultModal() {
   </div>
   <!-- 辦證說明 modal 結束 -->
   <div class="text-center">
-    <button
-      class="btn btn-secondary w-100"
-      :disabled="
-        !certificateApplicationInstructionsRead ||
-        applicationData.document_list.every(doc => doc === null)
-      "
-      data-bs-toggle="modal"
-      data-bs-target="#comfirmModal"
-    >
+    <button class="btn btn-secondary w-100" @click="handleSubmit">
       {{ $t('pages.applyFacultyStudentParking.uploadDocuments.apply') }}
     </button>
   </div>
-  <div
-    class="modal fade"
-    id="comfirmModal"
-    tabindex="-1"
-    aria-labelledby="comfirmModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-secondary">
-          <h5 class="modal-title text-black" id="comfirmModalLabel">
-            {{
-              $t(
-                'pages.applyFacultyStudentParking.uploadDocuments.confirm_title',
-              )
-            }}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          {{
-            $t(
-              'pages.applyFacultyStudentParking.uploadDocuments.confirm_message',
-            )
-          }}
-        </div>
-        <div class="modal-footer">
-          <p class="pointer text-primary fw-bold" data-bs-dismiss="modal">
-            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.cancel') }}
-          </p>
-          <p
-            class="pointer text-primary fw-bold"
-            data-bs-dismiss="modal"
-            @click="apply"
-          >
-            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.confirm') }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 確認送出申請資料 modal -->
+  <ConfirmModal
+    :showConfirmModal="showConfirmModal"
+    @close="closeConfirmModal"
+    @apply="apply"
+  />
+  <!-- 未閱讀辦證說明 modal 開始 -->
+  <NotReadModal
+    :showNotReadModal="showNotReadModal"
+    @close="closeNotReadModal"
+  />
   <!-- 提交申請結果 modal 開始 -->
   <ApplicatioinResultModal
     :showApplicatioinResultModal="showApplicatioinResultModal"
     @close="closeApplicatioinResultModal"
   />
-  <!-- 提交申請結果 modal 結束 -->
 </template>
 
 <style scoped>

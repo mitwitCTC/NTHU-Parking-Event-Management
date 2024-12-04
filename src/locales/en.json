@@ -148,6 +148,11 @@
         "content": "The network or system is not responding currently. Please try uploading later.",
         "confirm": "Confirm"
     },
+    "notReadModal": {
+        "title": "Information confirmation",
+        "content": "Please read the permit instructions carefully and select \"I Have Read and Understood the Application Instructions\" before submitting the application.",
+        "confirm": "Confirm"
+    },
     "all_main_pass_code_list": {
         "TC": "Faculty and Staff On-campus Vehicle Permit",
         "TE": " Vehicle Permit for Residential Staff Quarters",

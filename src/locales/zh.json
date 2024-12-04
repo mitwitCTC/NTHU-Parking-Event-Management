@@ -151,6 +151,11 @@
         "content": "目前網路或系統無回應，請稍後再上傳。",
         "confirm": "確認"
     },
+    "notReadModal": {
+        "title": "資料確認",
+        "content": "請先詳讀辦證說明並點選閱讀完畢後才能送出申請",
+        "confirm": "確認"
+    },
     "all_main_pass_code_list": {
         "TC": "教職員校內汽車識別證",
         "TE": "職務宿舍區汽車識別證",
