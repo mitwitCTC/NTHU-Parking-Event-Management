@@ -85,12 +85,12 @@ const all_main_pass_code_list = [
 
 // 通勤距離
 const commuteDistances = [
-  '5-10km',
-  '10-20km',
-  '20-30km',
-  '30-40km',
-  '40-50km',
-  '50km 以上',
+  { value: '5-10km', labelKey: 'commute_distances.5_10km' },
+  { value: '10-20km', labelKey: 'commute_distances.10_20km' },
+  { value: '20-30km', labelKey: 'commute_distances.20_30km' },
+  { value: '30-40km', labelKey: 'commute_distances.30_40km' },
+  { value: '40-50km', labelKey: 'commute_distances.40_50km' },
+  { value: '50km 以上', labelKey: 'commute_distances.over_50km' },
 ]
 // 被選中的通勤距離（假設初始為5-10km）
 applicationData.value.selectedCommuteDistance = '5-10km'
@@ -446,8 +446,12 @@ function closeApplicatioinResultModal() {
         class="form-select"
         v-model="applicationData.selectedCommuteDistance"
       >
-        <option v-for="item in commuteDistances" :key="item" :value="item">
-          {{ item }}
+        <option
+          v-for="item in commuteDistances"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ $t(item.labelKey) }}
         </option>
       </select>
     </div>

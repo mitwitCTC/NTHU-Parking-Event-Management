@@ -162,5 +162,13 @@
         "Hybrid": "Hybrid Vehicle",
         "Electric": "Electric Vehicle",
         "Diesel": "Diesel Vehicle"
+    },
+    "commute_distances": {
+        "5_10km": "5-10km",
+        "10_20km": "10-20km",
+        "20_30km": "20-30km",
+        "30_40km": "30-40km",
+        "40_50km": "40-50km",
+        "over_50km": "Over 50km"
     }
 }

@@ -1,6 +1,7 @@
 <script setup>
-import router from '@/router'
+// import router from '@/router'
 import { onMounted, ref } from 'vue'
+import TheCaptcha from '@/components/TheCaptcha.vue'
 import { Modal } from 'bootstrap'
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 
@@ -72,12 +73,12 @@ const main_pass_code_list = [
 
 // 通勤距離
 const commuteDistances = [
-  '5-10km',
-  '10-20km',
-  '20-30km',
-  '30-40km',
-  '40-50km',
-  '50km 以上',
+  { value: '5-10km', labelKey: 'commute_distances.5_10km' },
+  { value: '10-20km', labelKey: 'commute_distances.10_20km' },
+  { value: '20-30km', labelKey: 'commute_distances.20_30km' },
+  { value: '30-40km', labelKey: 'commute_distances.30_40km' },
+  { value: '40-50km', labelKey: 'commute_distances.40_50km' },
+  { value: '50km 以上', labelKey: 'commute_distances.over_50km' },
 ]
 // 被選中的通勤距離（假設初始為5-10km）
 applicationData.value.selectedCommuteDistance = '5-10km'
@@ -96,21 +97,32 @@ function removeFile(index) {
 
 // 辦證說明閱讀狀態
 const certificateApplicationInstructionsRead = ref(false)
+// 驗證碼
+const generatedCaptcha = ref('')
+const captchaCorrect = ref(null)
+async function checkCaptcha() {
+  return applicationData.value.captcha == generatedCaptcha.value
+}
 
 async function apply() {
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
-  isApplicationSuccess.value = true
-  if (isApplicationSuccess.value) {
-    console.log(applicationData.value)
-    router.push('/application-success')
-  } else {
-    // 恢復 document_list 原始資料
-    applicationData.value.document_list = [...originalDocumentList]
-    showApplicatioinResultModal.value = true
+  if (checkCaptcha) {
+    isApplicationSuccess.value = true
+    if (isApplicationSuccess.value) {
+      console.log(applicationData.value)
+      // router.push('/application-success')
+    } else {
+      // 恢復 document_list 原始資料
+      applicationData.value.document_list = [...originalDocumentList]
+      showApplicatioinResultModal.value = true
+    }
   }
+
+  console.log(applicationData.value.captcha == generatedCaptcha.value)
+  console.log(applicationData.value.captcha, generatedCaptcha.value)
 }
 // 是否成功送出申請
 const isApplicationSuccess = ref(false)
@@ -154,8 +166,12 @@ function closeApplicatioinResultModal() {
         class="form-select"
         v-model="applicationData.selectedCommuteDistance"
       >
-        <option v-for="item in commuteDistances" :key="item" :value="item">
-          {{ item }}
+        <option
+          v-for="item in commuteDistances"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ $t(item.labelKey) }}
         </option>
       </select>
     </div>
@@ -254,6 +270,24 @@ function closeApplicatioinResultModal() {
         }}
       </button>
     </div>
+    <div class="mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+          <label for="captcha" class="form-label text-nowrap m-0">
+            {{ $t('pages.applyStaffParking.uploadDocuments.captcha') }}
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="captcha"
+            v-model="applicationData.captcha"
+          />
+        </div>
+        <div class="captcha m-0">
+          <TheCaptcha v-model:captchaText="generatedCaptcha" />
+        </div>
+      </div>
+    </div>
   </form>
   <!-- 辦證說明 modal 開始 -->
   <div
@@ -301,7 +335,10 @@ function closeApplicatioinResultModal() {
   <div class="text-center">
     <button
       class="btn btn-secondary w-100"
-      :disabled="!certificateApplicationInstructionsRead"
+      :disabled="
+        !certificateApplicationInstructionsRead ||
+        applicationData.document_list.every(doc => doc === null)
+      "
       data-bs-toggle="modal"
       data-bs-target="#comfirmModal"
     >
@@ -346,6 +383,9 @@ function closeApplicatioinResultModal() {
       </div>
     </div>
   </div>
+  <!-- 驗證碼不正確 modal 開始 -->
+  <p v-if="captchaCorrect">驗證失敗</p>
+  <!-- 驗證碼不正確 modal 結束 -->
   <!-- 提交申請結果 modal 開始 -->
   <ApplicatioinResultModal
     :showApplicatioinResultModal="showApplicatioinResultModal"
