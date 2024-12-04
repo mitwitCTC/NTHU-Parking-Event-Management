@@ -17,24 +17,19 @@ onMounted(() => {
 })
 
 // 車輛型式選項
-const car_types = [
-  {
-    id: 1,
-    des: '汽油車',
-  },
-  {
-    id: 2,
-    des: '油電車',
-  },
-  {
-    id: 3,
-    des: '電動車',
-  },
-  {
-    id: 4,
-    des: '柴油車',
-  },
-]
+const car_types = ref([])
+function getCar_types() {
+  car_types.value = [
+    { id: 1, des: 'Gasoline' },
+    { id: 2, des: 'Hybrid' },
+    { id: 3, des: 'Electric' },
+    { id: 4, des: 'Diesel' },
+  ]
+}
+
+onMounted(() => {
+  getCar_types()
+})
 
 // 更新車輛型式名稱 (汽車/機車)
 function updateCar_type_title(type) {
@@ -171,7 +166,7 @@ function deleteVehicle_registered() {
       </label>
       <select class="form-select" v-model="vehicle_registration_data.car_type">
         <option v-for="item in car_types" :key="item.id" :value="item.id">
-          {{ item.des }}
+          {{ $t(`car_types.${item.des}`) }}
         </option>
       </select>
     </div>

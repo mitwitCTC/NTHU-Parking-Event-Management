@@ -105,7 +105,7 @@
                 "next": "End Registration",
                 "plate_registered": "Registered License Plate",
                 "bike_num": "The number of cars for application",
-                "main_pass_bike": "main_pass_bike",
+                "main_pass_bike": "Bike Permit",
                 "unit": "unit",
                 "delete": "delete",
                 "delete_confirm_title": "delete_confirm_title",
@@ -147,5 +147,20 @@
         "title": "Application Incomplete",
         "content": "The network or system is not responding currently. Please try uploading later.",
         "confirm": "Confirm"
+    },
+    "all_main_pass_code_list": {
+        "TC": "Faculty and Staff On-campus Vehicle Permit",
+        "TE": " Vehicle Permit for Residential Staff Quarters",
+        "SC": "Student Vehicle Permit",
+        "HF": "Short-term Vehicle Permit",
+        "TM": "Faculty and Staff On-campus Vehicle Permit ",
+        "TEM": "Vehicle Permit for Residential Staff Quarters",
+        "SM": "Student Vehicle Permit "
+    },
+    "car_types": {
+        "Gasoline": "Gasoline Vehicle",
+        "Hybrid": "Hybrid Vehicle",
+        "Electric": "Electric Vehicle",
+        "Diesel": "Diesel Vehicle"
     }
 }
