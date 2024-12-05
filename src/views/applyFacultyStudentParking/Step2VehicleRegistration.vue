@@ -367,7 +367,7 @@ onMounted(() => {
                     `all_main_pass_code_list.${
                       all_main_pass_code_list.find(
                         code => code.code === item.main_pass_code,
-                      )?.code || '未知'
+                      )?.code || 'unknown'
                     }`,
                   )
                 }}
@@ -440,12 +440,17 @@ onMounted(() => {
                 </span>
               </span>
               <span v-else>
+                <br />
                 {{
-                  all_main_pass_code_list.find(
-                    code =>
-                      code.code ===
-                      deleteVehicle_registered_data.main_pass_code,
-                  )?.des || '未知'
+                  $t(
+                    `all_main_pass_code_list.${
+                      all_main_pass_code_list.find(
+                        code =>
+                          code.code ===
+                          deleteVehicle_registered_data.main_pass_code,
+                      )?.code || 'unknown'
+                    }`,
+                  )
                 }}
               </span>
             </p>
