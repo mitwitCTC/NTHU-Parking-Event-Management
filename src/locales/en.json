@@ -159,7 +159,7 @@
         "SC": "Student Vehicle Permit",
         "HF": "Short-term Vehicle Permit",
         "TM": "Faculty and Staff On-campus Vehicle Permit",
-        "TEM": "Vehicle Permit for Residential Staff Quarters",
+        "TME": "Vehicle Permit for Residential Staff Quarters",
         "SM": "Student Vehicle Permit",
         "unknown": "Unknown"
     },

@@ -35,7 +35,7 @@ const all_main_pass_code_list = [
   { code: 'SC', des: '學生汽車識別證' },
   { code: 'HF', des: '短期汽車識別證' },
   { code: 'TM', des: '教職員機車識別證' },
-  { code: 'TEM', des: '職務宿舍區機車識別證' },
+  { code: 'TME', des: '職務宿舍區機車識別證' },
   { code: 'SM', des: '學生機車識別證' },
 ]
 
@@ -46,7 +46,7 @@ function updateMain_pass_code_list() {
     car_type_title.value === '汽車'
       ? ['TC', 'TE', 'SC', 'HF'].includes(item.code)
       : car_type_title.value === '機車'
-        ? ['TM', 'TEM', 'SM'].includes(item.code)
+        ? ['TM', 'TME', 'SM'].includes(item.code)
         : [],
   )
 }

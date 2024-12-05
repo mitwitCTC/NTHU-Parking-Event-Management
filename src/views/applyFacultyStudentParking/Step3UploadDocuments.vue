@@ -81,7 +81,7 @@ const all_main_pass_code_list = [
   { code: 'SC', des: '學生汽車識別證' },
   { code: 'HF', des: '短期汽車識別證' },
   { code: 'TM', des: '教職員機車識別證' },
-  { code: 'TEM', des: '職務宿舍區機車識別證' },
+  { code: 'TME', des: '職務宿舍區機車識別證' },
   { code: 'SM', des: '學生機車識別證' },
 ]
 
@@ -162,10 +162,6 @@ async function uploadDocuments() {
 
   // 檢查文件列表是否有效
   const validFiles = applicationData.value.document_list.filter(file => file)
-  if (validFiles.length === 0) {
-    console.error('沒有可用的檔案上傳')
-    return false
-  }
 
   // 添加檔案至 FormData
   validFiles.forEach(file => {
@@ -184,9 +180,7 @@ async function uploadDocuments() {
     })
 
     if (response.data.returnCode == 0) {
-      isApplicationSuccess.value = true
-      facultyStudentStore.clear()
-      router.push('/application-success')
+      // 文件上傳成功
       return true
     } else {
       console.error('文件上傳失敗', response)
@@ -259,8 +253,29 @@ async function apply() {
       formatApplicationData.value,
     )
     if (response.data.returnCode == 0) {
-      // 申請表單成功則執行上傳證件
-      uploadDocuments()
+      // 判斷是否有上傳的檔案
+      const hasValidFiles = applicationData.value.document_list.some(
+        file => file instanceof File,
+      )
+
+      if (!hasValidFiles) {
+        // 沒有檔案的情況下，送出申請表單成功即為申請成功
+        isApplicationSuccess.value = true
+        facultyStudentStore.clear()
+        router.push('/application-success')
+        return true
+      } else {
+        // 有檔案的情況下，執行上傳文件
+        const uploadResult = await uploadDocuments()
+        if (uploadResult) {
+          isApplicationSuccess.value = true
+          facultyStudentStore.clear()
+          router.push('/application-success')
+          return true
+        } else {
+          isApplicationSuccess.value = false
+        }
+      }
     } else {
       isApplicationSuccess.value = false
       applicationData.value.vehicle_registered_list =
