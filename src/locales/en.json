@@ -35,14 +35,13 @@
                 "phone_number": "Phone number",
                 "academic_year": "Academic Year",
                 "required": "*Required Field",
-                "next": "Next Step:  Vehicle Registration",
-                "confirm_title": "Information confirmation",
-                "confirm_message": "Please confirm again whether the application information is correct.",
-                "cancel": "Cancel",
-                "confirm": "Confirm"
+                "next": "Next Step:  Vehicle Registration"
             },
             "vehicle_registration": {
                 "vehicle_type": "vehicle_type",
+                "vehicle_type_car": "car",
+                "vehicle_type_scooter": "scooter",
+                "vehicle_type_bike": "bike1",
                 "plate": "plate",
                 "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
                 "car_type": "Vehicle Type",
@@ -73,8 +72,6 @@
                 "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
                 "captcha": "captcha",
                 "apply": "apply",
-                "confirm_title": "Information confirmation",
-                "confirm_message": "Please confirm again whether the application information is correct.",
                 "cancel": "Cancel",
                 "confirm": "Confirm",
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
@@ -121,8 +118,6 @@
                 "nanDaCampus": "Nanda Campus",
                 "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
                 "apply": "Submit Application",
-                "confirm_title": "Information confirmation",
-                "confirm_message": "Please confirm again whether the application information is correct.",
                 "cancel": "Cancel",
                 "confirm": "Confirm",
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
@@ -176,5 +171,11 @@
         "30_40km": "30-40km",
         "40_50km": "40-50km",
         "over_50km": "Over 50km"
+    },
+    "confirm_modal": {
+        "title": "Information confirmation",
+        "message": "Please confirm again whether the application information is correct.",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
     }
 }

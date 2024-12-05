@@ -25,11 +25,7 @@ function apply() {
       <div class="modal-content">
         <div class="modal-header bg-secondary">
           <h5 class="modal-title text-black" id="confirmModalLabel">
-            {{
-              $t(
-                'pages.applyFacultyStudentParking.uploadDocuments.confirm_title',
-              )
-            }}
+            {{ $t('confirm_modal.title') }}
           </h5>
           <button
             type="button"
@@ -39,22 +35,18 @@ function apply() {
           ></button>
         </div>
         <div class="modal-body">
-          {{
-            $t(
-              'pages.applyFacultyStudentParking.uploadDocuments.confirm_message',
-            )
-          }}
+          {{ $t('confirm_modal.message') }}
         </div>
         <div class="modal-footer">
           <p class="pointer text-primary fw-bold" @click="closeModal">
-            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.cancel') }}
+            {{ $t('confirm_modal.cancel') }}
           </p>
           <p
             class="pointer text-primary fw-bold"
             data-bs-dismiss="modal"
             @click="apply"
           >
-            {{ $t('pages.applyFacultyStudentParking.uploadDocuments.confirm') }}
+            {{ $t('confirm_modal.confirm') }}
           </p>
         </div>
       </div>
