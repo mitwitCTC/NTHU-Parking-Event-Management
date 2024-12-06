@@ -1,7 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
-// 定義接收的 props，僅作為參考，不需要宣告 `props`
 defineProps({
   currentStep: {
     type: Number,
@@ -11,17 +10,30 @@ defineProps({
 
 const router = useRouter()
 
-function goStep1BasicInfo() {
-  const currentPath = router.currentRoute.value.path
-  if (currentPath !== '/apply-staff-parking/Step1') {
-    router.push('/apply-staff-parking/Step1')
-  }
-}
+// 定義步驟的資料
+const steps = [
+  {
+    step: 1,
+    to: '/apply-staff-parking/Step1',
+    imageSrc: '/images/upload/填寫申請書.svg',
+    alt: 'pages.applyStaffParking.basic_info.fillOut',
+    title: 'pages.applyStaffParking.basic_info.fillOut',
+    currentStepClass: 1, // 用來辨識當前步驟
+  },
+  {
+    step: 3,
+    to: '/apply-staff-parking/step3_1',
+    imageSrc: '/images/upload/上傳申請書.svg',
+    alt: 'pages.applyStaffParking.basic_info.uploadAndSubmit',
+    title: 'pages.applyStaffParking.basic_info.uploadAndSubmit',
+    currentStepClass: 3, // 用來辨識當前步驟
+  },
+]
 
-function goStep3_1LoginAndUpload() {
+function navigateToStep(step) {
   const currentPath = router.currentRoute.value.path
-  if (currentPath !== '/apply-staff-parking/step3_1') {
-    router.push('/apply-staff-parking/step3_1')
+  if (currentPath !== step.to) {
+    router.push(step.to)
   }
 }
 </script>
@@ -30,27 +42,17 @@ function goStep3_1LoginAndUpload() {
   <section>
     <div class="d-flex justify-content-around">
       <div
+        v-for="(step, index) in steps"
+        :key="index"
         class="d-flex flex-column align-items-center nav-item"
-        :class="{ 'gray-overlay': currentStep === 3 }"
-        @click="goStep1BasicInfo"
+        :class="{ 'gray-overlay': currentStep != step.currentStepClass }"
+        @click="navigateToStep(step)"
       >
         <div class="img-container">
-          <img src="/images/upload/填寫申請書.svg" alt="填寫申請書" />
+          <img :src="step.imageSrc" :alt="$t(step.alt)" />
         </div>
-        <p class="mt-2 text-nowrap">
-          {{ $t('pages.applyStaffParking.basic_info.fillOut') }}
-        </p>
-      </div>
-      <div
-        class="d-flex flex-column align-items-center nav-item"
-        :class="{ 'gray-overlay': currentStep === 1 }"
-        @click="goStep3_1LoginAndUpload"
-      >
-        <div class="img-container">
-          <img src="/images/upload/上傳申請書.svg" alt="上傳申請書" />
-        </div>
-        <p class="mt-2 text-nowrap">
-          {{ $t('pages.applyStaffParking.basic_info.uploadAndSubmit') }}
+        <p class="mt-2 fs-12">
+          {{ $t(step.title) }}
         </p>
       </div>
     </div>
