@@ -1,43 +1,48 @@
+<script setup>
+const steps = [
+  {
+    num: 1,
+    des: 'pages.applyStaffParking.steps.step1',
+    imageSrc: '/images/upload/填寫申請書.svg',
+    alt: 'pages.applyStaffParking.steps.step1',
+  },
+  {
+    num: 2,
+    des: 'pages.applyStaffParking.steps.step2',
+    imageSrc: '/images/steps/print.svg',
+    alt: 'pages.applyStaffParking.steps.step2',
+  },
+  {
+    num: 3,
+    des: 'pages.applyStaffParking.steps.step3',
+    imageSrc: '/images/steps/sign.svg',
+    alt: 'pages.applyStaffParking.steps.step3',
+  },
+  {
+    num: 4,
+    des: 'pages.applyStaffParking.steps.step4',
+    imageSrc: '/images/upload/上傳申請書.svg',
+    alt: 'pages.applyStaffParking.steps.step4',
+  },
+]
+</script>
 <template>
   <h3 class="text-center">
     {{ $t('pages.applyStaffParking.steps.title') }}
   </h3>
   <div class="container">
     <div class="mt-5 d-flex flex-column align-items-center">
-      <div class="d-flex gap-3 mb-5 mb-sm-3 text-white">
-        <span class="bg-dark rounded step-num"> 1 </span>
+      <div
+        class="d-flex gap-3 mb-5 mb-sm-3 text-white"
+        v-for="item in steps"
+        :key="item"
+      >
+        <span class="bg-dark rounded step-num">{{ item.num }}</span>
         <span class="bg-dark rounded step-des">
-          {{ $t('pages.applyStaffParking.steps.step1') }}
+          {{ $t(item.des) }}
         </span>
         <div class="img-container bg-dark rounded step-des-img">
-          <img src="/images/upload/填寫申請書.svg" alt="填寫申請書" />
-        </div>
-      </div>
-      <div class="d-flex gap-3 mb-5 mb-sm-3 text-white">
-        <span class="bg-dark rounded step-num"> 2 </span>
-        <span class="bg-dark rounded step-des">
-          {{ $t('pages.applyStaffParking.steps.step2') }}
-        </span>
-        <div class="img-container bg-dark rounded step-des-img">
-          <img src="/images/steps/print.svg" alt="列印" />
-        </div>
-      </div>
-      <div class="d-flex gap-3 mb-5 mb-sm-3 text-white">
-        <span class="bg-dark rounded step-num"> 3 </span>
-        <span class="bg-dark rounded step-des">
-          {{ $t('pages.applyStaffParking.steps.step3') }}
-        </span>
-        <div class="img-container bg-dark rounded step-des-img">
-          <img src="/images/steps/sign.svg" alt="簽章" />
-        </div>
-      </div>
-      <div class="d-flex gap-3 mb-5 mb-sm-3 text-white">
-        <span class="bg-dark rounded step-num"> 4 </span>
-        <span class="bg-dark rounded step-des">
-          {{ $t('pages.applyStaffParking.steps.step4') }}
-        </span>
-        <div class="img-container bg-dark rounded step-des-img">
-          <img src="/images/upload/上傳申請書.svg" alt="上傳申請書" />
+          <img :src="item.imageSrc" :alt="item.alt" />
         </div>
       </div>
     </div>
