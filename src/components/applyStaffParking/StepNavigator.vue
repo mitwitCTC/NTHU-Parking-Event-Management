@@ -1,5 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
 
 defineProps({
   currentStep: {
@@ -36,13 +40,21 @@ function navigateToStep(step) {
     router.push(step.to)
   }
 }
+const formattedSteps = computed(() => {
+  return steps.map(step => {
+    return {
+      ...step,
+      stepClass: locale.value === 'en' ? 'fs-12' : 'fs-6',
+    }
+  })
+})
 </script>
 
 <template>
   <section>
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-around gap-3">
       <div
-        v-for="(step, index) in steps"
+        v-for="(step, index) in formattedSteps"
         :key="index"
         class="d-flex flex-column align-items-center nav-item"
         :class="{ 'gray-overlay': currentStep != step.currentStepClass }"
@@ -51,7 +63,7 @@ function navigateToStep(step) {
         <div class="img-container">
           <img :src="step.imageSrc" :alt="$t(step.alt)" />
         </div>
-        <p class="mt-2 fs-12">
+        <p class="mt-2 text-center" :class="step.stepClass">
           {{ $t(step.title) }}
         </p>
       </div>
