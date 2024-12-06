@@ -139,7 +139,7 @@ function apply() {
       </select>
     </div>
     <div class="text-center">
-      <button class="btn btn-secondary" @click="handleNext">
+      <button class="btn btn-secondary" @click.prevent="handleNext">
         {{ $t('pages.applyStaffParking.basic_info.next') }}
       </button>
     </div>
