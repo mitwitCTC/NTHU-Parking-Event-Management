@@ -148,6 +148,11 @@
         "content": "Please read the permit instructions carefully and select \"I Have Read and Understood the Application Instructions\" before submitting the application.",
         "confirm": "Confirm"
     },
+    "captchaModal": {
+        "title": "captchaModal_title",
+        "content": "captchaModal_content",
+        "confirm": "captchaModal_confirm"
+    },
     "all_main_pass_code_list": {
         "TC": "Faculty and Staff On-campus Vehicle Permit",
         "TE": " Vehicle Permit for Residential Staff Quarters",

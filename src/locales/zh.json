@@ -148,6 +148,11 @@
         "content": "請先詳讀辦證說明並點選閱讀完畢後才能送出申請",
         "confirm": "確認"
     },
+    "captchaModal": {
+        "title": "驗證碼有誤",
+        "content": "請重新確認驗證碼輸入是否有誤",
+        "confirm": "確認"
+    },
     "all_main_pass_code_list": {
         "TC": "教職員校內汽車識別證",
         "TE": "職務宿舍區汽車識別證",

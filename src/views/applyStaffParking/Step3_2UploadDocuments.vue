@@ -6,6 +6,7 @@ import { Modal } from 'bootstrap'
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import NotReadModal from '@/components/NotReadModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
+import CaptchaErrorModal from '@/components/CaptchaErrorModal.vue'
 
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
@@ -101,12 +102,9 @@ function removeFile(index) {
 const certificateApplicationInstructionsRead = ref(false)
 // 驗證碼
 const generatedCaptcha = ref('')
-const captchaCorrect = ref(null)
-async function checkCaptcha() {
-  return applicationData.value.captcha == generatedCaptcha.value
-}
 
 const showNotReadModal = ref(false)
+const showCaptchaModal = ref(false)
 const showConfirmModal = ref(false) // 控制 確認送出申請Modal 顯示
 function closeNotReadModal() {
   showNotReadModal.value = false
@@ -114,11 +112,18 @@ function closeNotReadModal() {
 function closeConfirmModal() {
   showConfirmModal.value = false
 }
+function closeCaptchaModal() {
+  showCaptchaModal.value = false
+}
 function handleSubmit() {
   if (!certificateApplicationInstructionsRead.value) {
     showNotReadModal.value = true
   } else if (certificateApplicationInstructionsRead.value) {
-    showConfirmModal.value = true
+    if (applicationData.value.captcha.toUpperCase() == generatedCaptcha.value) {
+      showConfirmModal.value = true
+    } else {
+      showCaptchaModal.value = true
+    }
   }
 }
 
@@ -127,20 +132,17 @@ async function apply() {
   const originalDocumentList = [...applicationData.value.document_list]
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
-  if (checkCaptcha) {
-    isApplicationSuccess.value = true
-    if (isApplicationSuccess.value) {
-      console.log(applicationData.value)
-      // router.push('/application-success')
-    } else {
-      // 恢復 document_list 原始資料
-      applicationData.value.document_list = [...originalDocumentList]
-      showApplicatioinResultModal.value = true
-    }
+  isApplicationSuccess.value = true
+  if (isApplicationSuccess.value) {
+    console.log(applicationData.value)
+    showConfirmModal.value = false
+    // router.push('/application-success')
+  } else {
+    // 恢復 document_list 原始資料
+    applicationData.value.document_list = [...originalDocumentList]
+    showConfirmModal.value = false
+    showApplicatioinResultModal.value = true
   }
-
-  console.log(applicationData.value.captcha == generatedCaptcha.value)
-  console.log(applicationData.value.captcha, generatedCaptcha.value)
 }
 // 是否成功送出申請
 const isApplicationSuccess = ref(false)
@@ -306,6 +308,15 @@ function closeApplicatioinResultModal() {
         </div>
       </div>
     </div>
+    <div class="text-center">
+      <button
+        class="btn btn-secondary w-100"
+        :disabled="applicationData.document_list.every(doc => doc === null)"
+        @click="handleSubmit"
+      >
+        {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
+      </button>
+    </div>
   </form>
   <!-- 辦證說明 modal 開始 -->
   <div
@@ -350,15 +361,6 @@ function closeApplicatioinResultModal() {
     </div>
   </div>
   <!-- 辦證說明 modal 結束 -->
-  <div class="text-center">
-    <button
-      class="btn btn-secondary w-100"
-      :disabled="applicationData.document_list.every(doc => doc === null)"
-      @click="handleSubmit"
-    >
-      {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
-    </button>
-  </div>
   <!-- 確認送出申請資料 modal -->
   <ConfirmModal
     :showConfirmModal="showConfirmModal"
@@ -371,8 +373,10 @@ function closeApplicatioinResultModal() {
     @close="closeNotReadModal"
   />
   <!-- 驗證碼不正確 modal 開始 -->
-  <p v-if="captchaCorrect">驗證失敗</p>
-  <!-- 驗證碼不正確 modal 結束 -->
+  <CaptchaErrorModal
+    :showCaptchaModal="showCaptchaModal"
+    @close="closeCaptchaModal"
+  />
   <!-- 提交申請結果 modal 開始 -->
   <ApplicatioinResultModal
     :showApplicatioinResultModal="showApplicatioinResultModal"
