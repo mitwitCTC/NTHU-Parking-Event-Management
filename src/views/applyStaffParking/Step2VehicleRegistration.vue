@@ -7,6 +7,8 @@ import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
 
 const staffStore = useStaffStore()
 // 車輛型式名稱 (汽車/機車)
@@ -101,8 +103,20 @@ function handleAddVehicle(vehicleData) {
   }
 }
 
+// 組合送出表單所需資料
+const formatApplicationData = ref({})
 async function print() {
-  console.log(vehicle_registered_list.value)
+  await getFormInfo('工作證')
+  formatApplicationData.value.title = form_info.value.title // 表單名稱
+  formatApplicationData.value.form_code = form_info.value.form_code // 表單代碼
+  formatApplicationData.value.applicant = staffStore.applicant_data.applicant
+  formatApplicationData.value.academic_year =
+    staffStore.applicant_data.academic_year
+  formatApplicationData.value.applicant = staffStore.applicant_data.applicant
+  formatApplicationData.value.email = staffStore.applicant_data.email
+  formatApplicationData.value.phone_number =
+    staffStore.applicant_data.phone_number
+  formatApplicationData.value.content = vehicle_registered_list.value
 }
 
 let deleteModal = null
