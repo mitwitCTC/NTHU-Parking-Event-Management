@@ -123,6 +123,18 @@
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         },
+        "applyEvent": {
+            "title": "Self-organized Activities by Units",
+            "subtitle": "Activities subtitle",
+            "steps": {
+                "title": "Four steps of application",
+                "step1": "Fill out the Application Form",
+                "step2": "Print",
+                "step3": "The Signatures from the approved unit and the supervisor",
+                "step4": "Take a Photo or Scan and Upload the Signed Application Form",
+                "apply": "Apply"
+            }
+        },
         "applicationSuccess": {
             "title": "",
             "subtitle": "",

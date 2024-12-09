@@ -96,6 +96,29 @@ const router = createRouter({
       path: '/apply-event',
       name: 'ApplyEvent',
       component: applyEvent,
+      redirect: '/apply-event/steps',
+      children: [
+        {
+          path: 'steps',
+          name: 'ApplyEvent_steps',
+          component: () => import('@/views/applyEvent/StepsView.vue'),
+        },
+        {
+          path: 'step1',
+          name: 'ApplyEvent_step1',
+          component: () => import('@/views/applyEvent/Step1Form.vue'),
+        },
+        {
+          path: 'step2_1',
+          name: 'ApplyEvent_step2_1',
+          component: () => import('@/views/applyEvent/Step2_1Login.vue'),
+        },
+        {
+          path: 'step2_2',
+          name: 'ApplyEvent_step2_2',
+          component: () => import('@/views/applyEvent/Step2_2Upload.vue'),
+        },
+      ],
     },
     {
       path: '/apply-event-coupon',
