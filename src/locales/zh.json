@@ -27,8 +27,6 @@
                 "apply": "開始申請"
             },
             "basic_info": {
-                "fillOut": "填寫申請書",
-                "uploadAndSubmit": "上傳及申請提出",
                 "applicant": "申請人姓名",
                 "applicant_source": "公司/單位",
                 "email": "Email(系統通知使用)",
@@ -144,6 +142,10 @@
             "queryLinks": "『申請進度查詢』",
             "progressInquiry": "。相關進度系統也會透過 email 發送，謝謝！"
         }
+    },
+    "stepNavigator": {
+        "fillOut": "填寫申請書",
+        "uploadAndSubmit": "上傳及申請提出"
     },
     "validation": {
         "title": "資訊確認",

@@ -1,13 +1,32 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import StepNavigator from '@/components/applyStaffParking/StepNavigator.vue'
+import StepNavigator from '@/components/StepNavigator.vue'
 import router from '@/router'
 import { useStaffStore } from '@/stores/staffStore'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 
-const current_step = ref(1)
+const currentStep = ref(1)
+// 定義步驟資料
+const steps = [
+  {
+    step: 1,
+    to: '/apply-staff-parking/Step1',
+    imageSrc: '/images/upload/填寫申請書.svg',
+    alt: 'stepNavigator.fillOut',
+    title: 'stepNavigator.fillOut',
+    currentStepClass: 1,
+  },
+  {
+    step: 3,
+    to: '/apply-staff-parking/Step3_1',
+    imageSrc: '/images/upload/上傳申請書.svg',
+    alt: 'stepNavigator.uploadAndSubmit',
+    title: 'stepNavigator.uploadAndSubmit',
+    currentStepClass: 3,
+  },
+]
 const staffStore = useStaffStore()
 
 // 申請人資料
@@ -80,7 +99,7 @@ function apply() {
 </script>
 
 <template>
-  <StepNavigator :currentStep="current_step" />
+  <StepNavigator :currentStep="currentStep" :steps="steps" />
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
   <form>

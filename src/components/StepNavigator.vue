@@ -3,51 +3,47 @@ import { useRouter } from 'vue-router'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { locale } = useI18n()
-
-defineProps({
+// 定義 props
+const props = defineProps({
   currentStep: {
     type: Number,
     required: true,
   },
+  steps: {
+    type: Array,
+    required: true,
+    validator: value =>
+      value.every(
+        step =>
+          'step' in step &&
+          'to' in step &&
+          'currentStepClass' in step &&
+          'imageSrc' in step &&
+          'alt' in step &&
+          'title' in step,
+      ),
+  },
 })
 
+const { locale } = useI18n()
 const router = useRouter()
 
-// 定義步驟的資料
-const steps = [
-  {
-    step: 1,
-    to: '/apply-staff-parking/Step1',
-    imageSrc: '/images/upload/填寫申請書.svg',
-    alt: 'pages.applyStaffParking.basic_info.fillOut',
-    title: 'pages.applyStaffParking.basic_info.fillOut',
-    currentStepClass: 1, // 用來辨識當前步驟
-  },
-  {
-    step: 3,
-    to: '/apply-staff-parking/step3_1',
-    imageSrc: '/images/upload/上傳申請書.svg',
-    alt: 'pages.applyStaffParking.basic_info.uploadAndSubmit',
-    title: 'pages.applyStaffParking.basic_info.uploadAndSubmit',
-    currentStepClass: 3, // 用來辨識當前步驟
-  },
-]
+// 格式化 steps，根據當前語言設置樣式
+const formattedSteps = computed(() => {
+  return props.steps.map(step => ({
+    // 使用 props.steps
+    ...step,
+    stepClass: locale.value === 'en' ? 'fs-12' : 'fs-6',
+  }))
+})
 
+// 導航到指定步驟
 function navigateToStep(step) {
   const currentPath = router.currentRoute.value.path
   if (currentPath !== step.to) {
     router.push(step.to)
   }
 }
-const formattedSteps = computed(() => {
-  return steps.map(step => {
-    return {
-      ...step,
-      stepClass: locale.value === 'en' ? 'fs-12' : 'fs-6',
-    }
-  })
-})
 </script>
 
 <template>

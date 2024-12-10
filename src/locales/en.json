@@ -27,8 +27,6 @@
                 "apply": "apply"
             },
             "basic_info": {
-                "fillOut": "Fill out the Application Form",
-                "uploadAndSubmit": "Upload and Submit Application",
                 "applicant": "Name",
                 "applicant_source": "Department",
                 "email": "Email()",
@@ -144,6 +142,10 @@
             "queryLinks": " \"Application Progress Inquiry.\" ",
             "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
         }
+    },
+    "stepNavigator": {
+        "fillOut": "Fill out the Application Form",
+        "uploadAndSubmit": "Upload and Submit Application"
     },
     "validation": {
         "title": "Information Confirmation",
