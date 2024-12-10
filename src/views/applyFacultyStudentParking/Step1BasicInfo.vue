@@ -194,12 +194,12 @@ function closeValidatorModal() {
             </div>
           </div>
         </div>
+        <div class="text-center">
+          <button class="btn btn-secondary" @click.prevent="next">
+            {{ $t('pages.applyFacultyStudentParking.basic_info.next') }}
+          </button>
+        </div>
       </form>
-      <div class="text-center">
-        <button class="btn btn-secondary" @click="next">
-          {{ $t('pages.applyFacultyStudentParking.basic_info.next') }}
-        </button>
-      </div>
     </section>
 
     <!-- 引入 ValidationModal 元件 -->

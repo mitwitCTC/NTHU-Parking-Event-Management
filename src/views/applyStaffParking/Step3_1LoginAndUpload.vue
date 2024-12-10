@@ -153,6 +153,9 @@ function clearLogin_result() {
         </select>
       </div>
     </div>
+    <button class="btn btn-secondary w-100" @click.prevent="loginAndUpload">
+      {{ $t('pages.applyStaffParking.loginAndUpload.loginAndUpload') }}
+    </button>
   </form>
   <!-- 引入 ValidationModal 元件 -->
   <ValidationModal
@@ -160,7 +163,4 @@ function clearLogin_result() {
     :errors="errors"
     @close="closeValidatorModal"
   />
-  <button class="btn btn-secondary w-100" @click="loginAndUpload">
-    {{ $t('pages.applyStaffParking.loginAndUpload.loginAndUpload') }}
-  </button>
 </template>

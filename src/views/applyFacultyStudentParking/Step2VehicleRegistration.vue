@@ -261,6 +261,7 @@ onMounted(() => {
         class="form-control"
         id="plate"
         v-model="vehicle_registration_data.plate"
+        @keydown.enter.prevent="addVehicle_registered_list"
       />
     </div>
     <div class="mb-3" v-if="car_type_title != '腳踏車'">
@@ -305,16 +306,20 @@ onMounted(() => {
         class="form-control"
         id="bike_num"
         v-model="bike_num"
+        @keydown.enter.prevent="addVehicle_registered_list"
       />
     </div>
   </form>
   <div class="d-flex justify-content-between">
-    <button class="btn btn-secondary" @click="addVehicle_registered_list">
+    <button
+      class="btn btn-secondary"
+      @click.prevent="addVehicle_registered_list"
+    >
       {{ $t('pages.applyFacultyStudentParking.vehicle_registration.register') }}
     </button>
     <button
       class="btn btn-secondary"
-      @click="goToUpload"
+      @click.prevent="goToUpload"
       :disabled="vehicle_registered_list.length <= 0"
     >
       {{ $t('pages.applyFacultyStudentParking.vehicle_registration.next') }}

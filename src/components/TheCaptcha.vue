@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineEmits } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // 定義常數
 const width = 120

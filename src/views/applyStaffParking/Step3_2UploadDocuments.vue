@@ -312,7 +312,7 @@ function closeApplicatioinResultModal() {
       <button
         class="btn btn-secondary w-100"
         :disabled="applicationData.document_list.every(doc => doc === null)"
-        @click="handleSubmit"
+        @click.prevent="handleSubmit"
       >
         {{ $t('pages.applyStaffParking.uploadDocuments.apply') }}
       </button>

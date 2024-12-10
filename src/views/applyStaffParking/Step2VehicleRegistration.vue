@@ -184,6 +184,21 @@ function deleteVehicle_registered() {
         </option>
       </select>
     </div>
+    <div class="d-flex justify-content-between">
+      <button
+        class="btn btn-secondary"
+        @click.prevent="addVehicle_registered_list"
+      >
+        {{ $t('pages.applyStaffParking.vehicle_registration.next') }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        @click="print"
+        :disabled="vehicle_registered_list.length <= 0"
+      >
+        {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
+      </button>
+    </div>
   </form>
   <!-- 引入 ValidationModal 元件 -->
   <ValidationModal
@@ -191,18 +206,6 @@ function deleteVehicle_registered() {
     :errors="errors"
     @close="closeValidatorModal"
   />
-  <div class="d-flex justify-content-between">
-    <button class="btn btn-secondary" @click="addVehicle_registered_list">
-      {{ $t('pages.applyStaffParking.vehicle_registration.next') }}
-    </button>
-    <button
-      class="btn btn-secondary"
-      @click="print"
-      :disabled="vehicle_registered_list.length <= 0"
-    >
-      {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
-    </button>
-  </div>
   <section>
     <p class="mt-3">
       {{ $t('pages.applyStaffParking.vehicle_registration.plate_registered') }}
