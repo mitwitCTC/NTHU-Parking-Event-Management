@@ -12,9 +12,13 @@ const validateForm = (formData, rules) => {
     const stringValue = value ? String(value).trim() : ''
 
     // 若該欄位有必填規則
-    if (rule.required && !stringValue) {
-      isValid = false
-      errors[field] = `${field} 是必填的`
+    if (rule.required && (stringValue === '' || stringValue === undefined)) {
+      if (typeof value === 'number' && value === 0) {
+        // 特殊處理數字類型，0 為有效值
+      } else {
+        isValid = false
+        errors[field] = `${field} 是必填的`
+      }
     }
 
     // 信箱格式檢查

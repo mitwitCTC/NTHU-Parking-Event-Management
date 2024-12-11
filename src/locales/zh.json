@@ -131,6 +131,30 @@
                 "step3": "簽章",
                 "step4": "拍照或掃描上傳簽核申請單",
                 "apply": "開始申請"
+            },
+            "form": {
+                "activity": "活動名稱",
+                "start_date": "活動日期(起)",
+                "end_date": "活動日期(迄)",
+                "start_time": "活動時間(起)",
+                "end_time": "活動時間(迄)",
+                "location": "活動校區",
+                "primaryCampus": "校本部",
+                "nanDaCampus": "南大校區",
+                "area": "活動地點",
+                "headcount": "預估參加人數",
+                "bus_count": "預估入校車數",
+                "bus": "[遊覽車]",
+                "car_count": "預估入校車數",
+                "car": "[小客車]",
+                "source": "申請單位",
+                "applicant": "申請人",
+                "phone_number": "聯絡電話",
+                "email": "Email(查詢帳號與系統通知使用)",
+                "note_title": "注意：",
+                "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
+                "print": "列印申請書",
+                "uploadDocuments": "上傳申請表等附件"
             }
         },
         "applicationSuccess": {

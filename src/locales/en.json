@@ -131,6 +131,30 @@
                 "step3": "The Signatures from the approved unit and the supervisor",
                 "step4": "Take a Photo or Scan and Upload the Signed Application Form",
                 "apply": "Apply"
+            },
+            "form": {
+                "activity": "Event Name",
+                "start_date": "Event Start Date",
+                "end_date": "Event End Date",
+                "start_time": "Event Start Time",
+                "end_time": "Event End Time",
+                "location": "Application Campus",
+                "primaryCampus": "Main campus",
+                "nanDaCampus": "Nanda campus",
+                "area": "Event Location",
+                "headcount": "Estimated Number of Participants",
+                "bus_count": "Estimated Number of Vehicles Entering Campus",
+                "bus": "(Tour Buses)",
+                "car_count": "Estimated Number of Vehicles Entering Campus",
+                "car": "(Private Cars)",
+                "source": "Applying Unit",
+                "applicant": "Applicant",
+                "phone_number": "Phone number",
+                "email": "Email",
+                "note_title": "Note:",
+                "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
+                "print": "Print Application Form",
+                "uploadDocuments": "Upload Application Form and Other Attachments"
             }
         },
         "applicationSuccess": {
