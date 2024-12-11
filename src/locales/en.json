@@ -155,6 +155,11 @@
                 "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
                 "print": "Print Application Form",
                 "uploadDocuments": "Upload Application Form and Other Attachments"
+            },
+            "login": {
+                "email": "Email",
+                "phone_number": "Phone number",
+                "login": "Login"
             }
         },
         "applicationSuccess": {

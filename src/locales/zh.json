@@ -155,6 +155,11 @@
                 "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
                 "print": "列印申請書",
                 "uploadDocuments": "上傳申請表等附件"
+            },
+            "login": {
+                "email": "Email (申請表登記)",
+                "phone_number": "電話 (申請表登記)",
+                "login": "登入"
             }
         },
         "applicationSuccess": {
