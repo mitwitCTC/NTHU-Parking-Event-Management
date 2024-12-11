@@ -160,6 +160,16 @@
                 "email": "Email",
                 "phone_number": "Phone number",
                 "login": "Login"
+            },
+            "upload": {
+                "title": "title",
+                "upload": "Upload Documents",
+                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+                "captcha": "Verification Code",
+                "apply": "Submit Application",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         },
         "applicationSuccess": {

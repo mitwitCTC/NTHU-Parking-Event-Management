@@ -160,6 +160,16 @@
                 "email": "Email (申請表登記)",
                 "phone_number": "電話 (申請表登記)",
                 "login": "登入"
+            },
+            "upload": {
+                "title": "上傳簽核申請表與相關文件",
+                "upload": "上傳證件",
+                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+                "captcha": "驗證碼",
+                "apply": "送出申請",
+                "cancel": "取消",
+                "confirm": "確認",
+                "certificateApplicationInstructionsTitle": "辦證說明"
             }
         },
         "applicationSuccess": {
