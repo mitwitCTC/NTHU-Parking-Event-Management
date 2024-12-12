@@ -159,12 +159,94 @@
             "login": {
                 "email": "Email",
                 "phone_number": "Phone number",
-                "login": "Login"
+                "login": "Login",
+                "success": "Success",
+                "fail": "Fail"
             },
             "upload": {
                 "title": "title",
                 "upload": "Upload Documents",
                 "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+                "captcha": "Verification Code",
+                "apply": "Submit Application",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+            }
+        },
+        "applyEventCoupon": {
+            "title": "Parking vouchers for events and activities",
+            "subtitle": "Parking vouchers for events and activities",
+            "steps": {
+                "title": "Four steps of application",
+                "step1": "Fill out the Application Form",
+                "step2": "Print",
+                "step3": "The Signatures from the approved unit and the supervisor",
+                "step4": "Take a Photo or Scan and Upload the Signed Application Form",
+                "apply": "Apply"
+            },
+            "form": {
+                "activity": "Event Name",
+                "start_date": "Event Start Date",
+                "end_date": "Event End Date",
+                "start_time": "Event Start Time",
+                "end_time": "Event End Time",
+                "location": "Application Campus",
+                "primaryCampus": "Main campus",
+                "nanDaCampus": "Nanda campus",
+                "area": "Event Location",
+                "headcount": "Estimated Number of Participants",
+                "bus_count": "Estimated Number of Vehicles Entering Campus",
+                "bus": "(Tour Buses)",
+                "car_count": "Estimated Number of Vehicles Entering Campus",
+                "car": "(Private Cars)",
+                "source": "Applying Unit",
+                "applicant": "Applicant",
+                "phone_number": "Phone number",
+                "email": "Email",
+                "note_title": "Note:",
+                "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
+                "print": "Print Application Form",
+                "uploadDocuments": "Upload Application Form and Other Attachments"
+            },
+            "login": {
+                "email": "Email",
+                "phone_number": "Phone number",
+                "login": "Login",
+                "success": "Success",
+                "fail": "Fail"
+            },
+            "upload": {
+                "title": "title",
+                "upload": "Upload Documents",
+                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+                "captcha": "Verification Code",
+                "apply": "Submit Application",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+            },
+            "coupon": {
+                "payment": {
+                    "title": "Payment Method",
+                    "project": "Project Funds",
+                    "cash": "Cash Payment"
+                },
+                "invoice": {
+                    "title": "invoice",
+                    "need_invoice": "need_invoice",
+                    "withVat": "withVat",
+                    "withoutVat": "withoutVat",
+                    "company_name": "company_name",
+                    "vat_number": "vat_number"
+                },
+                "project_number": "Internal Unit Project Number",
+                "reason": "Reason for Application",
+                "quantity": "Quantity",
+                "collection_method": "Voucher Collection Method",
+                "by_email": "Send by Email",
+                "physical": "Collect Physical Vouchers",
+                "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
                 "captcha": "Verification Code",
                 "apply": "Submit Application",
                 "cancel": "Cancel",
@@ -205,6 +287,12 @@
         "title": "captchaModal_title",
         "content": "captchaModal_content",
         "confirm": "captchaModal_confirm"
+    },
+    "confirm_coupon_modal": {
+        "title": "confirm_coupon",
+        "message": "message",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
     },
     "all_main_pass_code_list": {
         "TC": "Faculty and Staff On-campus Vehicle Permit",

@@ -124,6 +124,35 @@ const router = createRouter({
       path: '/apply-event-coupon',
       name: 'ApplyEventCoupon',
       component: applyEventCoupon,
+      redirect: '/apply-event-coupon/steps',
+      children: [
+        {
+          path: 'steps',
+          name: 'applyEventCoupon_steps',
+          component: () => import('@/views/applyEventCoupon/StepsView.vue'),
+        },
+        {
+          path: 'step1',
+          name: 'applyEventCoupon_step1',
+          component: () => import('@/views/applyEventCoupon/Step1Form.vue'),
+        },
+        {
+          path: 'step2_1',
+          name: 'applyEventCoupon_step2_1',
+          component: () => import('@/views/applyEventCoupon/Step2_1Login.vue'),
+        },
+        {
+          path: 'step2_2',
+          name: 'applyEventCoupon_step2_2',
+          component: () => import('@/views/applyEventCoupon/Step2_2Upload.vue'),
+        },
+        {
+          path: 'step3',
+          name: 'applyEventCoupon_step3',
+          component: () =>
+            import('@/views/applyEventCoupon/Step3ApplyCoupon.vue'),
+        },
+      ],
     },
     {
       path: '/preorder-coupon',
