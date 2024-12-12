@@ -254,6 +254,38 @@
                 "certificateApplicationInstructionsTitle": "辦證說明"
             }
         },
+        "preorderCoupon": {
+            "title": "預購抵用券",
+            "subtitle": "購買抵用券",
+            "applicant": "申請人",
+            "phone_number": "聯絡電話",
+            "email": "Email",
+            "payment": {
+                "title": "付費方式",
+                "project": "計畫經費",
+                "cash": "現金繳費"
+            },
+            "invoice": {
+                "title": "發票開立",
+                "need_invoice": "開立統一編號",
+                "withVat": "開立統一編號",
+                "withoutVat": "不開立統編",
+                "company_name": "公司抬頭",
+                "vat_number": "統一編號"
+            },
+            "project_number": "校內單位計畫編號",
+            "reason": "申請事由",
+            "quantity": "張數",
+            "collection_method": "領券方式",
+            "by_email": "電子郵件寄送",
+            "physical": "領用實體券",
+            "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+            "captcha": "驗證碼",
+            "apply": "送出申請",
+            "cancel": "取消",
+            "confirm": "確認",
+            "certificateApplicationInstructionsTitle": "辦證說明"
+        },
         "applicationSuccess": {
             "title": "",
             "subtitle": "",

@@ -158,6 +158,14 @@ const router = createRouter({
       path: '/preorder-coupon',
       name: 'PreorderCoupon',
       component: preorderCoupon,
+      redirect: '/preorder-coupon/step1',
+      children: [
+        {
+          path: 'step1',
+          name: 'PreorderCoupon_step1',
+          component: () => import('@/views/preorderCoupon/Step1Form.vue'),
+        },
+      ],
     },
     {
       path: '/application-success',

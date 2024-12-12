@@ -254,6 +254,38 @@
                 "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
             }
         },
+        "preorderCoupon": {
+            "title": "preorderCoupon_title",
+            "subtitle": "preorderCoupon_subtitle",
+            "applicant": "Applicant",
+            "phone_number": "Phone number",
+            "email": "Email",
+            "payment": {
+                "title": "Payment Method",
+                "project": "Project Funds",
+                "cash": "Cash Payment"
+            },
+            "invoice": {
+                "title": "invoice",
+                "need_invoice": "need_invoice",
+                "withVat": "withVat",
+                "withoutVat": "withoutVat",
+                "company_name": "company_name",
+                "vat_number": "vat_number"
+            },
+            "project_number": "Internal Unit Project Number",
+            "reason": "Reason for Application",
+            "quantity": "Quantity",
+            "collection_method": "Voucher Collection Method",
+            "by_email": "Send by Email",
+            "physical": "Collect Physical Vouchers",
+            "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
+            "captcha": "Verification Code",
+            "apply": "Submit Application",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+        },
         "applicationSuccess": {
             "title": "",
             "subtitle": "",
