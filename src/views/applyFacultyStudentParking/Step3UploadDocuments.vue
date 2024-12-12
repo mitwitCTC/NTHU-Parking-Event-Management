@@ -270,7 +270,7 @@ async function apply() {
         if (uploadResult) {
           isApplicationSuccess.value = true
           facultyStudentStore.clear()
-          router.push('/application-success')
+          router.replace('/application-success')
           return true
         } else {
           isApplicationSuccess.value = false

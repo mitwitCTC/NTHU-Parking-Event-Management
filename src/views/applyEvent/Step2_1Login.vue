@@ -60,8 +60,8 @@ function clearLogin_result() {
   >
     {{
       login_result == 'success'
-        ? $t('pages.applyStaffParking.loginAndUpload.success')
-        : $t('pages.applyStaffParking.loginAndUpload.fail')
+        ? $t('pages.applyEvent.login.success')
+        : $t('pages.applyEvent.login.fail')
     }}
   </div>
   <form>

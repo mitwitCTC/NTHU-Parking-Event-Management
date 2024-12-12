@@ -60,15 +60,15 @@ function formValidate() {
 
   // 確保 formValidatorRef 正確引用 FormValidator 組件
   if (formValidatorRef.value) {
-    const { isValid, errorsResult } = formValidatorRef.value.validateForm(
-      applicant_data.value,
-      rules,
-    )
+    const { isValid, errors: errorsResult } =
+      formValidatorRef.value.validateForm(applicant_data.value, rules)
 
     // 如果驗證失敗
     if (!isValid) {
-      errors.value = errorsResult // 設定錯誤訊息
-      showModal.value = true // 顯示 Modal
+      errors.value = errorsResult
+
+      // 設定錯誤訊息
+      showModal.value = true // 顯示驗證錯誤 Modal
     }
 
     return isValid
