@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { Modal } from 'bootstrap'
 
 import { useStaffStore } from '@/stores/staffStore'
@@ -102,6 +102,25 @@ function handleAddVehicle(vehicleData) {
     vehicle_registered_list.value.push(vehicleData)
   }
 }
+// 通勤距離
+const commuteDistances = [
+  { value: '5-10km', labelKey: 'commute_distances.5_10km' },
+  { value: '10-20km', labelKey: 'commute_distances.10_20km' },
+  { value: '20-30km', labelKey: 'commute_distances.20_30km' },
+  { value: '30-40km', labelKey: 'commute_distances.30_40km' },
+  { value: '40-50km', labelKey: 'commute_distances.40_50km' },
+  { value: '50km 以上', labelKey: 'commute_distances.over_50km' },
+]
+const selectedCommuteDistance = ref('')
+// 被選中的通勤距離（假設初始為5-10km）
+selectedCommuteDistance.value = '5-10km'
+// 動態控制 showCommuteDistance
+const showCommuteDistance = computed(() => {
+  // 檢查是否還有 "汽車" 的資料
+  return !vehicle_registered_list.value.some(
+    vehicle => vehicle.car_type_title === '汽車',
+  )
+})
 
 // 組合送出表單所需資料
 const formatApplicationData = ref({})
@@ -117,6 +136,8 @@ async function print() {
   formatApplicationData.value.phone_number =
     staffStore.applicant_data.phone_number
   formatApplicationData.value.content = vehicle_registered_list.value
+  formatApplicationData.value.distance_title = selectedCommuteDistance.value
+  formatApplicationData.value.distance = 0
 }
 
 let deleteModal = null
@@ -181,6 +202,20 @@ function deleteVehicle_registered() {
       <select class="form-select" v-model="vehicle_registration_data.car_type">
         <option v-for="item in car_types" :key="item.id" :value="item.id">
           {{ $t(`car_types.${item.des}`) }}
+        </option>
+      </select>
+    </div>
+    <div v-if="showCommuteDistance && car_type_title == '汽車'" class="mb-3">
+      <label for="commute_distance" class="form-label">
+        {{ $t('pages.applyStaffParking.vehicle_registration.distance') }}
+      </label>
+      <select class="form-select" v-model="selectedCommuteDistance">
+        <option
+          v-for="item in commuteDistances"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ $t(item.labelKey) }}
         </option>
       </select>
     </div>

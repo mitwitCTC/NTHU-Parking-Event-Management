@@ -43,6 +43,7 @@
                 "plate": "plate",
                 "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
                 "car_type": "Vehicle Type",
+                "distance": "Daily One-way Commuting Distance to School",
                 "next": "next",
                 "print": "print",
                 "plate_registered": "plate_registered",
@@ -62,7 +63,6 @@
             },
             "uploadDocuments": {
                 "plate_registered": "Registered License Plate",
-                "distance": "Daily One-way Commuting Distance to School",
                 "upload": "Upload Documents",
                 "campusToReceiveCertificate": "Main / Nanda Campus Parking Permit",
                 "primaryCampus": "Main Campus",

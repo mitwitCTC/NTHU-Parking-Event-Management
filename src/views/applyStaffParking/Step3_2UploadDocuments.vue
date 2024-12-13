@@ -31,7 +31,6 @@ const confirmAction = () => {
 }
 const applicationData = ref({
   vehicle_registered_list: [],
-  selectedCommuteDistance: '',
   document_list: Array(5).fill(null),
   campusToReceiveCertificate: '1', // 預設在校本部領證
 })
@@ -73,18 +72,6 @@ const main_pass_code_list = [
     des: '工作機車識別證',
   },
 ]
-
-// 通勤距離
-const commuteDistances = [
-  { value: '5-10km', labelKey: 'commute_distances.5_10km' },
-  { value: '10-20km', labelKey: 'commute_distances.10_20km' },
-  { value: '20-30km', labelKey: 'commute_distances.20_30km' },
-  { value: '30-40km', labelKey: 'commute_distances.30_40km' },
-  { value: '40-50km', labelKey: 'commute_distances.40_50km' },
-  { value: '50km 以上', labelKey: 'commute_distances.over_50km' },
-]
-// 被選中的通勤距離（假設初始為5-10km）
-applicationData.value.selectedCommuteDistance = '5-10km'
 
 // 上傳證件
 function handleFileUpload(event, index) {
@@ -178,23 +165,6 @@ function closeApplicatioinResultModal() {
     </div>
   </section>
   <form class="mt-5">
-    <div class="mb-3">
-      <label for="car_type" class="form-label">
-        {{ $t('pages.applyStaffParking.uploadDocuments.distance') }}
-      </label>
-      <select
-        class="form-select"
-        v-model="applicationData.selectedCommuteDistance"
-      >
-        <option
-          v-for="item in commuteDistances"
-          :key="item.value"
-          :value="item.value"
-        >
-          {{ $t(item.labelKey) }}
-        </option>
-      </select>
-    </div>
     <div class="mb-3">
       <p>
         {{ $t('pages.applyStaffParking.uploadDocuments.upload') }}

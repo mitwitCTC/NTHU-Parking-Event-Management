@@ -43,6 +43,7 @@
                 "plate": "車牌號碼",
                 "licensePlateInputFormat": "輸入時請加\"-\"",
                 "car_type": "車輛型式",
+                "distance": "每日單趟到校通勤距離",
                 "next": "登記",
                 "print": "列印申請書",
                 "plate_registered": "已登記車號",
@@ -62,7 +63,6 @@
             },
             "uploadDocuments": {
                 "plate_registered": "已登記車號",
-                "distance": "每日單趟到校通勤距離",
                 "upload": "上傳證件",
                 "campusToReceiveCertificate": "領證校區",
                 "primaryCampus": "校本部",
