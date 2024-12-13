@@ -15,5 +15,10 @@ export const useStaffStore = defineStore('staff', {
         this.applicant_data = JSON.parse(storedData)
       }
     },
+    clear() {
+      sessionStorage.removeItem('staff_applicant_data')
+      // 清空 Pinia 狀態
+      this.applicant_data = {}
+    },
   },
 })

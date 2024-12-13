@@ -7,7 +7,10 @@ import VehicleType from '@/components/applyStaffParking/VehicleType.vue'
 
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
+import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import { useFormInfo } from '@/composables/useFormInfo'
+import Api from '@/api'
+import router from '@/router'
 const { form_info, getFormInfo } = useFormInfo()
 
 const staffStore = useStaffStore()
@@ -149,7 +152,7 @@ const showCommuteDistance = computed(() => {
 
 // 組合送出表單所需資料
 const formatApplicationData = ref({})
-async function print() {
+async function prepareApplicationData() {
   await getFormInfo('工作證')
   formatApplicationData.value = {
     title: form_info.value.title, // 表單名稱
@@ -163,6 +166,29 @@ async function print() {
     distance_title: selectedCommuteDistance.value,
     distance: 0,
   }
+}
+
+// 是否成功送出申請
+const showApplicatioinResultModal = ref(false) // 控制 申請失敗結果Modal 顯示
+async function submitApplication() {
+  try {
+    await prepareApplicationData()
+    const response = await Api.post(
+      '/main/applicationForm',
+      formatApplicationData.value,
+    )
+    if (response.data.retunCode == 0) {
+      router.replace({ name: 'Home' })
+      staffStore.clear()
+    } else {
+      showApplicatioinResultModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+function closeApplicatioinResultModal() {
+  showApplicatioinResultModal.value = false
 }
 
 let deleteModal = null
@@ -274,7 +300,7 @@ function deleteVehicle_registered() {
       </button>
       <button
         class="btn btn-secondary"
-        @click.prevent="print"
+        @click.prevent="submitApplication"
         :disabled="vehicle_registered_list.length <= 0"
       >
         {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
@@ -286,6 +312,11 @@ function deleteVehicle_registered() {
     :showModal="showModal"
     :errors="errors"
     @close="closeValidatorModal"
+  />
+  <!-- 提交申請結果 modal 開始 -->
+  <ApplicatioinResultModal
+    :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal"
   />
   <section>
     <p class="mt-3">
