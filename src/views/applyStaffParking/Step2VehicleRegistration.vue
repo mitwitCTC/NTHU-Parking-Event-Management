@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watchEffect } from 'vue'
 import { Modal } from 'bootstrap'
 
 import { useStaffStore } from '@/stores/staffStore'
@@ -81,6 +81,7 @@ function addVehicle_registered_list() {
   if (formValidate()) {
     if (vehicle_registration_data.value.car_type_title == '機車') {
       vehicle_registration_data.value.car_type = 5
+      vehicle_registration_data.value.main_pass_code = 'WM'
     }
     handleAddVehicle(vehicle_registration_data.value)
     vehicle_registration_data.value = {}
@@ -102,6 +103,30 @@ function handleAddVehicle(vehicleData) {
     vehicle_registered_list.value.push(vehicleData)
   }
 }
+// 全部車證型態列表
+const all_main_pass_code_list = [
+  { code: 'WC', des: ' 工作證汽車識別證' },
+  { code: 'HF', des: ' 短期汽車識別證' },
+  { code: 'WM', des: ' 工作機車識別證' },
+]
+
+// 根據 car_type_title 篩選車證型態
+const main_pass_code_list = ref([])
+function updateMain_pass_code_list() {
+  main_pass_code_list.value = all_main_pass_code_list.filter(item =>
+    car_type_title.value === '汽車'
+      ? ['WC', 'HF'].includes(item.code)
+      : car_type_title.value === '機車'
+        ? ['WM'].includes(item.code)
+        : [],
+  )
+}
+onMounted(() => {
+  updateMain_pass_code_list()
+})
+watchEffect(() => {
+  updateMain_pass_code_list()
+})
 // 通勤距離
 const commuteDistances = [
   { value: '5-10km', labelKey: 'commute_distances.5_10km' },
@@ -126,18 +151,18 @@ const showCommuteDistance = computed(() => {
 const formatApplicationData = ref({})
 async function print() {
   await getFormInfo('工作證')
-  formatApplicationData.value.title = form_info.value.title // 表單名稱
-  formatApplicationData.value.form_code = form_info.value.form_code // 表單代碼
-  formatApplicationData.value.applicant = staffStore.applicant_data.applicant
-  formatApplicationData.value.academic_year =
-    staffStore.applicant_data.academic_year
-  formatApplicationData.value.applicant = staffStore.applicant_data.applicant
-  formatApplicationData.value.email = staffStore.applicant_data.email
-  formatApplicationData.value.phone_number =
-    staffStore.applicant_data.phone_number
-  formatApplicationData.value.content = vehicle_registered_list.value
-  formatApplicationData.value.distance_title = selectedCommuteDistance.value
-  formatApplicationData.value.distance = 0
+  formatApplicationData.value = {
+    title: form_info.value.title, // 表單名稱
+    form_code: form_info.value.form_code, // 表單代碼
+    applicant: staffStore.applicant_data.applicant,
+    academic_year: staffStore.applicant_data.academic_year,
+    applicant_source: staffStore.applicant_data.applicant_source,
+    email: staffStore.applicant_data.email || '',
+    phone_number: staffStore.applicant_data.phone_number,
+    content: vehicle_registered_list.value,
+    distance_title: selectedCommuteDistance.value,
+    distance: 0,
+  }
 }
 
 let deleteModal = null
@@ -205,6 +230,27 @@ function deleteVehicle_registered() {
         </option>
       </select>
     </div>
+    <div class="mb-3" v-if="car_type_title == '汽車'">
+      <label for="main_pass_code" class="form-label">
+        {{
+          $t(
+            'pages.applyFacultyStudentParking.vehicle_registration.main_pass_code',
+          )
+        }}
+      </label>
+      <select
+        class="form-select"
+        v-model="vehicle_registration_data.main_pass_code"
+      >
+        <option
+          v-for="item in main_pass_code_list"
+          :key="item.code"
+          :value="item.code"
+        >
+          {{ $t(`all_main_pass_code_list.${item.code}`) }}
+        </option>
+      </select>
+    </div>
     <div v-if="showCommuteDistance && car_type_title == '汽車'" class="mb-3">
       <label for="commute_distance" class="form-label">
         {{ $t('pages.applyStaffParking.vehicle_registration.distance') }}
@@ -228,7 +274,7 @@ function deleteVehicle_registered() {
       </button>
       <button
         class="btn btn-secondary"
-        @click="print"
+        @click.prevent="print"
         :disabled="vehicle_registered_list.length <= 0"
       >
         {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
@@ -252,8 +298,17 @@ function deleteVehicle_registered() {
             class="d-flex justify-content-between align-items-center px-3 py-1 mt-1"
           >
             <p class="m-0">
+              <span> {{ item.plate }}&nbsp;</span>
               <span>
-                {{ item.plate }}
+                {{
+                  $t(
+                    `all_main_pass_code_list.${
+                      all_main_pass_code_list.find(
+                        code => code.code === item.main_pass_code,
+                      )?.code || 'unknown'
+                    }`,
+                  )
+                }}
               </span>
             </p>
             <button class="btn btn-dark" @click="openDeleteModal(index)">
@@ -269,7 +324,6 @@ function deleteVehicle_registered() {
       id="deleteModal"
       tabindex="-1"
       aria-labelledby="deleteModalLabel"
-      aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -291,6 +345,20 @@ function deleteVehicle_registered() {
           <div class="modal-body">
             <p>
               <span>{{ deleteVehicle_registered_data.plate }}</span>
+              <span>
+                <br />
+                {{
+                  $t(
+                    `all_main_pass_code_list.${
+                      all_main_pass_code_list.find(
+                        code =>
+                          code.code ===
+                          deleteVehicle_registered_data.main_pass_code,
+                      )?.code || 'unknown'
+                    }`,
+                  )
+                }}
+              </span>
             </p>
             <p>
               {{

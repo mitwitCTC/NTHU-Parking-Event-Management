@@ -334,6 +334,8 @@
         "TM": "Faculty and Staff On-campus Vehicle Permit",
         "TME": "Vehicle Permit for Residential Staff Quarters",
         "SM": "Student Vehicle Permit",
+        "WC": "WC",
+        "WM": "WM",
         "unknown": "Unknown"
     },
     "car_types": {
