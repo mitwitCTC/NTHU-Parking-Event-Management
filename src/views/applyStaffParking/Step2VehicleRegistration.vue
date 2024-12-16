@@ -160,6 +160,7 @@ async function prepareApplicationData() {
     applicant: staffStore.applicant_data.applicant,
     academic_year: staffStore.applicant_data.academic_year,
     applicant_source: staffStore.applicant_data.applicant_source,
+    applicant_type: 4, // 申請人類別：校外人員
     email: staffStore.applicant_data.email || '',
     phone_number: staffStore.applicant_data.phone_number,
     content: vehicle_registered_list.value,
@@ -177,7 +178,7 @@ async function submitApplication() {
       '/main/applicationForm',
       formatApplicationData.value,
     )
-    if (response.data.retunCode == 0) {
+    if (response.data.returnCode == 0) {
       router.replace({ name: 'Home' })
       staffStore.clear()
     } else {
