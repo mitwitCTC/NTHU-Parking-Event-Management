@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import router from '@/router'
+import Api from '@/api'
 import { Modal } from 'bootstrap'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
@@ -102,9 +103,8 @@ function closeValidatorModal() {
   showModal.value = false
 }
 // 是否成功送出申請
-const isApplicationSuccess = ref(false)
 const formatApplicationData = ref({})
-async function apply() {
+async function prepareApplicationData() {
   await getFormInfo('抵用券')
   formatApplicationData.value = {
     title: form_info.value.title,
@@ -122,9 +122,25 @@ async function apply() {
     coupon_quantity: applicationData.value.quantity,
     receive_method: applicationData.value.collection_method,
   }
-
-  isApplicationSuccess.value = true
-  router.replace('/application-success')
+}
+async function submitApplication() {
+  await prepareApplicationData()
+  try {
+    const response = await Api.post(
+      '/main/applicationForm',
+      formatApplicationData.value,
+    )
+    if (response.data.returnCode == 0) {
+      router.replace({ name: 'applicationSuccess' })
+    } else {
+      showApplicatioinResultModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showApplicatioinResultModal.value = true
+  } finally {
+    showConfirmCouponModal.value = false
+  }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
 
@@ -431,7 +447,7 @@ function closeCaptchaModal() {
   <ConfirmCouponModal
     :showConfirmCouponModal="showConfirmCouponModal"
     @close="closeConfirmCouponModal"
-    @apply="apply"
+    @apply="submitApplication"
   />
   <!-- 未閱讀辦證說明 modal 開始 -->
   <NotReadModal

@@ -1,8 +1,10 @@
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue'
+import Api from '@/api'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
+import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import StepNavigator from '@/components/StepNavigator.vue'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
@@ -147,7 +149,7 @@ function closeConfirmModal() {
   showConfirmModal.value = false
 }
 const formatApplicationData = ref({})
-async function apply() {
+async function prepareApplicationData() {
   if (formValidate()) {
     await getFormInfo('活動暨抵用券')
     formatApplicationData.value = {
@@ -170,10 +172,31 @@ async function apply() {
       phone_number: applicant_data.value.phone_number,
       email: applicant_data.value.email,
     }
-
-    showConfirmModal.value = false
-    router.replace({ name: 'Home' })
   }
+}
+async function submitApplication() {
+  await prepareApplicationData()
+  try {
+    const response = await Api.post(
+      '/main/applicationForm',
+      formatApplicationData.value,
+    )
+    if (response.data.returnCode == 0) {
+      router.replace({ name: 'applicationSuccess' })
+    } else {
+      showApplicatioinResultModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showApplicatioinResultModal.value = true
+  } finally {
+    showConfirmModal.value = false
+  }
+}
+const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
+
+function closeApplicatioinResultModal() {
+  showApplicatioinResultModal.value = false
 }
 function goToUploadDocuments() {
   router.push({ name: 'applyEventCoupon_step2_1' })
@@ -428,7 +451,12 @@ function goToUploadDocuments() {
   <ConfirmModal
     :showConfirmModal="showConfirmModal"
     @close="closeConfirmModal"
-    @apply="apply"
+    @apply="submitApplication"
+  />
+  <!-- 提交申請失敗 modal 開始 -->
+  <ApplicatioinResultModal
+    :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal"
   />
 </template>
 
