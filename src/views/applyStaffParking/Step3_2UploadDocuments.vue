@@ -1,5 +1,10 @@
 <script setup>
-// import router from '@/router'
+import Api from '@/api'
+import router from '@/router'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useSerialStore } from '@/stores/serial_numberStore'
+const serialStore = useSerialStore()
 import { useStaffStore } from '@/stores/staffStore'
 const staffStore = useStaffStore()
 import { onMounted, ref } from 'vue'
@@ -93,7 +98,8 @@ function handleSubmit() {
   if (!certificateApplicationInstructionsRead.value) {
     showNotReadModal.value = true
   } else if (certificateApplicationInstructionsRead.value) {
-    if (applicationData.value.captcha.toUpperCase() == generatedCaptcha.value) {
+    const userCaptcha = applicationData.value.captcha?.toUpperCase() || ''
+    if (userCaptcha === generatedCaptcha.value) {
       showConfirmModal.value = true
     } else {
       showCaptchaModal.value = true
@@ -102,24 +108,61 @@ function handleSubmit() {
 }
 
 async function apply() {
+  await getFormInfo('工作證')
+  const form_code = form_info.value.form_code
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
-  isApplicationSuccess.value = true
-  if (isApplicationSuccess.value) {
-    console.log(applicationData.value)
-    showConfirmModal.value = false
-    // router.push('/application-success')
-  } else {
-    // 恢復 document_list 原始資料
+  const serialNumber = serialStore.getSerialNumber(form_code)
+  const formData = new FormData()
+  if (!serialNumber) {
+    console.error('表單序號不存在')
+    return false
+  }
+  // 添加 serial_number 至 formData
+  formData.append('serial_number', serialNumber)
+
+  // 檢查文件列表是否有效
+  const validFiles = applicationData.value.document_list.filter(file => file)
+
+  // 添加檔案至 FormData
+  validFiles.forEach(file => {
+    if (file instanceof File) {
+      formData.append('file', file)
+    } else {
+      console.error('無效檔案', file)
+    }
+  })
+
+  try {
+    const response = await Api.post('/main/uploadDocuments', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    if (response.data.returnCode == 0) {
+      // 文件上傳成功
+      serialStore.clearSerialNumber(form_code)
+      router.replace('/application-success')
+    } else {
+      console.error('文件上傳失敗', response)
+      // 恢復 document_list 為原始資料
+      applicationData.value.document_list = [...originalDocumentList]
+      showApplicatioinResultModal.value = true
+      return false
+    }
+  } catch (error) {
+    //  恢復 document_list 為原始資料
     applicationData.value.document_list = [...originalDocumentList]
-    showConfirmModal.value = false
+    console.error('上傳文件時發生錯誤', error)
     showApplicatioinResultModal.value = true
+    return false
+  } finally {
+    showConfirmModal.value = false
   }
 }
-// 是否成功送出申請
-const isApplicationSuccess = ref(false)
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
 
 function closeApplicatioinResultModal() {
