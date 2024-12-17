@@ -1,4 +1,10 @@
 <script setup>
+import Api from '@/api'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useSerialStore } from '@/stores/serial_numberStore'
+const serialStore = useSerialStore()
+
 import StepNavigator from '@/components/StepNavigator.vue'
 import { ref } from 'vue'
 import router from '@/router'
@@ -30,13 +36,26 @@ const login_data = ref({
 
 const login_result = ref('')
 async function login() {
-  if (
-    login_data.value.email == 'test@gmail.com' &&
-    login_data.value.phone_number == '0909123456'
-  ) {
-    login_result.value = 'success'
-    router.push('/apply-event/step2_2')
-  } else {
+  try {
+    await getFormInfo('活動')
+    const form_code = form_info.value.form_code
+    const response = await Api.post('/main/uploadLogin', {
+      form_code: form_code,
+      email: login_data.value.email,
+      phone_number: login_data.value.phone_number,
+    })
+    if (response.data.returnCode == 0) {
+      login_result.value = 'success'
+      const serial_number = response.data.data.serial_number
+      serialStore.setSerialNumber(form_code, serial_number)
+      setTimeout(() => {
+        router.push('/apply-event/step2_2')
+      }, 500)
+    } else {
+      login_result.value = 'fail'
+    }
+  } catch (error) {
+    console.error(error)
     login_result.value = 'fail'
   }
   clearLogin_result()
