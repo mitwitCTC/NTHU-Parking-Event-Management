@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { Modal } from 'bootstrap'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
@@ -11,6 +11,14 @@ import ConfirmCouponModal from '@/components/ConfirmCouponModal.vue'
 import CaptchaErrorModal from '@/components/CaptchaErrorModal.vue'
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useROCYear } from '@/composables/getCurrentROCYear'
+const { rocYear, getROCYear } = useROCYear()
+onMounted(() => {
+  getROCYear()
+})
+
 const applicationData = ref({
   payment_method: '2', // 預設付費方式為計畫經費
   collection_method: '0', // 預設領券方式為電子郵件寄送
@@ -48,27 +56,38 @@ const showModal = ref(false) // 控制 Modal 顯示
 const errors = ref({}) // 儲存錯誤訊息
 
 function formValidate() {
-  const rules = {
+  const baseRules = {
     applicant: { required: true },
     phone_number: { required: true, phone_number: true },
     email: { required: true, email: true },
     payment_method: { required: true },
-    // project_number: { required: true },
     reason: { required: true },
     quantity: { required: true },
     collection_method: { required: true },
   }
 
+  // 根據 payment_method 動態調整規則
+  if (applicationData.value.payment_method === '2') {
+    baseRules.project_number = { required: true }
+    applicationData.value.company_name = ''
+    applicationData.value.vat_number = ''
+  } else if (applicationData.value.payment_method === '4') {
+    baseRules.company_name = { required: true }
+    if (invoice_needVat.value) {
+      baseRules.vat_number = { required: true }
+    }
+    applicationData.value.project_number = ''
+  }
+
   // 確保 formValidatorRef 正確引用 FormValidator 組件
   if (formValidatorRef.value) {
     const { isValid, errors: errorsResult } =
-      formValidatorRef.value.validateForm(applicationData.value, rules)
+      formValidatorRef.value.validateForm(applicationData.value, baseRules)
 
     // 如果驗證失敗
     if (!isValid) {
       errors.value = errorsResult
 
-      // 設定錯誤訊息
       showModal.value = true // 顯示驗證錯誤 Modal
     }
 
@@ -84,7 +103,26 @@ function closeValidatorModal() {
 }
 // 是否成功送出申請
 const isApplicationSuccess = ref(false)
+const formatApplicationData = ref({})
 async function apply() {
+  await getFormInfo('抵用券')
+  formatApplicationData.value = {
+    title: form_info.value.title,
+    form_code: form_info.value.form_code,
+    academic_year: rocYear.value,
+    applicant_type: 0,
+    applicant: applicationData.value.applicant,
+    phone_number: applicationData.value.phone_number,
+    email: applicationData.value.email,
+    payment_method: applicationData.value.payment_method,
+    project_number: applicationData.value.project_number,
+    company_name: applicationData.value.company_name,
+    buyer_tax_id: applicationData.value.vat_number,
+    reason_application: applicationData.value.reason,
+    coupon_quantity: applicationData.value.quantity,
+    receive_method: applicationData.value.collection_method,
+  }
+
   isApplicationSuccess.value = true
   router.replace('/application-success')
 }

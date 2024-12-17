@@ -1,10 +1,17 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 import StepNavigator from '@/components/StepNavigator.vue'
 import router from '@/router'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useROCYear } from '@/composables/getCurrentROCYear'
+const { rocYear, getROCYear } = useROCYear()
+onMounted(() => {
+  getROCYear()
+})
 const currentStep = ref(1)
 
 // 定義步驟資料
@@ -34,7 +41,7 @@ const applicant_data = ref({
   activity_end_date: '', // 活動日期(迄)
   activity_start_time: '', // 活動時間(起)
   activity_end_time: '', // 活動時間(迄)
-  campusToReceiveCertificate: '1', // 預設在校本部領證
+  activity_campus: '1', // 預設在校本部活動
   area: '', // 活動地點
   headcount: 0, // 預估參加人數
   bus_count: 0, // 預估入校遊覽車數
@@ -96,7 +103,7 @@ function formValidate() {
     activity_end_date: { required: true },
     activity_start_time: { required: true },
     activity_end_time: { required: true },
-    campusToReceiveCertificate: { required: true },
+    activity_campus: { required: true },
     area: { required: true },
     headcount: { required: true },
     bus_count: { required: true },
@@ -138,9 +145,30 @@ const showConfirmModal = ref(false) // 控制 確認送出申請Modal 顯示
 function closeConfirmModal() {
   showConfirmModal.value = false
 }
-function apply() {
+const formatApplicationData = ref({})
+async function apply() {
   if (formValidate()) {
-    console.log('送出', applicant_data.value)
+    await getFormInfo('活動')
+    formatApplicationData.value = {
+      title: form_info.value.title, // 表單名稱
+      form_code: form_info.value.form_code, // 表單代碼
+      academic_year: rocYear,
+      applicant_type: 0,
+      activity_title: applicant_data.value.activity_title,
+      activity_start_date: applicant_data.value.activity_start_date,
+      activity_end_date: applicant_data.value.activity_end_date,
+      activity_start_time: applicant_data.value.activity_start_time,
+      activity_end_time: applicant_data.value.activity_end_time,
+      activity_location: applicant_data.value.activity_campus,
+      event_location: applicant_data.value.area,
+      activity_people_quantity: applicant_data.value.headcount,
+      activity_bus_quantity: applicant_data.value.bus_count,
+      activity_car_quantity: applicant_data.value.car_count,
+      activity_source: applicant_data.value.source,
+      applicant: applicant_data.value.applicant,
+      phone_number: applicant_data.value.phone_number,
+      email: applicant_data.value.email,
+    }
     showConfirmModal.value = false
     router.replace({ name: 'Home' })
   }
@@ -250,11 +278,11 @@ function goToUploadDocuments() {
           <input
             class="form-check-input"
             type="radio"
-            id="campusToReceiveCertificate1"
-            v-model="applicant_data.campusToReceiveCertificate"
+            id="activity_campus1"
+            v-model="applicant_data.activity_campus"
             value="1"
           />
-          <label class="form-check-label" for="campusToReceiveCertificate1">
+          <label class="form-check-label" for="activity_campus1">
             {{ $t('pages.applyEvent.form.primaryCampus') }}
           </label>
         </div>
@@ -262,11 +290,11 @@ function goToUploadDocuments() {
           <input
             class="form-check-input"
             type="radio"
-            id="campusToReceiveCertificate2"
-            v-model="applicant_data.campusToReceiveCertificate"
+            id="activity_campus2"
+            v-model="applicant_data.activity_campus"
             value="2"
           />
-          <label class="form-check-label" for="campusToReceiveCertificate2">
+          <label class="form-check-label" for="activity_campus2">
             {{ $t('pages.applyEvent.form.nanDaCampus') }}
           </label>
         </div>
