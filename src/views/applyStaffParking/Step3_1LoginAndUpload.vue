@@ -1,4 +1,11 @@
 <script setup>
+import Api from '@/api'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useSerialStore } from '@/stores/serial_numberStore'
+const serialStore = useSerialStore()
+import { useStaffStore } from '@/stores/staffStore'
+const staffStore = useStaffStore()
 import { ref, onMounted } from 'vue'
 import StepNavigator from '@/components/StepNavigator.vue'
 import router from '@/router'
@@ -74,15 +81,31 @@ function closeValidatorModal() {
 }
 
 const login_result = ref('')
-function loginAndUpload() {
+async function loginAndUpload() {
   if (formValidate()) {
-    if (
-      login_data.value.plate == 'AAA-1111' &&
-      login_data.value.phone_number == '0909123456'
-    ) {
-      login_result.value = 'success'
-      router.push('/apply-staff-parking/step3_2')
-    } else {
+    try {
+      await getFormInfo('工作證')
+      const form_code = form_info.value.form_code
+      const response = await Api.post('/main/uploadLogin', {
+        form_code: form_code,
+        plate: login_data.value.plate,
+        phone_number: login_data.value.phone_number,
+        academic_year: login_data.value.academic_year,
+      })
+
+      if (response.data.returnCode == 0) {
+        login_result.value = 'success'
+        const serial_number = response.data.data[0].serial_number
+        serialStore.setSerialNumber(form_code, serial_number)
+        staffStore.setVehicleRegisteredList(response.data.data)
+        setTimeout(() => {
+          router.push('/apply-staff-parking/Step3_2')
+        }, 500)
+      } else {
+        login_result.value = 'fail'
+      }
+    } catch (error) {
+      console.error(error)
       login_result.value = 'fail'
     }
     clearLogin_result()

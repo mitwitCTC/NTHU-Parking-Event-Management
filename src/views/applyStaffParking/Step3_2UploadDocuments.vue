@@ -1,5 +1,7 @@
 <script setup>
 // import router from '@/router'
+import { useStaffStore } from '@/stores/staffStore'
+const staffStore = useStaffStore()
 import { onMounted, ref } from 'vue'
 import TheCaptcha from '@/components/TheCaptcha.vue'
 import { Modal } from 'bootstrap'
@@ -35,30 +37,11 @@ const applicationData = ref({
   campusToReceiveCertificate: '1', // 預設在校本部領證
 })
 async function getVehicle_registered_list() {
-  applicationData.value.vehicle_registered_list = [
-    {
-      plate: 'RCC-7788',
-      main_pass_code: 'WC',
-    },
-    {
-      plate: 'RAC-2356',
-      main_pass_code: 'WC',
-    },
-    {
-      plate: 'RAC-2356',
-      main_pass_code: 'WM',
-    },
-    {
-      plate: 'RAC-2356',
-      main_pass_code: 'WC',
-    },
-    {
-      plate: 'RAC-2356',
-      main_pass_code: 'WM',
-    },
-  ]
+  applicationData.value.vehicle_registered_list =
+    staffStore.staff_applicant_data_vehicle_registered_list
 }
 onMounted(() => {
+  staffStore.getVehicleRegisteredList()
   getVehicle_registered_list()
 })
 // 車證型態對照表
@@ -66,6 +49,10 @@ const main_pass_code_list = [
   {
     code: 'WC',
     des: '工作證汽車識別證',
+  },
+  {
+    code: 'HF',
+    des: '短期汽車識別證',
   },
   {
     code: 'WM',
@@ -154,9 +141,13 @@ function closeApplicatioinResultModal() {
             <span class="me-3">{{ item.plate }}</span>
             <span>
               {{
-                main_pass_code_list.find(
-                  code => code.code === item.main_pass_code,
-                )?.des || '未知'
+                $t(
+                  `all_main_pass_code_list.${
+                    main_pass_code_list.find(
+                      code => code.code === item.main_pass_code,
+                    )?.code || 'unknown'
+                  }`,
+                )
               }}
             </span>
           </p>
