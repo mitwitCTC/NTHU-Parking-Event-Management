@@ -1,11 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import StepNavigator from '@/components/StepNavigator.vue'
 import router from '@/router'
 import { useStaffStore } from '@/stores/staffStore'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
+import { useAcademicYears } from '@/composables/getAcademicYears.js'
+const { academicYears } = useAcademicYears('/api/academic-years')
 
 const currentStep = ref(1)
 // 定義步驟資料
@@ -31,19 +33,6 @@ const staffStore = useStaffStore()
 
 // 申請人資料
 const applicant_data = ref({})
-const academicYears = ref([]) // 用來儲存學年選項
-// 計算學年
-onMounted(() => {
-  const currentYear = new Date().getFullYear()
-  const currentAcademicYear = currentYear - 1911
-  const nextAcademicYear = currentAcademicYear + 1
-
-  // 更新學年選項
-  academicYears.value = [currentAcademicYear, nextAcademicYear]
-  // 預設選本學年
-  applicant_data.value.academic_year = currentAcademicYear
-  staffStore.getApplicantData()
-})
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
 const showModal = ref(false) // 控制 Modal 顯示
