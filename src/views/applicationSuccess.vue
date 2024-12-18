@@ -10,8 +10,14 @@ import TheLayout from '@/components/TheLayout.vue'
   >
     <template #content>
       <div
-        class="container d-flex justify-content-center align-items-center h-70vh"
+        class="container d-flex flex-column justify-content-center align-items-center h-70vh"
       >
+        <div class="img-container">
+          <img
+            src="/images/modal/Paomedia-Small-N-Flat-Sign-check.svg"
+            alt="check"
+          />
+        </div>
         <h3 class="lh-lg">
           <span>
             {{ $t('pages.applicationSuccess.received') }}
@@ -44,5 +50,15 @@ import TheLayout from '@/components/TheLayout.vue'
 <style scoped>
 .h-70vh {
   height: 70vh;
+}
+.img-container {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 40px;
+  img {
+    width: 100%;
+    height: 100%;
+    vertical-align: bottom;
+  }
 }
 </style>
