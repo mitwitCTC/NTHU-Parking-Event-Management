@@ -310,6 +310,11 @@
         "content": "The network or system is not responding currently. Please try uploading later.",
         "confirm": "Confirm"
     },
+    "pendingReviewRestrictionModal": {
+        "title": "Information confirmation",
+        "content": "pendingReviewRestrictionModal_content",
+        "confirm": "confirm"
+    },
     "notReadModal": {
         "title": "Information confirmation",
         "content": "Please read the permit instructions carefully and select \"I Have Read and Understood the Application Instructions\" before submitting the application.",

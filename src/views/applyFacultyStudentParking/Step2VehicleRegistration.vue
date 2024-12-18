@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import VehicleType from '@/components/applyFacultyStudentParking/VehicleType.vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 import router from '@/router'
@@ -71,6 +71,23 @@ onMounted(() => {
   getCar_types()
 })
 
+// 取得初始的車證剩餘可申請數量
+const initialPermitTypeRemaining = ref([])
+onMounted(() => {
+  facultyStudentStoreStore.getPermitTypeRemaining()
+  initialPermitTypeRemaining.value =
+    facultyStudentStoreStore.permitTypeRemaining
+})
+
+// 動態車證剩餘可申請數量
+const permitTypeRemaining = ref([])
+
+onMounted(() => {
+  permitTypeRemaining.value = JSON.parse(
+    JSON.stringify(initialPermitTypeRemaining.value),
+  )
+})
+
 const vehicle_registration_data = ref({
   plate: '', // 車牌，若為腳踏車，則為"腳踏車"
   car_type: '', // 車輛形式代號
@@ -78,6 +95,36 @@ const vehicle_registration_data = ref({
   main_pass_code: '', // 車證型態
 })
 const vehicle_registered_list = ref([])
+// 監控 vehicle_registered_list，動態更新 permitTypeRemaining
+watchEffect(() => {
+  const updatedRemaining = JSON.parse(
+    JSON.stringify(initialPermitTypeRemaining.value),
+  )
+
+  vehicle_registered_list.value.forEach(vehicle => {
+    const permit = updatedRemaining.find(
+      item => item.main_pass_code === vehicle.main_pass_code,
+    )
+    if (permit) {
+      permit.remaining_count = Math.max(0, permit.remaining_count - 1)
+    }
+  })
+
+  permitTypeRemaining.value = updatedRemaining
+})
+
+// 動態過濾車證選項
+const filteredMainPassCodeList = computed(() => {
+  return main_pass_code_list.value.filter(item => {
+    if (['TC', 'TE'].includes(item.code)) {
+      const permit = permitTypeRemaining.value.find(
+        p => p.main_pass_code === item.code,
+      )
+      return permit && permit.remaining_count > 0
+    }
+    return true // 其他選項永遠顯示
+  })
+})
 function addVehicle_registered_list() {
   // 在進行驗證之前，處理腳踏車特殊邏輯
   if (car_type_title.value == '腳踏車') {
@@ -277,7 +324,7 @@ onMounted(() => {
         v-model="vehicle_registration_data.main_pass_code"
       >
         <option
-          v-for="item in main_pass_code_list"
+          v-for="item in filteredMainPassCodeList"
           :key="item.code"
           :value="item.code"
         >

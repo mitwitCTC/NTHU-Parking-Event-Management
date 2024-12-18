@@ -1,10 +1,15 @@
 <script setup>
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
+import Api from '@/api'
 import router from '@/router'
 import { onMounted, ref } from 'vue'
 import { useAcademicYears } from '@/composables/getAcademicYears.js'
 const { academicYears } = useAcademicYears('/api/academic-years')
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
+import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
+import PendingReviewRestrictionModal from '@/components/PendingReviewRestrictionModal.vue'
 import { useFacultyStudentStore } from '@/stores/facultyStudentStore'
 
 const facultyStudentStore = useFacultyStudentStore()
@@ -27,6 +32,48 @@ async function getBasic_info() {
   applicant_data.value.phone_number = '0960712213'
   generateSerialNumber()
 }
+const showApplicatioinResultModal = ref(false) // 控制 提交失敗結果Modal 顯示
+
+function closeApplicatioinResultModal() {
+  showApplicatioinResultModal.value = false
+}
+
+const ischeckingPlateCount = ref(false) // 等待確認車輛數資料回傳中
+const showPendingReviewRestrictionModal = ref(false) // 有審核中/待審核申請 Modal
+// 確認車輛數
+async function checkPlateCount() {
+  ischeckingPlateCount.value = true
+  try {
+    const response = await Api.post('/main/plateCount', {
+      academic_year: applicant_data.value.academic_year,
+      applicant_number: applicant_data.value.applicant_number,
+    })
+    if (response.data.returnCode == -2) {
+      showPendingReviewRestrictionModal.value = true
+    } else if (response.data.returnCode == 0) {
+      if (response.data.message === '目前已登記車輛數') {
+        facultyStudentStore.filterAndCalculatePassCodes(response.data.data)
+      } else if (response.data.message === '無資料') {
+        facultyStudentStore.setPermitTypeRemaining([
+          { main_pass_code: 'TC', remaining_count: 5 },
+          { main_pass_code: 'TE', remaining_count: 5 },
+        ])
+      }
+    } else {
+      showApplicatioinResultModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showApplicatioinResultModal.value = true
+  } finally {
+    ischeckingPlateCount.value = false
+  }
+}
+function closePendingReviewRestrictionModal() {
+  showPendingReviewRestrictionModal.value = false
+  router.push({ name: 'Home' })
+}
+
 // 建立表單序號
 function generateSerialNumber() {
   const now = new Date()
@@ -48,7 +95,6 @@ function generateSerialNumber() {
 onMounted(() => {
   getBasic_info()
 })
-
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
 const showModal = ref(false) // 控制 Modal 顯示
@@ -100,6 +146,8 @@ function closeValidatorModal() {
     <!-- 引入 FormValidator 元件 -->
     <FormValidator ref="formValidatorRef" />
 
+    <loading :active="ischeckingPlateCount" :is-full-page="true"></loading>
+    <!-- <p v-if="ischeckingPlateCount" class="loading-overlay">載入中...</p> -->
     <section>
       <p class="m-0">
         <span>{{ applicant_data.applicant_type_title }}</span>
@@ -121,7 +169,11 @@ function closeValidatorModal() {
               $t('pages.applyFacultyStudentParking.basic_info.academic_year')
             }}
           </label>
-          <select class="form-select" v-model="applicant_data.academic_year">
+          <select
+            class="form-select"
+            v-model="applicant_data.academic_year"
+            @change="checkPlateCount"
+          >
             <option v-for="year in academicYears" :key="year" :value="year">
               {{ year }}
             </option>
@@ -192,6 +244,16 @@ function closeValidatorModal() {
       </form>
     </section>
 
+    <!-- 提交申請失敗 modal 開始 -->
+    <ApplicatioinResultModal
+      :showApplicatioinResultModal="showApplicatioinResultModal"
+      @close="closeApplicatioinResultModal"
+    />
+    <!-- 申請限制 modal  -->
+    <PendingReviewRestrictionModal
+      :showPendingReviewRestrictionModal="showPendingReviewRestrictionModal"
+      @close="closePendingReviewRestrictionModal"
+    />
     <!-- 引入 ValidationModal 元件 -->
     <ValidationModal
       :showModal="showModal"
