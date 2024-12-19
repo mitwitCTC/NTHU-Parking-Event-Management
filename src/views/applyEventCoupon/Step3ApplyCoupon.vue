@@ -1,4 +1,17 @@
 <script setup>
+import Api from '@/api'
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import { useEventCouponStore } from '@/stores/eventCouponStore'
+const eventCouponStore = useEventCouponStore()
+import { useROCYear } from '@/composables/getCurrentROCYear'
+const { rocYear, getROCYear } = useROCYear()
+const applicationData_basic_info = ref({})
+onMounted(() => {
+  getROCYear()
+  eventCouponStore.getApplicantData()
+  applicationData_basic_info.value = eventCouponStore.applicant_data
+})
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { Modal } from 'bootstrap'
@@ -15,14 +28,6 @@ const applicationData = ref({
   payment_method: '2', // 預設付費方式為計畫經費
   collection_method: '0', // 預設領券方式為電子郵件寄送
   captcha: '',
-})
-async function getaAplicationData() {
-  ;(applicationData.value.applicant = '金城武'),
-    (applicationData.value.email = 'YYY@ess.nthu.edu.tw'),
-    (applicationData.value.phone_number = '0900123456')
-}
-onMounted(() => {
-  getaAplicationData()
 })
 const payment_methods = ref([
   { value: '2', labelKey: 'pages.applyEventCoupon.coupon.payment.project' },
@@ -48,7 +53,7 @@ const confirmAction = () => {
   certificateApplicationInstructionsRead.value = true
   closeIntroductionModal()
 }
-const invoice_needVat = ref(null)
+const invoice_needVat = ref(true)
 // 驗證碼
 const generatedCaptcha = ref('')
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
@@ -56,23 +61,34 @@ const showModal = ref(false) // 控制 Modal 顯示
 const errors = ref({}) // 儲存錯誤訊息
 
 function formValidate() {
-  const rules = {
+  const baseRules = {
     payment_method: { required: true },
-    // project_number: { required: true },
     reason: { required: true },
     quantity: { required: true },
     collection_method: { required: true },
   }
 
+  // 根據 payment_method 動態調整規則
+  if (applicationData.value.payment_method === '2') {
+    baseRules.project_number = { required: true }
+    applicationData.value.company_name = ''
+    applicationData.value.vat_number = ''
+  } else if (applicationData.value.payment_method === '4') {
+    baseRules.company_name = { required: true }
+    if (invoice_needVat.value) {
+      baseRules.vat_number = { required: true }
+    }
+    applicationData.value.project_number = ''
+  }
+
   // 確保 formValidatorRef 正確引用 FormValidator 組件
   if (formValidatorRef.value) {
     const { isValid, errors: errorsResult } =
-      formValidatorRef.value.validateForm(applicationData.value, rules)
+      formValidatorRef.value.validateForm(applicationData.value, baseRules)
 
     // 如果驗證失敗
     if (!isValid) {
       errors.value = errorsResult
-      console.log(errors.value)
 
       // 設定錯誤訊息
       showModal.value = true // 顯示驗證錯誤 Modal
@@ -88,11 +104,45 @@ function formValidate() {
 function closeValidatorModal() {
   showModal.value = false
 }
-// 是否成功送出申請
-const isApplicationSuccess = ref(false)
-async function apply() {
-  isApplicationSuccess.value = true
-  router.replace('/application-success')
+// 組合送出表單所需資料
+const formatApplicationData = ref({})
+async function prepareApplicationData() {
+  await getFormInfo('抵用券')
+  formatApplicationData.value = {
+    title: form_info.value.title,
+    academic_year: rocYear.value,
+    form_code: form_info.value.form_code,
+    applicant: eventCouponStore.applicant_data.applicant,
+    applicant_type: 0,
+    phone_number: eventCouponStore.applicant_data.phone_number,
+    email: eventCouponStore.applicant_data.email,
+    payment_method: applicationData.value.payment_method,
+    project_number: applicationData.value.project_number,
+    reason_application: applicationData.value.reason,
+    coupon_quantity: applicationData.value.quantity,
+    receive_method: applicationData.value.collection_method,
+    company_name: applicationData.value.company_name,
+    buyer_tax_id: applicationData.value.vat_number,
+  }
+}
+async function submitApplication() {
+  await prepareApplicationData()
+  try {
+    const response = await Api.post(
+      '/main/applicationForm',
+      formatApplicationData.value,
+    )
+    if (response.data.returnCode == 0) {
+      router.replace({ name: 'applicationSuccess' })
+    } else {
+      showApplicatioinResultModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showApplicatioinResultModal.value = true
+  } finally {
+    showConfirmCouponModal.value = false
+  }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
 
@@ -133,13 +183,13 @@ function closeCaptchaModal() {
 <template>
   <section>
     <p class="m-0">
-      <span>{{ applicationData.applicant }}</span>
+      <span>{{ applicationData_basic_info.applicant }}</span>
     </p>
     <p class="my-1">
-      {{ applicationData.email }}
+      {{ applicationData_basic_info.email }}
     </p>
     <p class="m-0">
-      {{ applicationData.phone_number }}
+      {{ applicationData_basic_info.phone_number }}
     </p>
   </section>
   <!-- 引入 FormValidator 元件 -->
@@ -381,7 +431,7 @@ function closeCaptchaModal() {
   <ConfirmCouponModal
     :showConfirmCouponModal="showConfirmCouponModal"
     @close="closeConfirmCouponModal"
-    @apply="apply"
+    @apply="submitApplication"
   />
   <!-- 未閱讀辦證說明 modal 開始 -->
   <NotReadModal
