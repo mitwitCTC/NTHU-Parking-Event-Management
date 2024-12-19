@@ -450,6 +450,9 @@ function closeCaptchaModal() {
   />
 </template>
 <style scoped>
+.pointer {
+  cursor: pointer;
+}
 textarea {
   resize: none;
 }
