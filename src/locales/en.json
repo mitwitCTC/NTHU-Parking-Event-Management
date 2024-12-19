@@ -294,6 +294,35 @@
             "checkProgress": "and select ",
             "queryLinks": " \"Application Progress Inquiry.\" ",
             "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
+        },
+        "query": {
+            "title": "title",
+            "subtitle": "subtitle",
+            "select": "select",
+            "queryFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
+            "queryFacultyStudentParking_subtitle": "Inquiry about car, motorcycle, and bicycle permits",
+            "queryStaffParking": "Parking Permit for Staff Members",
+            "queryStaffParking_subtitle": "Inquiry about car and motorcycle work permits",
+            "queryEvent": "Self-organized Activities by Units",
+            "queryEvent_subtitle": "Activity Inquiry",
+            "queryCoupon": "Pre-purchase Vouchers",
+            "queryCoupon_subtitle": "Application and Pre-purchase for Parking vouchers"
+        },
+        "queryStaffParking": {
+            "title": "Parking Permit for Staff Members",
+            "subtitle": "Inquiry about car and motorcycle work permits"
+        },
+        "queryFacultyStudentParking": {
+            "title": "Parking Permit for Faculty, Staff, and Students",
+            "subtitle": "Inquiry about car, motorcycle, and bicycle permits"
+        },
+        "queryEvent": {
+            "title": "Self-organized Activities by Units",
+            "subtitle": "Activity Inquiry"
+        },
+        "queryCoupon": {
+            "title": "Pre-purchase Vouchers",
+            "subtitle": "Application and Pre-purchase for Parking vouchers"
         }
     },
     "stepNavigator": {

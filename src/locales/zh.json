@@ -294,6 +294,35 @@
             "checkProgress": "選擇",
             "queryLinks": "『申請進度查詢』",
             "progressInquiry": "。相關進度系統也會透過 email 發送，謝謝！"
+        },
+        "query": {
+            "title": "駐警隊申請查詢",
+            "subtitle": "車證、工作證、折抵券、活動申請",
+            "select": "請選擇查詢項目",
+            "queryFacultyStudentParking": "教職員工生停車證",
+            "queryFacultyStudentParking_subtitle": "汽車、機車及腳踏車證查詢",
+            "queryStaffParking": "工作人員停車證",
+            "queryStaffParking_subtitle": "汽車、機車工作證查詢",
+            "queryEvent": "各單位自辦活動",
+            "queryEvent_subtitle": "活動查詢",
+            "queryCoupon": "預購抵用券",
+            "queryCoupon_subtitle": "停車抵用券申請及預購查詢"
+        },
+        "queryStaffParking": {
+            "title": "工作人員停車證",
+            "subtitle": "汽車、機車工作證查詢"
+        },
+        "queryFacultyStudentParking": {
+            "title": "停車證查詢",
+            "subtitle": "汽車、機車及腳踏車證查詢"
+        },
+        "queryEvent": {
+            "title": "各單位自辦活動",
+            "subtitle": "活動查詢"
+        },
+        "queryCoupon": {
+            "title": "預購抵用券",
+            "subtitle": "停車抵用券申請及預購查詢"
         }
     },
     "stepNavigator": {

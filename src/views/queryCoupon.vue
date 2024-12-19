@@ -1,8 +1,21 @@
+<script setup>
+import TheLayout from '@/components/TheLayout.vue'
+</script>
+
 <template>
-  <div>
-    <p>
-      活動及預購抵用券 <br />
-      活動及活動使用停車抵用券查詢
-    </p>
-  </div>
+  <TheLayout
+    :title="$t('pages.queryCoupon.title')"
+    :subtitle="$t('pages.queryCoupon.subtitle')"
+    :showBackIcon="true"
+  >
+    <template #content>
+      <div class="container"></div>
+    </template>
+  </TheLayout>
 </template>
+
+<style scoped>
+.back-icon {
+  cursor: pointer;
+}
+</style>

@@ -1,8 +1,21 @@
+<script setup>
+import TheLayout from '@/components/TheLayout.vue'
+</script>
+
 <template>
-  <div>
-    <p>
-      工作人員停車證<br />
-      汽車、機車工作證查詢
-    </p>
-  </div>
+  <TheLayout
+    :title="$t('pages.queryStaffParking.title')"
+    :subtitle="$t('pages.queryStaffParking.subtitle')"
+    :showBackIcon="true"
+  >
+    <template #content>
+      <div class="container"></div>
+    </template>
+  </TheLayout>
 </template>
+
+<style scoped>
+.back-icon {
+  cursor: pointer;
+}
+</style>
