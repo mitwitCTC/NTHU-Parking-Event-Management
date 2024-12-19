@@ -1,4 +1,27 @@
 <script setup>
+const validateUnifiedNumber = unifiedNumber => {
+  if (!/^\d{8}$/.test(unifiedNumber)) {
+    return false
+  }
+
+  const weights = [1, 2, 1, 2, 1, 2, 4, 1]
+  let sum = 0
+
+  for (let i = 0; i < 8; i++) {
+    let product = parseInt(unifiedNumber[i]) * weights[i]
+    sum += Math.floor(product / 10) + (product % 10)
+  }
+
+  if (sum % 10 === 0) {
+    return true
+  }
+
+  if (unifiedNumber[6] === '7' && (sum + 1) % 10 === 0) {
+    return true
+  }
+
+  return false
+}
 const validateForm = (formData, rules) => {
   let isValid = true
   let errors = {}
@@ -52,6 +75,12 @@ const validateForm = (formData, rules) => {
     ) {
       isValid = false
       errors[field] = `${field} 必須包含且僅包含一個 "-"，不得有其他符號`
+    }
+
+    // 統一編號驗證
+    if (rule.vat_number && stringValue && !validateUnifiedNumber(stringValue)) {
+      isValid = false
+      errors[field] = `${field} 不是有效的統一編號`
     }
   })
 

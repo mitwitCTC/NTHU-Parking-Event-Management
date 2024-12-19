@@ -75,7 +75,7 @@ function formValidate() {
   } else if (applicationData.value.payment_method === '4') {
     baseRules.company_name = { required: true }
     if (invoice_needVat.value) {
-      baseRules.vat_number = { required: true }
+      baseRules.vat_number = { required: true, vat_number: true }
     }
     applicationData.value.project_number = ''
   }
