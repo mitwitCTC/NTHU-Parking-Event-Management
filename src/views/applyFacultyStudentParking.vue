@@ -21,9 +21,7 @@ onMounted(() => {
     :showBackIcon="true"
   >
     <template #content>
-      <div class="container">
-        <router-view></router-view>
-      </div>
+      <router-view></router-view>
     </template>
   </TheLayout>
 </template>

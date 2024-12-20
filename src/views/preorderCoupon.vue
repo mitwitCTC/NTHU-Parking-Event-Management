@@ -9,9 +9,7 @@ import TheLayout from '@/components/TheLayout.vue'
     :showBackIcon="true"
   >
     <template #content>
-      <div class="container">
-        <router-view></router-view>
-      </div>
+      <router-view></router-view>
     </template>
   </TheLayout>
 </template>

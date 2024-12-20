@@ -57,7 +57,9 @@ onUnmounted(() => {
       height: '100vh',
     }"
   >
-    <slot name="content"></slot>
+    <div class="container">
+      <slot name="content"></slot>
+    </div>
   </div>
 </template>
 

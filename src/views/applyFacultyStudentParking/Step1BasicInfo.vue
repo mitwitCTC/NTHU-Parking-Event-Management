@@ -181,7 +181,6 @@ function closeValidatorModal() {
     <FormValidator ref="formValidatorRef" />
 
     <loading :active="ischeckingPlateCount" :is-full-page="true"></loading>
-    <!-- <p v-if="ischeckingPlateCount" class="loading-overlay">載入中...</p> -->
     <section>
       <p class="m-0">
         <span>{{ applicant_data.applicant_type_title }}</span>
