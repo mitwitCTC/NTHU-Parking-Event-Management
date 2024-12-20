@@ -52,7 +52,41 @@ async function checkPlateCount() {
       showPendingReviewRestrictionModal.value = true
     } else if (response.data.returnCode == 0) {
       if (response.data.message === '目前已登記車輛數') {
-        facultyStudentStore.filterAndCalculatePassCodes(response.data.data)
+        const data = response.data.data
+
+        const hasTC = data.some(item => item.main_pass_code === 'TC')
+        const hasTE = data.some(item => item.main_pass_code === 'TE')
+
+        let resultData = []
+
+        if (hasTC && hasTE) {
+          // 有 TC 和 TE，存入其資料
+          resultData = data.filter(
+            item =>
+              item.main_pass_code === 'TC' || item.main_pass_code === 'TE',
+          )
+        } else if (hasTC && !hasTE) {
+          // 有 TC 無 TE
+          resultData = data.filter(item => item.main_pass_code === 'TC')
+          resultData.push({ main_pass_code: 'TE', count: 5 })
+        } else if (!hasTC && hasTE) {
+          // 無 TC 有 TE
+          resultData = data.filter(item => item.main_pass_code === 'TE')
+          resultData.push({ main_pass_code: 'TC', count: 5 })
+        } else {
+          // 無 TC 無 TE
+          resultData = [
+            { main_pass_code: 'TC', count: 5 },
+            { main_pass_code: 'TE', count: 5 },
+          ]
+        }
+
+        facultyStudentStore.setPermitTypeRemaining(
+          resultData.map(item => ({
+            main_pass_code: item.main_pass_code,
+            remaining_count: item.count,
+          })),
+        )
       } else if (response.data.message === '無資料') {
         facultyStudentStore.setPermitTypeRemaining([
           { main_pass_code: 'TC', remaining_count: 5 },
