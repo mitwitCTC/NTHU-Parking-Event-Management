@@ -1,5 +1,5 @@
 <script setup>
-import Api from '@/api'
+import pacaApi from '@/pacaApi'
 import router from '@/router'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
@@ -14,6 +14,7 @@ import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import NotReadModal from '@/components/NotReadModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 import CaptchaErrorModal from '@/components/CaptchaErrorModal.vue'
+import imageCompression from 'browser-image-compression'
 
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
@@ -64,12 +65,67 @@ const main_pass_code_list = [
   },
 ]
 
-// 上傳證件
-function handleFileUpload(event, index) {
-  const file = event.target.files[0]
-  if (file) {
-    applicationData.value.document_list[index] = file
+async function compressImage(file) {
+  try {
+    const options = {
+      maxSizeMB: 1, // 壓縮目標為 1MB 以下
+      // maxWidthOrHeight: 1920, // 限制圖片最大寬度或高度
+      useWebWorker: true, // 使用 Web Worker 加速壓縮
+    }
+    const compressedFile = await imageCompression(file, options)
+    return compressedFile
+  } catch (error) {
+    console.error('壓縮圖片失敗：', error)
+    return file // 如果壓縮失敗，回傳原始檔案
   }
+}
+
+// 上傳單筆證件
+async function handleFileUpload(event, index) {
+  const file = event.target.files[0]
+  if (!file) return
+
+  const allowedImageTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'image/heic',
+  ]
+  const isPdf = file.type === 'application/pdf'
+  const isImage = allowedImageTypes.includes(file.type)
+  const maxPdfSize = 1 * 1024 * 1024 // 1MB for PDFs
+  const maxImageSize = 5 * 1024 * 1024 // 5MB for images
+  const compressionLimitSize = 1 * 1024 * 1024
+
+  // 驗證檔案類型
+  if (!isPdf && !isImage) {
+    alert('只支援上傳 PDF 或圖片檔案！Only PDF or image files are supported.')
+    event.target.value = '' // 清空檔案輸入
+    return
+  }
+
+  // 驗證檔案大小
+  if (isPdf && file.size > maxPdfSize) {
+    alert(
+      'PDF 檔案大小不可超過 1MB，請重新上傳！The PDF file size cannot exceed 1MB, please re-upload.',
+    )
+    event.target.value = '' // 清空檔案輸入
+    return
+  }
+  if (isImage && file.size > maxImageSize) {
+    alert(
+      '圖片檔案大小不可超過 5MB，請重新上傳！The image file size cannot exceed 5MB, please re-upload.',
+    )
+    event.target.value = '' // 清空檔案輸入
+    return
+  }
+  // 如果是圖片且大於 1MB，進行壓縮
+  let finalFile = file
+  if (isImage && file.size > compressionLimitSize) {
+    finalFile = await compressImage(file)
+  }
+  // 更新檔案
+  applicationData.value.document_list[index] = finalFile
 }
 // 刪除上傳的證件
 function removeFile(index) {
@@ -127,21 +183,22 @@ async function apply() {
 
   // 添加檔案至 FormData
   validFiles.forEach(file => {
-    if (file instanceof File) {
-      formData.append('file', file)
+    if (file instanceof Blob) {
+      formData.append('attachment', file, file.name)
     } else {
       console.error('無效檔案', file)
     }
   })
 
   try {
-    const response = await Api.post('/main/uploadDocuments', formData, {
+    const response = await pacaApi.post('/v2/forms/attachment', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        authorization:
+          'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
       },
     })
 
-    if (response.data.returnCode == 0) {
+    if (response.status === 200) {
       // 文件上傳成功
       serialStore.clearSerialNumber(form_code)
       router.replace('/application-success')
@@ -155,7 +212,7 @@ async function apply() {
   } catch (error) {
     //  恢復 document_list 為原始資料
     applicationData.value.document_list = [...originalDocumentList]
-    console.error('上傳文件時發生錯誤', error)
+    console.error('上傳文件時發生錯誤', error.response?.data || error.message)
     showApplicatioinResultModal.value = true
     return false
   } finally {
