@@ -298,6 +298,7 @@
         "query": {
             "title": "駐警隊申請查詢",
             "subtitle": "車證、工作證、折抵券、活動申請",
+            "goHomePage": "回申請首頁",
             "select": "請選擇查詢項目",
             "queryFacultyStudentParking": "教職員工生停車證",
             "queryFacultyStudentParking_subtitle": "汽車、機車及腳踏車證查詢",
@@ -306,7 +307,7 @@
             "queryEvent": "各單位自辦活動",
             "queryEvent_subtitle": "活動查詢",
             "queryCoupon": "預購抵用券",
-            "queryCoupon_subtitle": "停車抵用券申請及預購查詢"
+            "queryCoupon_subtitle": "預購抵用券查詢"
         },
         "queryStaffParking": {
             "title": "工作人員停車證",

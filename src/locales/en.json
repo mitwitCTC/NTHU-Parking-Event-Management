@@ -299,6 +299,7 @@
             "title": "title",
             "subtitle": "subtitle",
             "select": "select",
+            "goHomePage": "Go back to the\napplication page",
             "queryFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
             "queryFacultyStudentParking_subtitle": "Inquiry about car, motorcycle, and bicycle permits",
             "queryStaffParking": "Parking Permit for Staff Members",
