@@ -48,9 +48,8 @@ async function checkPlateCount() {
       academic_year: applicant_data.value.academic_year,
       applicant_number: applicant_data.value.applicant_number,
     })
-    if (response.data.returnCode == -2) {
-      showPendingReviewRestrictionModal.value = true
-    } else if (response.data.returnCode == 0) {
+
+    if (response.data.returnCode == 0) {
       if (response.data.message === '目前已登記車輛數') {
         const data = response.data.data
 
@@ -93,6 +92,14 @@ async function checkPlateCount() {
           { main_pass_code: 'TE', remaining_count: 5 },
         ])
       }
+    } else if (response.data.returnCode == -2) {
+      showPendingReviewRestrictionModal.value = true
+    } else if (response.data.returnCode == -3) {
+      // 泊律恆無此表單
+      facultyStudentStore.setPermitTypeRemaining([
+        { main_pass_code: 'TC', remaining_count: 5 },
+        { main_pass_code: 'TE', remaining_count: 5 },
+      ])
     } else {
       showApplicatioinResultModal.value = true
     }
