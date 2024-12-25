@@ -39,7 +39,6 @@ const confirmAction = () => {
 const applicationData = ref({
   vehicle_registered_list: [],
   document_list: Array(5).fill(null),
-  campusToReceiveCertificate: '1', // 預設在校本部領證
 })
 async function getVehicle_registered_list() {
   applicationData.value.vehicle_registered_list =
@@ -235,37 +234,6 @@ function closeApplicatioinResultModal() {
           class="d-none"
           @change="handleFileUpload($event, index)"
         />
-      </div>
-    </div>
-    <div class="mb-3">
-      {{
-        $t('pages.applyStaffParking.uploadDocuments.campusToReceiveCertificate')
-      }}
-      <div class="d-flex flex-column flex-md-row gap-md-5">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="campusToReceiveCertificate1"
-            v-model="applicationData.campusToReceiveCertificate"
-            value="1"
-          />
-          <label class="form-check-label" for="campusToReceiveCertificate1">
-            {{ $t('pages.applyStaffParking.uploadDocuments.primaryCampus') }}
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="campusToReceiveCertificate2"
-            v-model="applicationData.campusToReceiveCertificate"
-            value="2"
-          />
-          <label class="form-check-label" for="campusToReceiveCertificate2">
-            {{ $t('pages.applyStaffParking.uploadDocuments.nanDaCampus') }}
-          </label>
-        </div>
       </div>
     </div>
     <div class="mb-3">

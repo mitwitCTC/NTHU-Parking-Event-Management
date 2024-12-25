@@ -32,7 +32,9 @@ const steps = [
 const staffStore = useStaffStore()
 
 // 申請人資料
-const applicant_data = ref({})
+const applicant_data = ref({
+  campusToReceiveCertificate: '1', // 預設在校本部領證
+})
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
 const showModal = ref(false) // 控制 Modal 顯示
@@ -135,6 +137,37 @@ function apply() {
         id="phone_number"
         v-model="applicant_data.phone_number"
       />
+    </div>
+    <div class="mb-3">
+      {{
+        $t('pages.applyStaffParking.uploadDocuments.campusToReceiveCertificate')
+      }}
+      <div class="d-flex flex-column flex-md-row gap-md-5">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="campusToReceiveCertificate1"
+            v-model="applicant_data.campusToReceiveCertificate"
+            value="1"
+          />
+          <label class="form-check-label" for="campusToReceiveCertificate1">
+            {{ $t('pages.applyStaffParking.uploadDocuments.primaryCampus') }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="campusToReceiveCertificate2"
+            v-model="applicant_data.campusToReceiveCertificate"
+            value="2"
+          />
+          <label class="form-check-label" for="campusToReceiveCertificate2">
+            {{ $t('pages.applyStaffParking.uploadDocuments.nanDaCampus') }}
+          </label>
+        </div>
+      </div>
     </div>
     <div class="mb-3">
       <label for="academic_year" class="form-label">

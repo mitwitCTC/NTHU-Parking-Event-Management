@@ -161,6 +161,7 @@ async function prepareApplicationData() {
     academic_year: staffStore.applicant_data.academic_year,
     applicant_source: staffStore.applicant_data.applicant_source,
     applicant_type: 4, // 申請人類別：校外人員
+    receive_location: staffStore.applicant_data.campusToReceiveCertificate,
     email: staffStore.applicant_data.email || '',
     phone_number: staffStore.applicant_data.phone_number,
     content: vehicle_registered_list.value,
@@ -186,6 +187,7 @@ async function submitApplication() {
     }
   } catch (error) {
     console.error(error)
+    showApplicatioinResultModal.value = true
   }
 }
 function closeApplicatioinResultModal() {
