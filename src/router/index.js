@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import applyFacultyStudentParking from '@/views/applyFacultyStudentParking.vue'
 import applyStaffParking from '@/views/applyStaffParking.vue'
@@ -7,13 +7,13 @@ import applyEventCoupon from '@/views/applyEventCoupon.vue'
 import preorderCoupon from '@/views/preorderCoupon.vue'
 import applicationSuccess from '@/views/applicationSuccess.vue'
 import queryLinks from '@/views/queryLinks.vue'
-import queryFacultyStudentParking from '@/views/queryFacultyStudentParking.vue'
+import queryFacultyStudentParking from '@/views/queryFacultyStudentParking/TheIndex.vue'
 import queryStaffParking from '@/views/queryStaffParking.vue'
 import queryEvent from '@/views/queryEvent.vue'
 import queryCoupon from '@/views/queryCoupon.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -181,6 +181,12 @@ const router = createRouter({
       path: '/query-faculty-student-parking',
       name: 'QueryFacultyStudentParking',
       component: queryFacultyStudentParking,
+    },
+    {
+      path: '/query-faculty-student-parking/:id',
+      name: 'QueryFacultyStudentParkingDetail',
+      component: () =>
+        import('@/views/queryFacultyStudentParking/TheDetail.vue'),
     },
     {
       path: '/query-staff-parking',

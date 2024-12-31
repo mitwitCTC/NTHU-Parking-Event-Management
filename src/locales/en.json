@@ -315,7 +315,13 @@
         },
         "queryFacultyStudentParking": {
             "title": "Parking Permit for Faculty, Staff, and Students",
-            "subtitle": "Inquiry about car, motorcycle, and bicycle permits"
+            "subtitle": "Inquiry about car, motorcycle, and bicycle permits",
+            "applicant_number": "Applicant number",
+            "phone_number": "Phone number",
+            "academic_year": "Academic Year",
+            "query": "search",
+            "serial_number": "Serial number",
+            "status": "Status"
         },
         "queryEvent": {
             "title": "Self-organized Activities by Units",
@@ -379,6 +385,26 @@
         "Electric": "Electric Vehicle",
         "Diesel": "Diesel Vehicle"
     },
+    "statuses": {
+        "form_status": {
+            "0": "待審核E",
+            "1": "審核中E",
+            "2": "已審核E",
+            "3": "已退件E",
+            "4": "無審核E",
+            "999": "申請人抽單E",
+            "unknown": "Unknown"
+        },
+        "payment_status": {
+            "1": "已繳費E",
+            "0": "未繳費E"
+        },
+        "receive_status": {
+            "1": "已領用E",
+            "0": "未領用E"
+        },
+        "unknown": "未知狀態E"
+    },
     "commute_distances": {
         "5_10km": "5-10km",
         "10_20km": "10-20km",
@@ -391,6 +417,16 @@
         "title": "Information confirmation",
         "message": "Please confirm again whether the application information is correct.",
         "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "noSearchResultModal": {
+        "title": "no result title",
+        "message": "message",
+        "confirm": "Confirm"
+    },
+    "searchFailModal": {
+        "title": "searchFail_title",
+        "message": "searchFail_message",
         "confirm": "Confirm"
     }
 }
