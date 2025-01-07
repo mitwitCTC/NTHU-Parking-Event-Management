@@ -323,6 +323,21 @@
             "serial_number": "表單號碼",
             "status": "狀態"
         },
+        "queryFacultyStudentParking_details": {
+            "form_info": "表單資訊",
+            "application_date": "申請日期",
+            "cancel_application_date": "取消申請日期",
+            "plate": "申請車號",
+            "cancel_application_plate": "取消申請車號",
+            "main_pass_code": "車證",
+            "receive_campus": "領證校區",
+            "payment_method": "繳費方式",
+            "amount": "繳費金額",
+            "receive_status": "領證狀態",
+            "download": "下載",
+            "search_invoice": "發票查詢",
+            "cancel_application": "取消申請"
+        },
         "queryEvent": {
             "title": "各單位自辦活動",
             "subtitle": "活動查詢"
@@ -375,6 +390,7 @@
         "TM": "教職員機車識別證",
         "TME": "職務宿舍區機車識別證",
         "SM": "學生機車識別證",
+        "BS": "所有腳踏車識別證",
         "WC": "工作證汽車識別證",
         "WM": "工作機車識別證",
         "unknown": "未知"
@@ -387,12 +403,12 @@
     },
     "statuses": {
         "form_status": {
-            "0": "待審核",
-            "1": "審核中",
+            "0": "待審中",
+            "1": "待審中",
             "2": "已審核",
             "3": "已退件",
             "4": "無審核",
-            "999": "申請人抽單",
+            "999": "取消申請",
             "unknown": "未知狀態"
         },
         "payment_status": {
@@ -401,9 +417,25 @@
         },
         "receive_status": {
             "1": "已領用",
-            "0": "未領用"
+            "0": "未領用",
+            "unknown": "未知"
         },
         "unknown": "未知狀態"
+    },
+    "payment_methods": {
+        "1": "薪資扣款",
+        "2": "繳費單",
+        "3": "線上繳費",
+        "4": "計畫經費",
+        "0": "未定義",
+        "unknown": "未知"
+    },
+    "receive_location": {
+        "0": "未定義",
+        "1": "校本部",
+        "2": "南校區",
+        "999": "全校區",
+        "unknown": "未知"
     },
     "commute_distances": {
         "5_10km": "5-10km",

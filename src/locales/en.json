@@ -323,6 +323,21 @@
             "serial_number": "Serial number",
             "status": "Status"
         },
+        "queryFacultyStudentParking_details": {
+            "form_info": "Form info",
+            "application_date": "Application Date",
+            "cancel_application_date": "Cancellation date",
+            "plate": "License Plate Number",
+            "main_pass_code": "Type of Permit",
+            "cancel_application_plate": "Cancel vehicle registration application",
+            "receive_campus": "Main / Nanda Campus Parking Permit",
+            "payment_method": "Payment Method",
+            "amount": "Payment amount",
+            "receive_status": "Collection status",
+            "download": "Download",
+            "search_invoice": "Tax invoice inquiry",
+            "cancel_application": "Cancell Application"
+        },
         "queryEvent": {
             "title": "Self-organized Activities by Units",
             "subtitle": "Activity Inquiry"
@@ -375,6 +390,7 @@
         "TM": "Faculty and Staff On-campus Vehicle Permit",
         "TME": "Vehicle Permit for Residential Staff Quarters",
         "SM": "Student Vehicle Permit",
+        "BS": "Bicycle Permit",
         "WC": "WC",
         "WM": "WM",
         "unknown": "Unknown"
@@ -401,9 +417,23 @@
         },
         "receive_status": {
             "1": "已領用E",
-            "0": "未領用E"
+            "0": "未領用E",
+            "unknown": "Unknown"
         },
         "unknown": "未知狀態E"
+    },
+    "payment_methods": {
+        "1": "Pay deduction",
+        "2": "Bill",
+        "3": "Online",
+        "4": "Project Funds",
+        "0": "Unknown"
+    },
+    "receive_location": {
+        "0": "Unknown",
+        "1": "Main Campus",
+        "2": "Nanda Campus",
+        "999": "All"
     },
     "commute_distances": {
         "5_10km": "5-10km",

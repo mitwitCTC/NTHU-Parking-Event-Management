@@ -40,7 +40,7 @@ $indigo: #6610f2 !default;
 $purple: #702f9f !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
-$orange: #fd7e14 !default;
+$orange: #ef9353 !default;
 $yellow: #ffc107 !default;
 $green: #198754 !default;
 $teal: #20c997 !default;
@@ -288,6 +288,7 @@ $cyans: (
 // scss-docs-start theme-color-variables
 $primary: $purple !default;
 $secondary: $purple-300 !default;
+$third: $orange !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
@@ -300,6 +301,7 @@ $dark: $gray-900 !default;
 $theme-colors: (
   "primary": $primary,
   "secondary": $secondary,
+  "third": $third,
   "success": $success,
   "info": $info,
   "warning": $warning,
