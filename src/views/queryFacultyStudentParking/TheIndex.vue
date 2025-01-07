@@ -216,17 +216,11 @@ function goToDetail(serial_number) {
 .content-container {
   display: flex;
   flex-direction: column;
-  /* height: 100vh; 設定為視口高度 */
-  overflow: hidden; /* 防止頁面滾動 */
 }
 
-form {
-  flex-shrink: 0; /* 表單不縮小 */
-  height: 35vh;
-}
 
 .result-list {
-  margin-top: 2vh;
+  margin-top: 5px;
   flex-grow: 1; /* 佔據剩餘空間 */
   border: 2px solid darkgrey;
   width: 100%;
@@ -234,9 +228,5 @@ form {
   height: 35vh;
 }
 
-@media screen and (max-width: 576px) {
-  .result-list {
-    margin-top: 10vh;
-  }
-}
+
 </style>
