@@ -413,19 +413,17 @@ function closeConfirmModal() {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-secondary">
-            <h5 class="modal-title text-black" id="deleteModalModalLabel">
+            <h5 class="modal-title text-black w-100 text-center" id="deleteModalModalLabel">
               {{
                 $t(
                   'pages.applyFacultyStudentParking.vehicle_registration.delete_confirm_title',
                 )
               }}
             </h5>
-            <button
-              type="button"
-              class="btn-close"
-              @click="closeDeleteModal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" @click="closeDeleteModal" aria-label="Close"></button>
+          </div>
+          <div class="icon-container">
+            <img src="/images/modal/Paomedia-Small-N-Flat-Sign-warning.svg" alt="warning" />
           </div>
           <div class="modal-body">
             <p>
