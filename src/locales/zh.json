@@ -1,464 +1,462 @@
 {
-    "pages": {
-        "index": {
-            "title": "駐警隊申請服務",
-            "subtitle": "車證、工作證、折抵券、活動申請",
-            "queryLinks": "申請進度查詢",
-            "applyFacultyStudentParking": "教職員工生停車證申請",
-            "applyFacultyStudentParking_subtitle": "汽車、機車及腳踏車證申請",
-            "applyStaffParking": "工作人員停車證申請",
-            "applyStaffParking_subtitle": "汽車、機車工作證申請",
-            "applyEvent": "各單位自辦活動申請",
-            "applyEvent_subtitle": "活動申請",
-            "applyEventCoupon": "自辦活動&抵用券申請",
-            "applyEventCoupon_subtitle": "活動及活動使用停車抵用券",
-            "preorderCoupon": "預購抵用券",
-            "preorderCoupon_subtitle": "停車抵用券申請及購買"
-        },
-        "applyStaffParking": {
-            "title": "工作人員停車證",
-            "subtitle": "汽車、機車證申請",
-            "steps": {
-                "title": "申請四步驟",
-                "step1": "填寫申請書",
-                "step2": "列印",
-                "step3": "證明單位及主管簽章",
-                "step4": "拍照或掃描上傳簽核申請單",
-                "apply": "開始申請"
-            },
-            "basic_info": {
-                "applicant": "申請人姓名",
-                "applicant_source": "公司/單位",
-                "email": "Email(系統通知使用)",
-                "phone_number": "聯絡電話",
-                "academic_year": "申請學年度",
-                "required": "*為必填項目",
-                "next": "下一步，登記車輛"
-            },
-            "vehicle_registration": {
-                "vehicle_type": "點選登記車輛種類",
-                "vehicle_type_car": "汽車車證登記",
-                "vehicle_type_scooter": "機車車證登記",
-                "vehicle_type_bike": "腳踏車車證登記",
-                "plate": "車牌號碼",
-                "licensePlateInputFormat": "輸入時請加\"-\"",
-                "car_type": "車輛型式",
-                "distance": "每日單趟到校通勤距離",
-                "next": "登記",
-                "print": "列印申請書",
-                "plate_registered": "已登記車號",
-                "delete": "刪除",
-                "delete_confirm_title": "刪除確認",
-                "delete_confirm_content": "是否確認刪除",
-                "cancel": "取消"
-            },
-            "loginAndUpload": {
-                "plate": "車號",
-                "licensePlateInputFormat": "輸入時請加\"-\"",
-                "phone_number": "聯絡電話",
-                "academic_year": "申請學年度",
-                "loginAndUpload": "登入上傳",
-                "success": "登入成功",
-                "fail": "登入失敗"
-            },
-            "uploadDocuments": {
-                "plate_registered": "已登記車號",
-                "upload": "上傳證件",
-                "campusToReceiveCertificate": "領證校區",
-                "primaryCampus": "校本部",
-                "nanDaCampus": "南大校區",
-                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-                "captcha": "驗證碼",
-                "apply": "送出申請",
-                "cancel": "取消",
-                "confirm": "確認",
-                "certificateApplicationInstructionsTitle": "辦證說明"
-            }
-        },
-        "applyFacultyStudentParking": {
-            "title": "教職員工生停車證",
-            "subtitle": "汽車、機車、腳踏車證申請",
-            "verify_fail": "查無資訊，請聯繫駐警隊承辦",
-            "basic_info": {
-                "academic_year": "申請學年度",
-                "email": "Email",
-                "phone_number": "連絡電話",
-                "has_disability_certificate": "持有身心障礙手冊",
-                "yes": "是",
-                "no": "否",
-                "next": "下一步，登記車輛"
-            },
-            "vehicle_registration": {
-                "vehicle_type": "點選登記車輛種類",
-                "vehicle_type_car": "汽車車證登記",
-                "vehicle_type_scooter": "機車車證登記",
-                "vehicle_type_bike": "腳踏車車證登記",
-                "plate": "車牌號碼",
-                "licensePlateInputFormat": "輸入時請加\"-\"",
-                "main_pass_code": "車證類別",
-                "register": "登記",
-                "next": "下一步上傳證件",
-                "plate_registered": "已登記車號",
-                "bike_num": "申請數量",
-                "main_pass_bike": "腳踏車識別證",
-                "unit": "張",
-                "delete": "刪除",
-                "delete_confirm_title": "刪除確認",
-                "delete_confirm_content": "是否確認刪除",
-                "cancel": "取消"
-            },
-            "uploadDocuments": {
-                "plate_registered": "已登記車號",
-                "distance": "每日單趟到校通勤距離",
-                "upload": "上傳證件",
-                "campusToReceiveCertificate": "領證校區",
-                "primaryCampus": "校本部",
-                "nanDaCampus": "南大校區",
-                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-                "apply": "送出申請",
-                "cancel": "取消",
-                "confirm": "確認",
-                "certificateApplicationInstructionsTitle": "辦證說明"
-            }
-        },
-        "applyEvent": {
-            "title": "各單位自辦活動",
-            "subtitle": "活動申請",
-            "steps": {
-                "title": "申請四步驟",
-                "step1": "填寫申請書",
-                "step2": "列印",
-                "step3": "簽章",
-                "step4": "拍照或掃描上傳簽核申請單",
-                "apply": "開始申請"
-            },
-            "form": {
-                "activity": "活動名稱",
-                "start_date": "活動日期(起)",
-                "end_date": "活動日期(迄)",
-                "start_time": "活動時間(起)",
-                "end_time": "活動時間(迄)",
-                "location": "活動校區",
-                "primaryCampus": "校本部",
-                "nanDaCampus": "南大校區",
-                "area": "活動地點",
-                "headcount": "預估參加人數",
-                "bus_count": "預估入校車數",
-                "bus": "[遊覽車]",
-                "car_count": "預估入校車數",
-                "car": "[小客車]",
-                "source": "申請單位",
-                "applicant": "申請人",
-                "phone_number": "聯絡電話",
-                "email": "Email(查詢帳號與系統通知使用)",
-                "note_title": "注意：",
-                "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
-                "print": "列印申請書",
-                "uploadDocuments": "上傳申請表等附件"
-            },
-            "login": {
-                "email": "Email (申請表登記)",
-                "phone_number": "電話 (申請表登記)",
-                "login": "登入",
-                "success": "登入成功",
-                "fail": "登入失敗"
-            },
-            "upload": {
-                "title": "上傳簽核申請表與相關文件",
-                "upload": "上傳證件",
-                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-                "captcha": "驗證碼",
-                "apply": "送出申請",
-                "cancel": "取消",
-                "confirm": "確認",
-                "certificateApplicationInstructionsTitle": "辦證說明"
-            }
-        },
-        "applyEventCoupon": {
-            "title": "自辦活動 & 抵用券",
-            "subtitle": "活動與活動使用抵用券申請",
-            "steps": {
-                "title": "申請四步驟",
-                "step1": "填寫申請書",
-                "step2": "列印",
-                "step3": "簽章",
-                "step4": "拍照或掃描上傳簽核申請單",
-                "apply": "開始申請"
-            },
-            "form": {
-                "activity": "活動名稱",
-                "start_date": "活動日期(起)",
-                "end_date": "活動日期(迄)",
-                "start_time": "活動時間(起)",
-                "end_time": "活動時間(迄)",
-                "location": "活動校區",
-                "primaryCampus": "校本部",
-                "nanDaCampus": "南大校區",
-                "area": "活動地點",
-                "headcount": "預估參加人數",
-                "bus_count": "預估入校車數",
-                "bus": "[遊覽車]",
-                "car_count": "預估入校車數",
-                "car": "[小客車]",
-                "source": "申請單位",
-                "applicant": "申請人",
-                "phone_number": "聯絡電話",
-                "email": "Email(查詢帳號與系統通知使用)",
-                "note_title": "注意：",
-                "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
-                "print": "列印申請書",
-                "uploadDocuments": "上傳申請表等附件"
-            },
-            "login": {
-                "email": "Email (申請表登記)",
-                "phone_number": "電話 (申請表登記)",
-                "login": "登入",
-                "success": "登入成功",
-                "fail": "登入失敗"
-            },
-            "upload": {
-                "title": "上傳簽核申請表與相關文件",
-                "upload": "上傳證件",
-                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-                "captcha": "驗證碼",
-                "apply": "送出申請",
-                "cancel": "取消",
-                "confirm": "確認",
-                "certificateApplicationInstructionsTitle": "辦證說明"
-            },
-            "coupon": {
-                "payment": {
-                    "title": "付費方式",
-                    "project": "計畫經費",
-                    "cash": "現金繳費"
-                },
-                "invoice": {
-                    "title": "發票開立",
-                    "need_invoice": "開立統一編號",
-                    "withVat": "開立統一編號",
-                    "withoutVat": "不開立統編",
-                    "company_name": "公司抬頭",
-                    "vat_number": "統一編號"
-                },
-                "project_number": "校內單位計畫編號",
-                "reason": "申請事由",
-                "quantity": "張數",
-                "collection_method": "領券方式",
-                "by_email": "電子郵件寄送",
-                "physical": "領用實體券",
-                "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-                "captcha": "驗證碼",
-                "apply": "送出申請",
-                "cancel": "取消",
-                "confirm": "確認",
-                "certificateApplicationInstructionsTitle": "辦證說明"
-            }
-        },
-        "preorderCoupon": {
-            "title": "預購抵用券",
-            "subtitle": "購買抵用券",
-            "applicant": "申請人",
-            "phone_number": "聯絡電話",
-            "email": "Email",
-            "payment": {
-                "title": "付費方式",
-                "project": "計畫經費",
-                "cash": "現金繳費"
-            },
-            "invoice": {
-                "title": "發票開立",
-                "need_invoice": "開立統一編號",
-                "withVat": "開立統一編號",
-                "withoutVat": "不開立統編",
-                "company_name": "公司抬頭",
-                "vat_number": "統一編號"
-            },
-            "project_number": "校內單位計畫編號",
-            "reason": "申請事由",
-            "quantity": "張數",
-            "collection_method": "領券方式",
-            "by_email": "電子郵件寄送",
-            "physical": "領用實體券",
-            "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
-            "captcha": "驗證碼",
-            "apply": "送出申請",
-            "cancel": "取消",
-            "confirm": "確認",
-            "certificateApplicationInstructionsTitle": "辦證說明"
-        },
-        "applicationSuccess": {
-            "title": "",
-            "subtitle": "",
-            "received": "已收到您的申請，若要查詢進度請至",
-            "index": "『申請首頁』",
-            "checkProgress": "選擇",
-            "queryLinks": "『申請進度查詢』",
-            "progressInquiry": "。相關進度系統也會透過 email 發送，謝謝！"
-        },
-        "query": {
-            "title": "駐警隊申請查詢",
-            "subtitle": "車證、工作證、折抵券、活動申請",
-            "goHomePage": "回申請首頁",
-            "select": "請選擇查詢項目",
-            "queryFacultyStudentParking": "教職員工生停車證",
-            "queryFacultyStudentParking_subtitle": "汽車、機車及腳踏車證查詢",
-            "queryStaffParking": "工作人員停車證",
-            "queryStaffParking_subtitle": "汽車、機車工作證查詢",
-            "queryEvent": "各單位自辦活動",
-            "queryEvent_subtitle": "活動查詢",
-            "queryCoupon": "預購抵用券",
-            "queryCoupon_subtitle": "預購抵用券查詢"
-        },
-        "queryStaffParking": {
-            "title": "工作人員停車證",
-            "subtitle": "汽車、機車工作證查詢"
-        },
-        "queryFacultyStudentParking": {
-            "title": "停車證查詢",
-            "subtitle": "汽車、機車及腳踏車證查詢",
-            "applicant_number": "教職員工生編號",
-            "phone_number": "手機號碼",
-            "academic_year": "學年度",
-            "query": "查詢",
-            "serial_number": "表單號碼",
-            "status": "狀態"
-        },
-        "queryFacultyStudentParking_details": {
-            "form_info": "表單資訊",
-            "application_date": "申請日期",
-            "cancel_application_date": "取消申請日期",
-            "plate": "申請車號",
-            "cancel_application_plate": "取消申請車號",
-            "main_pass_code": "車證",
-            "receive_campus": "領證校區",
-            "payment_method": "繳費方式",
-            "amount": "繳費金額",
-            "receive_status": "領證狀態",
-            "download": "下載",
-            "search_invoice": "發票查詢",
-            "cancel_application": "取消申請"
-        },
-        "queryEvent": {
-            "title": "各單位自辦活動",
-            "subtitle": "活動查詢"
-        },
-        "queryCoupon": {
-            "title": "預購抵用券",
-            "subtitle": "停車抵用券申請及預購查詢"
-        }
+  "pages": {
+    "index": {
+      "title": "駐警隊申請服務",
+      "subtitle": "車證、工作證、折抵券、活動申請",
+      "queryLinks": "申請進度查詢",
+      "applyFacultyStudentParking": "教職員工生停車證申請",
+      "applyFacultyStudentParking_subtitle": "汽車、機車及腳踏車證申請",
+      "applyStaffParking": "工作人員停車證申請",
+      "applyStaffParking_subtitle": "汽車、機車工作證申請",
+      "applyEvent": "各單位自辦活動申請",
+      "applyEvent_subtitle": "活動申請",
+      "applyEventCoupon": "自辦活動&抵用券申請",
+      "applyEventCoupon_subtitle": "活動及活動使用停車抵用券",
+      "preorderCoupon": "預購抵用券",
+      "preorderCoupon_subtitle": "停車抵用券申請及購買"
     },
-    "stepNavigator": {
-        "fillOut": "填寫申請書",
-        "uploadAndSubmit": "上傳及申請提出"
-    },
-    "validation": {
-        "title": "資訊確認",
-        "content": "欄位未正確填寫，請確認，謝謝！",
-        "confirm": "確認"
-    },
-    "applicationFail": {
-        "title": "申請尚未完成",
-        "content": "目前網路或系統無回應，請稍後再上傳。",
-        "confirm": "確認"
-    },
-    "pendingReviewRestrictionModal": {
-        "title": "資料確認",
-        "content": "請先至申請查詢區取消原申請後方能提出再次申請",
-        "confirm": "確認"
-    },
-    "notReadModal": {
-        "title": "資料確認",
-        "content": "請先詳讀辦證說明並點選閱讀完畢後才能送出申請",
-        "confirm": "確認"
-    },
-    "captchaModal": {
-        "title": "驗證碼有誤",
-        "content": "請重新確認驗證碼輸入是否有誤",
-        "confirm": "確認"
-    },
-    "confirm_coupon_modal": {
-        "title": "資料確認",
-        "message": "請再次確認申請資料是否無誤。扣抵或付費方式會以 Email 通知",
+    "applyStaffParking": {
+      "title": "工作人員停車證",
+      "subtitle": "汽車、機車證申請",
+      "steps": {
+        "title": "申請四步驟",
+        "step1": "填寫申請書",
+        "step2": "列印",
+        "step3": "證明單位及主管簽章",
+        "step4": "拍照或掃描上傳簽核申請單",
+        "apply": "開始申請"
+      },
+      "basic_info": {
+        "applicant": "申請人姓名",
+        "applicant_source": "公司/單位",
+        "email": "Email(系統通知使用)",
+        "phone_number": "聯絡電話",
+        "academic_year": "申請學年度",
+        "required": "*為必填項目",
+        "next": "下一步，登記車輛"
+      },
+      "vehicle_registration": {
+        "vehicle_type": "點選登記車輛種類",
+        "vehicle_type_car": "汽車車證登記",
+        "vehicle_type_scooter": "機車車證登記",
+        "vehicle_type_bike": "腳踏車車證登記",
+        "plate": "車牌號碼",
+        "licensePlateInputFormat": "輸入時請加\"-\"",
+        "car_type": "車輛型式",
+        "distance": "每日單趟到校通勤距離",
+        "next": "登記",
+        "print": "列印申請書",
+        "plate_registered": "已登記車號",
+        "delete": "刪除",
+        "delete_confirm_title": "刪除確認",
+        "delete_confirm_content": "是否確認刪除",
+        "cancel": "取消"
+      },
+      "loginAndUpload": {
+        "plate": "車號",
+        "licensePlateInputFormat": "輸入時請加\"-\"",
+        "phone_number": "聯絡電話",
+        "academic_year": "申請學年度",
+        "loginAndUpload": "登入上傳",
+        "success": "登入成功",
+        "fail": "登入失敗"
+      },
+      "uploadDocuments": {
+        "plate_registered": "已登記車號",
+        "upload": "上傳證件",
+        "campusToReceiveCertificate": "領證校區",
+        "primaryCampus": "校本部",
+        "nanDaCampus": "南大校區",
+        "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+        "captcha": "驗證碼",
+        "apply": "送出申請",
         "cancel": "取消",
-        "confirm": "確認"
+        "confirm": "確認",
+        "certificateApplicationInstructionsTitle": "辦證說明"
+      }
     },
-    "all_main_pass_code_list": {
-        "TC": "教職員校內汽車識別證",
-        "TE": "職務宿舍區汽車識別證",
-        "SC": "學生汽車識別證",
-        "HF": "短期汽車識別證",
-        "TM": "教職員機車識別證",
-        "TME": "職務宿舍區機車識別證",
-        "SM": "學生機車識別證",
-        "BS": "所有腳踏車識別證",
-        "WC": "工作證汽車識別證",
-        "WM": "工作機車識別證",
-        "unknown": "未知"
-    },
-    "car_types": {
-        "Gasoline": "汽油車",
-        "Hybrid": "油電車",
-        "Electric": "電動車",
-        "Diesel": "柴油車"
-    },
-    "statuses": {
-        "form_status": {
-            "0": "待審中",
-            "1": "待審中",
-            "2": "已審核",
-            "3": "已退件",
-            "4": "無審核",
-            "999": "取消申請",
-            "unknown": "未知狀態"
-        },
-        "payment_status": {
-            "1": "已繳費",
-            "0": "未繳費"
-        },
-        "receive_status": {
-            "1": "已領用",
-            "0": "未領用",
-            "unknown": "未知"
-        },
-        "unknown": "未知狀態"
-    },
-    "payment_methods": {
-        "1": "薪資扣款",
-        "2": "繳費單",
-        "3": "線上繳費",
-        "4": "計畫經費",
-        "0": "未定義",
-        "unknown": "未知"
-    },
-    "receive_location": {
-        "0": "未定義",
-        "1": "校本部",
-        "2": "南校區",
-        "999": "全校區",
-        "unknown": "未知"
-    },
-    "commute_distances": {
-        "5_10km": "5-10km",
-        "10_20km": "10-20km",
-        "20_30km": "20-30km",
-        "30_40km": "30-40km",
-        "40_50km": "40-50km",
-        "over_50km": "50km 以上"
-    },
-    "confirm_modal": {
-        "title": "資料確認",
-        "message": "請再次確認申請資料是否無誤",
+    "applyFacultyStudentParking": {
+      "title": "教職員工生停車證",
+      "subtitle": "汽車、機車、腳踏車證申請",
+      "verify_fail": "查無資訊，請聯繫駐警隊承辦",
+      "basic_info": {
+        "academic_year": "申請學年度",
+        "email": "Email",
+        "phone_number": "連絡電話",
+        "has_disability_certificate": "持有身心障礙手冊",
+        "yes": "是",
+        "no": "否",
+        "next": "下一步，登記車輛"
+      },
+      "vehicle_registration": {
+        "vehicle_type": "點選登記車輛種類",
+        "vehicle_type_car": "汽車車證登記",
+        "vehicle_type_scooter": "機車車證登記",
+        "vehicle_type_bike": "腳踏車車證登記",
+        "plate": "車牌號碼",
+        "licensePlateInputFormat": "輸入時請加\"-\"",
+        "main_pass_code": "車證類別",
+        "register": "登記",
+        "next": "下一步上傳證件",
+        "plate_registered": "已登記車號",
+        "bike_num": "申請數量",
+        "main_pass_bike": "腳踏車識別證",
+        "unit": "張",
+        "delete": "刪除",
+        "delete_confirm_title": "刪除確認",
+        "delete_confirm_content": "是否確認刪除",
+        "cancel": "取消"
+      },
+      "uploadDocuments": {
+        "plate_registered": "已登記車號",
+        "distance": "每日單趟到校通勤距離",
+        "upload": "上傳證件",
+        "campusToReceiveCertificate": "領證校區",
+        "primaryCampus": "校本部",
+        "nanDaCampus": "南大校區",
+        "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+        "apply": "送出申請",
         "cancel": "取消",
-        "confirm": "確認"
+        "confirm": "確認",
+        "certificateApplicationInstructionsTitle": "辦證說明"
+      }
     },
-    "noSearchResultModal": {
-        "title": "查無資訊",
-        "message": "請確認輸入欄位是否正確，謝謝！",
-        "confirm": "確認"
+    "applyEvent": {
+      "title": "各單位自辦活動",
+      "subtitle": "活動申請",
+      "steps": {
+        "title": "申請四步驟",
+        "step1": "填寫申請書",
+        "step2": "列印",
+        "step3": "簽章",
+        "step4": "拍照或掃描上傳簽核申請單",
+        "apply": "開始申請"
+      },
+      "form": {
+        "activity": "活動名稱",
+        "start_date": "活動日期(起)",
+        "end_date": "活動日期(迄)",
+        "start_time": "活動時間(起)",
+        "end_time": "活動時間(迄)",
+        "location": "活動校區",
+        "primaryCampus": "校本部",
+        "nanDaCampus": "南大校區",
+        "area": "活動地點",
+        "headcount": "預估參加人數",
+        "bus_count": "預估入校車數",
+        "bus": "[遊覽車]",
+        "car_count": "預估入校車數",
+        "car": "[小客車]",
+        "source": "申請單位",
+        "applicant": "申請人",
+        "phone_number": "聯絡電話",
+        "email": "Email(查詢帳號與系統通知使用)",
+        "note_title": "注意：",
+        "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
+        "print": "列印申請書",
+        "uploadDocuments": "上傳申請表等附件"
+      },
+      "login": {
+        "email": "Email (申請表登記)",
+        "phone_number": "電話 (申請表登記)",
+        "login": "登入",
+        "success": "登入成功",
+        "fail": "登入失敗"
+      },
+      "upload": {
+        "title": "上傳簽核申請表與相關文件",
+        "upload": "上傳證件",
+        "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+        "captcha": "驗證碼",
+        "apply": "送出申請",
+        "cancel": "取消",
+        "confirm": "確認",
+        "certificateApplicationInstructionsTitle": "辦證說明"
+      }
     },
-    "searchFailModal": {
-        "title": "系統忙碌中",
-        "message": "系統忙碌中，請稍後再進行查詢，謝謝！",
-        "confirm": "確認"
+    "applyEventCoupon": {
+      "title": "自辦活動 & 抵用券",
+      "subtitle": "活動與活動使用抵用券申請",
+      "steps": {
+        "title": "申請四步驟",
+        "step1": "填寫申請書",
+        "step2": "列印",
+        "step3": "簽章",
+        "step4": "拍照或掃描上傳簽核申請單",
+        "apply": "開始申請"
+      },
+      "form": {
+        "activity": "活動名稱",
+        "start_date": "活動日期(起)",
+        "end_date": "活動日期(迄)",
+        "start_time": "活動時間(起)",
+        "end_time": "活動時間(迄)",
+        "location": "活動校區",
+        "primaryCampus": "校本部",
+        "nanDaCampus": "南大校區",
+        "area": "活動地點",
+        "headcount": "預估參加人數",
+        "bus_count": "預估入校車數",
+        "bus": "[遊覽車]",
+        "car_count": "預估入校車數",
+        "car": "[小客車]",
+        "source": "申請單位",
+        "applicant": "申請人",
+        "phone_number": "聯絡電話",
+        "email": "Email(查詢帳號與系統通知使用)",
+        "note_title": "注意：",
+        "note_content": "送出申請前需將申請書列印提交申請單位主管簽章，並掃描或拍下簽核過申請表作為附件提出申請。",
+        "print": "列印申請書",
+        "uploadDocuments": "上傳申請表等附件"
+      },
+      "login": {
+        "email": "Email (申請表登記)",
+        "phone_number": "電話 (申請表登記)",
+        "login": "登入",
+        "success": "登入成功",
+        "fail": "登入失敗"
+      },
+      "upload": {
+        "title": "上傳簽核申請表與相關文件",
+        "upload": "上傳證件",
+        "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+        "captcha": "驗證碼",
+        "apply": "送出申請",
+        "cancel": "取消",
+        "confirm": "確認",
+        "certificateApplicationInstructionsTitle": "辦證說明"
+      },
+      "coupon": {
+        "payment": {
+          "title": "付費方式",
+          "project": "計畫經費",
+          "cash": "現金繳費"
+        },
+        "invoice": {
+          "title": "發票開立",
+          "need_invoice": "開立統一編號",
+          "withVat": "開立統一編號",
+          "withoutVat": "不開立統編",
+          "company_name": "公司抬頭",
+          "vat_number": "統一編號"
+        },
+        "project_number": "校內單位計畫編號",
+        "reason": "申請事由",
+        "quantity": "張數",
+        "collection_method": "領券方式",
+        "by_email": "電子郵件寄送",
+        "physical": "領用實體券",
+        "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+        "captcha": "驗證碼",
+        "apply": "送出申請",
+        "cancel": "取消",
+        "confirm": "確認",
+        "certificateApplicationInstructionsTitle": "辦證說明"
+      }
+    },
+    "preorderCoupon": {
+      "title": "預購抵用券",
+      "subtitle": "購買抵用券",
+      "applicant": "申請人",
+      "phone_number": "聯絡電話",
+      "email": "Email",
+      "payment": {
+        "title": "付費方式",
+        "project": "計畫經費",
+        "cash": "現金繳費"
+      },
+      "invoice": {
+        "title": "發票開立",
+        "need_invoice": "開立統一編號",
+        "withVat": "開立統一編號",
+        "withoutVat": "不開立統編",
+        "company_name": "公司抬頭",
+        "vat_number": "統一編號"
+      },
+      "project_number": "校內單位計畫編號",
+      "reason": "申請事由",
+      "quantity": "張數",
+      "collection_method": "領券方式",
+      "by_email": "電子郵件寄送",
+      "physical": "領用實體券",
+      "certificateApplicationInstructionsRead": "我已閱讀完辦證說明",
+      "captcha": "驗證碼",
+      "apply": "送出申請",
+      "cancel": "取消",
+      "confirm": "確認",
+      "certificateApplicationInstructionsTitle": "辦證說明"
+    },
+    "applicationSuccess": {
+      "title": "",
+      "subtitle": "",
+      "received": "已收到您的申請，若要查詢進度請至",
+      "index": "『申請首頁』",
+      "checkProgress": "選擇",
+      "queryLinks": "『申請進度查詢』",
+      "progressInquiry": "。相關進度系統也會透過 email 發送，謝謝！"
+    },
+    "query": {
+      "title": "駐警隊申請查詢",
+      "subtitle": "車證、工作證、折抵券、活動申請",
+      "goHomePage": "回申請首頁",
+      "select": "請選擇查詢項目",
+      "queryFacultyStudentParking": "教職員工生停車證",
+      "queryFacultyStudentParking_subtitle": "汽車、機車及腳踏車證查詢",
+      "queryStaffParking": "工作人員停車證",
+      "queryStaffParking_subtitle": "汽車、機車工作證查詢",
+      "queryEvent": "各單位自辦活動",
+      "queryEvent_subtitle": "活動查詢",
+      "queryCoupon": "預購抵用券",
+      "queryCoupon_subtitle": "預購抵用券查詢"
+    },
+    "queryStaffParking": {
+      "title": "工作人員停車證",
+      "subtitle": "汽車、機車工作證查詢"
+    },
+    "queryFacultyStudentParking": {
+      "title": "停車證查詢",
+      "subtitle": "汽車、機車及腳踏車證查詢",
+      "applicant_number": "教職員工生編號",
+      "phone_number": "手機號碼",
+      "academic_year": "學年度",
+      "query": "查詢",
+      "serial_number": "表單號碼",
+      "status": "狀態"
+    },
+    "queryFacultyStudentParking_details": {
+      "form_info": "表單資訊",
+      "application_date": "申請日期",
+      "cancel_application_date": "取消申請日期",
+      "plate": "申請車號",
+      "cancel_application_plate": "取消申請車號",
+      "main_pass_code": "車證",
+      "receive_campus": "領證校區",
+      "payment_method": "繳費方式",
+      "amount": "繳費金額",
+      "receive_status": "領證狀態",
+      "download": "下載",
+      "search_invoice": "發票查詢",
+      "cancel_application": "取消申請"
+    },
+    "queryEvent": {
+      "title": "各單位自辦活動",
+      "subtitle": "活動查詢"
+    },
+    "queryCoupon": {
+      "title": "預購抵用券",
+      "subtitle": "停車抵用券申請及預購查詢"
     }
+  },
+  "stepNavigator": {
+    "fillOut": "填寫申請書",
+    "uploadAndSubmit": "上傳及申請提出"
+  },
+  "validation": {
+    "title": "資訊確認",
+    "content": "欄位未正確填寫，請確認，謝謝！",
+    "confirm": "確認"
+  },
+  "applicationFail": {
+    "title": "申請尚未完成",
+    "content": "目前網路或系統無回應，請稍後再上傳。",
+    "confirm": "確認"
+  },
+  "pendingReviewRestrictionModal": {
+    "title": "資料確認",
+    "content": "請先至申請查詢區取消原申請後方能提出再次申請",
+    "confirm": "確認"
+  },
+  "notReadModal": {
+    "title": "資料確認",
+    "content": "請先詳讀辦證說明並點選閱讀完畢後才能送出申請",
+    "confirm": "確認"
+  },
+  "captchaModal": {
+    "title": "驗證碼有誤",
+    "content": "請重新確認驗證碼輸入是否有誤",
+    "confirm": "確認"
+  },
+  "confirm_coupon_modal": {
+    "title": "資料確認",
+    "message": "請再次確認申請資料是否無誤。扣抵或付費方式會以 Email 通知",
+    "cancel": "取消",
+    "confirm": "確認"
+  },
+  "all_main_pass_code_list": {
+    "TC": "教職員校內汽車識別證",
+    "TE": "職務宿舍區汽車識別證",
+    "SC": "學生汽車識別證",
+    "HF": "短期汽車識別證",
+    "TM": "教職員機車識別證",
+    "TME": "職務宿舍區機車識別證",
+    "SM": "學生機車識別證",
+    "BS": "所有腳踏車識別證",
+    "WC": "工作證汽車識別證",
+    "WM": "工作機車識別證",
+    "unknown": "未知"
+  },
+  "car_types": {
+    "Gasoline": "汽油車",
+    "Hybrid": "油電車",
+    "Electric": "電動車",
+    "Diesel": "柴油車"
+  },
+  "statuses": {
+    "form_status": {
+      "0": "待審中",
+      "1": "待審中",
+      "2": "已審核",
+      "3": "已退件",
+      "4": "無審核",
+      "999": "取消申請",
+      "unknown": "未知狀態"
+    },
+    "payment_status": {
+      "1": "已繳費",
+      "0": "未繳費"
+    },
+    "receive_status": {
+      "1": "已領用",
+      "0": "未領用",
+      "unknown": "未知"
+    },
+    "unknown": "未知狀態"
+  },
+  "payment_methods": {
+    "1": "薪資扣款",
+    "2": "繳費單",
+    "3": "線上繳費",
+    "4": "計畫經費",
+    "0": "未定義"
+  },
+  "receive_location": {
+    "0": "未定義",
+    "1": "校本部",
+    "2": "南校區",
+    "999": "全校區"
+  },
+  "commute_distances": {
+    "5_10km": "5-10km",
+    "10_20km": "10-20km",
+    "20_30km": "20-30km",
+    "30_40km": "30-40km",
+    "40_50km": "40-50km",
+    "over_50km": "50km 以上"
+  },
+  "confirm_modal": {
+    "title": "資料確認",
+    "message": "請再次確認申請資料是否無誤",
+    "cancel": "取消",
+    "confirm": "確認"
+  },
+  "noSearchResultModal": {
+    "title": "查無資訊",
+    "message": "請確認輸入欄位是否正確，謝謝！",
+    "confirm": "確認"
+  },
+  "searchFailModal": {
+    "title": "系統忙碌中",
+    "message": "系統忙碌中，請稍後再進行查詢，謝謝！",
+    "confirm": "確認"
+  }
 }

@@ -186,45 +186,26 @@ function closeCaptchaModal() {
       <label for="applicant" class="form-label">
         {{ $t('pages.preorderCoupon.applicant') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="applicant"
-        v-model="applicationData.applicant"
-      />
+      <input type="text" class="form-control" id="applicant" v-model="applicationData.applicant" />
     </div>
     <div class="mb-3">
       <label for="phone_number" class="form-label">
         {{ $t('pages.preorderCoupon.phone_number') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone_number"
-        v-model="applicationData.phone_number"
-      />
+      <input type="text" class="form-control" id="phone_number" v-model="applicationData.phone_number" />
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">
         {{ $t('pages.preorderCoupon.email') }}
       </label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        v-model="applicationData.email"
-      />
+      <input type="email" class="form-control" id="email" v-model="applicationData.email" />
     </div>
     <div class="mb-3">
       <label for="payment_method" class="form-label">
         {{ $t('pages.preorderCoupon.payment.title') }}
       </label>
       <select class="form-select" v-model="applicationData.payment_method">
-        <option
-          v-for="item in payment_methods"
-          :key="item.value"
-          :value="item.value"
-        >
+        <option v-for="item in payment_methods" :key="item.value" :value="item.value">
           {{ $t(item.labelKey) }}
         </option>
       </select>
@@ -234,12 +215,7 @@ function closeCaptchaModal() {
         <label for="project_number" class="form-label">
           {{ $t('pages.preorderCoupon.project_number') }}
         </label>
-        <input
-          type="text"
-          class="form-control"
-          id="project_number"
-          v-model="applicationData.project_number"
-        />
+        <input type="text" class="form-control" id="project_number" v-model="applicationData.project_number" />
       </div>
     </div>
     <div v-if="applicationData.payment_method == 4">
@@ -247,25 +223,14 @@ function closeCaptchaModal() {
         {{ $t('pages.preorderCoupon.invoice.title') }}
         <div class="d-flex flex-column flex-md-row gap-md-5">
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              id="invoice_needVat1"
-              v-model="invoice_needVat"
-              value="true"
-            />
+            <input class="form-check-input" type="radio" id="invoice_needVat1" v-model="invoice_needVat" value="true" />
             <label class="form-check-label" for="invoice_needVat1">
               {{ $t('pages.preorderCoupon.invoice.withVat') }}
             </label>
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              id="invoice_needVat2"
-              v-model="invoice_needVat"
-              value="false"
-            />
+            <input class="form-check-input" type="radio" id="invoice_needVat2" v-model="invoice_needVat"
+              value="false" />
             <label class="form-check-label" for="invoice_needVat2">
               {{ $t('pages.preorderCoupon.invoice.withoutVat') }}
             </label>
@@ -276,73 +241,41 @@ function closeCaptchaModal() {
         <label for="company_name" class="form-label">
           {{ $t('pages.preorderCoupon.invoice.company_name') }}
         </label>
-        <input
-          type="text"
-          class="form-control"
-          id="company_name"
-          v-model="applicationData.company_name"
-        />
+        <input type="text" class="form-control" id="company_name" v-model="applicationData.company_name" />
       </div>
       <div class="mb-3">
         <label for="vat_number" class="form-label">
           {{ $t('pages.preorderCoupon.invoice.vat_number') }}
         </label>
-        <input
-          type="text"
-          class="form-control"
-          id="vat_number"
-          v-model="applicationData.vat_number"
-        />
+        <input type="text" class="form-control" id="vat_number" v-model="applicationData.vat_number" />
       </div>
     </div>
     <div class="mb-3">
       <label for="reason" class="form-label">
         {{ $t('pages.preorderCoupon.reason') }}
       </label>
-      <textarea
-        type="text"
-        rows="5"
-        cols="20"
-        class="form-control"
-        id="reason"
-        v-model="applicationData.reason"
-      >
+      <textarea type="text" rows="5" cols="20" class="form-control" id="reason" v-model="applicationData.reason">
       </textarea>
     </div>
     <div class="mb-3">
       <label for="quantity" class="form-label">
         {{ $t('pages.preorderCoupon.quantity') }}
       </label>
-      <input
-        type="number"
-        class="form-control"
-        id="quantity"
-        v-model="applicationData.quantity"
-      />
+      <input type="number" class="form-control" id="quantity" v-model="applicationData.quantity" />
     </div>
     <div class="mb-3">
       {{ $t('pages.preorderCoupon.collection_method') }}
       <div class="d-flex flex-column flex-md-row gap-md-5">
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="collection_method1"
-            v-model="applicationData.collection_method"
-            value="0"
-          />
+          <input class="form-check-input" type="radio" id="collection_method1"
+            v-model="applicationData.collection_method" value="0" />
           <label class="form-check-label" for="collection_method1">
             {{ $t('pages.preorderCoupon.by_email') }}
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="collection_method2"
-            v-model="applicationData.collection_method"
-            value="1"
-          />
+          <input class="form-check-input" type="radio" id="collection_method2"
+            v-model="applicationData.collection_method" value="1" />
           <label class="form-check-label" for="collection_method2">
             {{ $t('pages.preorderCoupon.physical') }}
           </label>
@@ -350,23 +283,17 @@ function closeCaptchaModal() {
       </div>
     </div>
     <div class="mb-3">
-      <button
-        type="button"
-        class="btn btn-secondary fw-bold w-100"
-        :class="{
-          btn: true,
-          'btn-dark': !certificateApplicationInstructionsRead,
-          'btn-secondary': certificateApplicationInstructionsRead,
-          'fw-bold': certificateApplicationInstructionsRead,
-          'w-100': true,
-        }"
-        :style="{
-          color: certificateApplicationInstructionsRead
-            ? '#702f9f'
-            : 'lightgray',
-        }"
-        @click="showIntroductionModal"
-      >
+      <button type="button" class="btn btn-secondary fw-bold w-100" :class="{
+        btn: true,
+        'btn-dark': !certificateApplicationInstructionsRead,
+        'btn-secondary': certificateApplicationInstructionsRead,
+        'fw-bold': certificateApplicationInstructionsRead,
+        'w-100': true,
+      }" :style="{
+        color: certificateApplicationInstructionsRead
+          ? '#702f9f'
+          : 'lightgray',
+      }" @click="showIntroductionModal">
         <i class="bi bi-check-circle"></i>
         {{ $t('pages.preorderCoupon.certificateApplicationInstructionsRead') }}
       </button>
@@ -377,12 +304,7 @@ function closeCaptchaModal() {
           <label for="captcha" class="form-label text-nowrap m-0">
             {{ $t('pages.preorderCoupon.captcha') }}
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="captcha"
-            v-model="applicationData.captcha"
-          />
+          <input type="text" class="form-control" id="captcha" v-model="applicationData.captcha" />
         </div>
         <div class="captcha m-0">
           <TheCaptcha v-model:captchaText="generatedCaptcha" />
@@ -396,12 +318,7 @@ function closeCaptchaModal() {
     </div>
   </form>
   <!-- 辦證說明 modal 開始 -->
-  <div
-    class="modal fade"
-    id="introductionModal"
-    tabindex="-1"
-    aria-labelledby="introductionModalLabel"
-  >
+  <div class="modal fade" id="introductionModal" tabindex="-1" aria-labelledby="introductionModalLabel">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary">
@@ -412,21 +329,13 @@ function closeCaptchaModal() {
               )
             }}
           </h5>
-          <button
-            type="button"
-            class="btn-close"
-            @click="closeIntroductionModal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" @click="closeIntroductionModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <PdfViewer :pdfUrl="pdfUrl" />
         </div>
         <div class="modal-footer">
-          <p
-            class="pointer text-primary fw-bold"
-            @click="closeIntroductionModal"
-          >
+          <p class="pointer text-primary fw-bold" @click="closeIntroductionModal">
             {{ $t('pages.applyFacultyStudentParking.uploadDocuments.cancel') }}
           </p>
           <p class="pointer text-primary fw-bold" @click="confirmAction">
@@ -438,37 +347,23 @@ function closeCaptchaModal() {
   </div>
   <!-- 辦證說明 modal 結束 -->
   <!-- 引入 ValidationModal 元件 -->
-  <ValidationModal
-    :showModal="showModal"
-    :errors="errors"
-    @close="closeValidatorModal"
-  />
+  <ValidationModal :showModal="showModal" :errors="errors" @close="closeValidatorModal" />
   <!-- 確認送出申請資料 modal -->
-  <ConfirmCouponModal
-    :showConfirmCouponModal="showConfirmCouponModal"
-    @close="closeConfirmCouponModal"
-    @apply="submitApplication"
-  />
+  <ConfirmCouponModal :showConfirmCouponModal="showConfirmCouponModal" @close="closeConfirmCouponModal"
+    @apply="submitApplication" />
   <!-- 未閱讀辦證說明 modal 開始 -->
-  <NotReadModal
-    :showNotReadModal="showNotReadModal"
-    @close="closeNotReadModal"
-  />
+  <NotReadModal :showNotReadModal="showNotReadModal" @close="closeNotReadModal" />
   <!-- 驗證碼不正確 modal 開始 -->
-  <CaptchaErrorModal
-    :showCaptchaModal="showCaptchaModal"
-    @close="closeCaptchaModal"
-  />
+  <CaptchaErrorModal :showCaptchaModal="showCaptchaModal" @close="closeCaptchaModal" />
   <!-- 提交申請結果 modal 開始 -->
-  <ApplicatioinResultModal
-    :showApplicatioinResultModal="showApplicatioinResultModal"
-    @close="closeApplicatioinResultModal"
-  />
+  <ApplicatioinResultModal :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal" />
 </template>
 <style scoped>
 .pointer {
   cursor: pointer;
 }
+
 textarea {
   resize: none;
 }

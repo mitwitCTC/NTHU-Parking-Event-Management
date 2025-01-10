@@ -209,11 +209,7 @@ function closeValidatorModal() {
               $t('pages.applyFacultyStudentParking.basic_info.academic_year')
             }}
           </label>
-          <select
-            class="form-select"
-            v-model="applicant_data.academic_year"
-            @change="checkPlateCount"
-          >
+          <select class="form-select" v-model="applicant_data.academic_year" @change="checkPlateCount">
             <option v-for="year in academicYears" :key="year" :value="year">
               {{ year }}
             </option>
@@ -223,23 +219,13 @@ function closeValidatorModal() {
           <label for="email" class="form-label">
             {{ $t('pages.applyFacultyStudentParking.basic_info.email') }}
           </label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            v-model="applicant_data.email"
-          />
+          <input type="email" class="form-control" id="email" v-model="applicant_data.email" />
         </div>
         <div class="mb-3">
           <label for="phone_number" class="form-label">
             {{ $t('pages.applyFacultyStudentParking.basic_info.phone_number') }}
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="phone_number"
-            v-model="applicant_data.phone_number"
-          />
+          <input type="text" class="form-control" id="phone_number" v-model="applicant_data.phone_number" />
         </div>
         <div class="mb-3">
           {{
@@ -249,28 +235,16 @@ function closeValidatorModal() {
           }}
           <div class="d-flex flex-column flex-md-row gap-md-5">
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="campusToReceiveCertificate1"
-                id="campusToReceiveCertificate1"
-                v-model="applicant_data.has_disability_certificate"
-                value="1"
-              />
-              <label class="form-check-label" for="campusToReceiveCertificate1">
+              <input class="form-check-input" type="radio" name="has_disability_certificate1"
+                id="has_disability_certificat1" v-model="applicant_data.has_disability_certificate" value="1" />
+              <label class="form-check-label" for="has_disability_certificate1">
                 {{ $t('pages.applyFacultyStudentParking.basic_info.yes') }}
               </label>
             </div>
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="campusToReceiveCertificate2"
-                id="campusToReceiveCertificate2"
-                v-model="applicant_data.has_disability_certificate"
-                value="0"
-              />
-              <label class="form-check-label" for="campusToReceiveCertificate2">
+              <input class="form-check-input" type="radio" name="has_disability_certificate2"
+                id="has_disability_certificate2" v-model="applicant_data.has_disability_certificate" value="0" />
+              <label class="form-check-label" for="has_disability_certificate2">
                 {{ $t('pages.applyFacultyStudentParking.basic_info.no') }}
               </label>
             </div>
@@ -285,20 +259,12 @@ function closeValidatorModal() {
     </section>
 
     <!-- 提交申請失敗 modal 開始 -->
-    <ApplicatioinResultModal
-      :showApplicatioinResultModal="showApplicatioinResultModal"
-      @close="closeApplicatioinResultModal"
-    />
+    <ApplicatioinResultModal :showApplicatioinResultModal="showApplicatioinResultModal"
+      @close="closeApplicatioinResultModal" />
     <!-- 申請限制 modal  -->
-    <PendingReviewRestrictionModal
-      :showPendingReviewRestrictionModal="showPendingReviewRestrictionModal"
-      @close="closePendingReviewRestrictionModal"
-    />
+    <PendingReviewRestrictionModal :showPendingReviewRestrictionModal="showPendingReviewRestrictionModal"
+      @close="closePendingReviewRestrictionModal" />
     <!-- 引入 ValidationModal 元件 -->
-    <ValidationModal
-      :showModal="showModal"
-      :errors="errors"
-      @close="closeValidatorModal"
-    />
+    <ValidationModal :showModal="showModal" :errors="errors" @close="closeValidatorModal" />
   </div>
 </template>

@@ -1,462 +1,462 @@
 {
-    "pages": {
-        "index": {
-            "title": "title",
-            "subtitle": "subtitle",
-            "queryLinks": "Application\nProgress Inquiry",
-            "applyFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
-            "applyFacultyStudentParking_subtitle": "Application for car, motorcycle, and bicycle permits",
-            "applyStaffParking": "Parking Permit for Staff Members",
-            "applyStaffParking_subtitle": "Application for car and motorcycle work permits",
-            "applyEvent": "Self-organized Activities by Units",
-            "applyEvent_subtitle": "applyEvent_subtitle",
-            "applyEventCoupon": "applyEventCoupon",
-            "applyEventCoupon_subtitle": "Self-organized Activities by Units",
-            "preorderCoupon": "Parking vouchers for events and activities",
-            "preorderCoupon_subtitle": "Application and purchase of parking vouchers"
-        },
-        "applyStaffParking": {
-            "title": "Parking Permit for Staff Members",
-            "subtitle": "Application for car, motorcycle, and bicycle permits",
-            "steps": {
-                "title": "Four steps of application",
-                "step1": "Fill out the Application Form",
-                "step2": "Print",
-                "step3": "The Signatures from the approved unit and the supervisor",
-                "step4": "Take a Photo or Scan and Upload the Signed Application Form",
-                "apply": "apply"
-            },
-            "basic_info": {
-                "applicant": "Name",
-                "applicant_source": "Department",
-                "email": "Email()",
-                "phone_number": "Phone number",
-                "academic_year": "Academic Year",
-                "required": "*Required Field",
-                "next": "Next Step:  Vehicle Registration"
-            },
-            "vehicle_registration": {
-                "vehicle_type": "vehicle_type",
-                "vehicle_type_car": "car",
-                "vehicle_type_scooter": "scooter",
-                "vehicle_type_bike": "bike1",
-                "plate": "plate",
-                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
-                "car_type": "Vehicle Type",
-                "distance": "Daily One-way Commuting Distance to School",
-                "next": "next",
-                "print": "print",
-                "plate_registered": "plate_registered",
-                "delete": "delete",
-                "delete_confirm_title": "delete_confirm_title",
-                "delete_confirm_content": "delete_confirm_content",
-                "cancel": "cancel"
-            },
-            "loginAndUpload": {
-                "plate": "License Plate Number",
-                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
-                "phone_number": "Phone number",
-                "academic_year": "Academic Year of Application",
-                "loginAndUpload": "Log In to Upload",
-                "success": "success",
-                "fail": "fail"
-            },
-            "uploadDocuments": {
-                "plate_registered": "Registered License Plate",
-                "upload": "Upload Documents",
-                "campusToReceiveCertificate": "Main / Nanda Campus Parking Permit",
-                "primaryCampus": "Main Campus",
-                "nanDaCampus": "Nanda Campus",
-                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
-                "captcha": "captcha",
-                "apply": "apply",
-                "cancel": "Cancel",
-                "confirm": "Confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-            }
-        },
-        "applyFacultyStudentParking": {
-            "title": "Parking Permit for Faculty, Staff, and Students",
-            "subtitle": "Application for car, motorcycle, and bicycle permits",
-            "verify_fail": "verify fail",
-            "basic_info": {
-                "academic_year": "Academic Year of Application",
-                "email": "Email",
-                "phone_number": "Phone Number",
-                "has_disability_certificate": "Possession of Disability Certificate",
-                "yes": "Yes",
-                "no": "No",
-                "next": "Next Step: Vehicle Registration"
-            },
-            "vehicle_registration": {
-                "vehicle_type": "Select Vehicle Registration",
-                "vehicle_type_car": "car",
-                "vehicle_type_scooter": "scooter",
-                "vehicle_type_bike": "bike",
-                "plate": "License Plate Number",
-                "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
-                "main_pass_code": "Type of Permit",
-                "register": "Next Step for Registration",
-                "next": "End Registration",
-                "plate_registered": "Registered License Plate",
-                "bike_num": "The number of cars for application",
-                "main_pass_bike": "Bike Permit",
-                "unit": "unit",
-                "delete": "delete",
-                "delete_confirm_title": "delete_confirm_title",
-                "delete_confirm_content": "delete_confirm_content",
-                "cancel": "cancel"
-            },
-            "uploadDocuments": {
-                "plate_registered": "Registered License Plate",
-                "distance": "Daily One-way Commuting Distance to School",
-                "upload": "Upload Documents",
-                "campusToReceiveCertificate": "Main / Nanda Campus Parking Permit",
-                "primaryCampus": "Main Campus",
-                "nanDaCampus": "Nanda Campus",
-                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
-                "apply": "Submit Application",
-                "cancel": "Cancel",
-                "confirm": "Confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-            }
-        },
-        "applyEvent": {
-            "title": "Self-organized Activities by Units",
-            "subtitle": "Activities subtitle",
-            "steps": {
-                "title": "Four steps of application",
-                "step1": "Fill out the Application Form",
-                "step2": "Print",
-                "step3": "The Signatures from the approved unit and the supervisor",
-                "step4": "Take a Photo or Scan and Upload the Signed Application Form",
-                "apply": "Apply"
-            },
-            "form": {
-                "activity": "Event Name",
-                "start_date": "Event Start Date",
-                "end_date": "Event End Date",
-                "start_time": "Event Start Time",
-                "end_time": "Event End Time",
-                "location": "Application Campus",
-                "primaryCampus": "Main campus",
-                "nanDaCampus": "Nanda campus",
-                "area": "Event Location",
-                "headcount": "Estimated Number of Participants",
-                "bus_count": "Estimated Number of Vehicles Entering Campus",
-                "bus": "(Tour Buses)",
-                "car_count": "Estimated Number of Vehicles Entering Campus",
-                "car": "(Private Cars)",
-                "source": "Applying Unit",
-                "applicant": "Applicant",
-                "phone_number": "Phone number",
-                "email": "Email",
-                "note_title": "Note:",
-                "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
-                "print": "Print Application Form",
-                "uploadDocuments": "Upload Application Form and Other Attachments"
-            },
-            "login": {
-                "email": "Email",
-                "phone_number": "Phone number",
-                "login": "Login",
-                "success": "Success",
-                "fail": "Fail"
-            },
-            "upload": {
-                "title": "title",
-                "upload": "Upload Documents",
-                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
-                "captcha": "Verification Code",
-                "apply": "Submit Application",
-                "cancel": "Cancel",
-                "confirm": "Confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-            }
-        },
-        "applyEventCoupon": {
-            "title": "Parking vouchers for events and activities",
-            "subtitle": "Parking vouchers for events and activities",
-            "steps": {
-                "title": "Four steps of application",
-                "step1": "Fill out the Application Form",
-                "step2": "Print",
-                "step3": "The Signatures from the approved unit and the supervisor",
-                "step4": "Take a Photo or Scan and Upload the Signed Application Form",
-                "apply": "Apply"
-            },
-            "form": {
-                "activity": "Event Name",
-                "start_date": "Event Start Date",
-                "end_date": "Event End Date",
-                "start_time": "Event Start Time",
-                "end_time": "Event End Time",
-                "location": "Application Campus",
-                "primaryCampus": "Main campus",
-                "nanDaCampus": "Nanda campus",
-                "area": "Event Location",
-                "headcount": "Estimated Number of Participants",
-                "bus_count": "Estimated Number of Vehicles Entering Campus",
-                "bus": "(Tour Buses)",
-                "car_count": "Estimated Number of Vehicles Entering Campus",
-                "car": "(Private Cars)",
-                "source": "Applying Unit",
-                "applicant": "Applicant",
-                "phone_number": "Phone number",
-                "email": "Email",
-                "note_title": "Note:",
-                "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
-                "print": "Print Application Form",
-                "uploadDocuments": "Upload Application Form and Other Attachments"
-            },
-            "login": {
-                "email": "Email",
-                "phone_number": "Phone number",
-                "login": "Login",
-                "success": "Success",
-                "fail": "Fail"
-            },
-            "upload": {
-                "title": "title",
-                "upload": "Upload Documents",
-                "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
-                "captcha": "Verification Code",
-                "apply": "Submit Application",
-                "cancel": "Cancel",
-                "confirm": "Confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-            },
-            "coupon": {
-                "payment": {
-                    "title": "Payment Method",
-                    "project": "Project Funds",
-                    "cash": "Cash Payment"
-                },
-                "invoice": {
-                    "title": "invoice",
-                    "need_invoice": "need_invoice",
-                    "withVat": "withVat",
-                    "withoutVat": "withoutVat",
-                    "company_name": "company_name",
-                    "vat_number": "vat_number"
-                },
-                "project_number": "Internal Unit Project Number",
-                "reason": "Reason for Application",
-                "quantity": "Quantity",
-                "collection_method": "Voucher Collection Method",
-                "by_email": "Send by Email",
-                "physical": "Collect Physical Vouchers",
-                "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
-                "captcha": "Verification Code",
-                "apply": "Submit Application",
-                "cancel": "Cancel",
-                "confirm": "Confirm",
-                "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-            }
-        },
-        "preorderCoupon": {
-            "title": "preorderCoupon_title",
-            "subtitle": "preorderCoupon_subtitle",
-            "applicant": "Applicant",
-            "phone_number": "Phone number",
-            "email": "Email",
-            "payment": {
-                "title": "Payment Method",
-                "project": "Project Funds",
-                "cash": "Cash Payment"
-            },
-            "invoice": {
-                "title": "invoice",
-                "need_invoice": "need_invoice",
-                "withVat": "withVat",
-                "withoutVat": "withoutVat",
-                "company_name": "company_name",
-                "vat_number": "vat_number"
-            },
-            "project_number": "Internal Unit Project Number",
-            "reason": "Reason for Application",
-            "quantity": "Quantity",
-            "collection_method": "Voucher Collection Method",
-            "by_email": "Send by Email",
-            "physical": "Collect Physical Vouchers",
-            "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
-            "captcha": "Verification Code",
-            "apply": "Submit Application",
-            "cancel": "Cancel",
-            "confirm": "Confirm",
-            "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
-        },
-        "applicationSuccess": {
-            "title": "",
-            "subtitle": "",
-            "received": "Application Received. To check the application progress, please go to the ",
-            "index": "\"Application Homepage\" ",
-            "checkProgress": "and select ",
-            "queryLinks": " \"Application Progress Inquiry.\" ",
-            "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
-        },
-        "query": {
-            "title": "title",
-            "subtitle": "subtitle",
-            "select": "select",
-            "goHomePage": "Go back to the\napplication page",
-            "queryFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
-            "queryFacultyStudentParking_subtitle": "Inquiry about car, motorcycle, and bicycle permits",
-            "queryStaffParking": "Parking Permit for Staff Members",
-            "queryStaffParking_subtitle": "Inquiry about car and motorcycle work permits",
-            "queryEvent": "Self-organized Activities by Units",
-            "queryEvent_subtitle": "Activity Inquiry",
-            "queryCoupon": "Pre-purchase Vouchers",
-            "queryCoupon_subtitle": "Application and Pre-purchase for Parking vouchers"
-        },
-        "queryStaffParking": {
-            "title": "Parking Permit for Staff Members",
-            "subtitle": "Inquiry about car and motorcycle work permits"
-        },
-        "queryFacultyStudentParking": {
-            "title": "Parking Permit for Faculty, Staff, and Students",
-            "subtitle": "Inquiry about car, motorcycle, and bicycle permits",
-            "applicant_number": "Applicant number",
-            "phone_number": "Phone number",
-            "academic_year": "Academic Year",
-            "query": "search",
-            "serial_number": "Serial number",
-            "status": "Status"
-        },
-        "queryFacultyStudentParking_details": {
-            "form_info": "Form info",
-            "application_date": "Application Date",
-            "cancel_application_date": "Cancellation date",
-            "plate": "License Plate Number",
-            "main_pass_code": "Type of Permit",
-            "cancel_application_plate": "Cancel vehicle registration application",
-            "receive_campus": "Main / Nanda Campus Parking Permit",
-            "payment_method": "Payment Method",
-            "amount": "Payment amount",
-            "receive_status": "Collection status",
-            "download": "Download",
-            "search_invoice": "Tax invoice inquiry",
-            "cancel_application": "Cancell Application"
-        },
-        "queryEvent": {
-            "title": "Self-organized Activities by Units",
-            "subtitle": "Activity Inquiry"
-        },
-        "queryCoupon": {
-            "title": "Pre-purchase Vouchers",
-            "subtitle": "Application and Pre-purchase for Parking vouchers"
-        }
+  "pages": {
+    "index": {
+      "title": "title",
+      "subtitle": "subtitle",
+      "queryLinks": "Application\nProgress Inquiry",
+      "applyFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
+      "applyFacultyStudentParking_subtitle": "Application for car, motorcycle, and bicycle permits",
+      "applyStaffParking": "Parking Permit for Staff Members",
+      "applyStaffParking_subtitle": "Application for car and motorcycle work permits",
+      "applyEvent": "Self-organized Activities by Units",
+      "applyEvent_subtitle": "applyEvent_subtitle",
+      "applyEventCoupon": "applyEventCoupon",
+      "applyEventCoupon_subtitle": "Self-organized Activities by Units",
+      "preorderCoupon": "Parking vouchers for events and activities",
+      "preorderCoupon_subtitle": "Application and purchase of parking vouchers"
     },
-    "stepNavigator": {
-        "fillOut": "Fill out the Application Form",
-        "uploadAndSubmit": "Upload and Submit Application"
-    },
-    "validation": {
-        "title": "Information Confirmation",
-        "content": "Incorrect information . Please confirm. Thank you!",
-        "confirm": "Confirm"
-    },
-    "applicationFail": {
-        "title": "Application Incomplete",
-        "content": "The network or system is not responding currently. Please try uploading later.",
-        "confirm": "Confirm"
-    },
-    "pendingReviewRestrictionModal": {
-        "title": "Information confirmation",
-        "content": "pendingReviewRestrictionModal_content",
-        "confirm": "confirm"
-    },
-    "notReadModal": {
-        "title": "Information confirmation",
-        "content": "Please read the permit instructions carefully and select \"I Have Read and Understood the Application Instructions\" before submitting the application.",
-        "confirm": "Confirm"
-    },
-    "captchaModal": {
-        "title": "captchaModal_title",
-        "content": "captchaModal_content",
-        "confirm": "captchaModal_confirm"
-    },
-    "confirm_coupon_modal": {
-        "title": "confirm_coupon",
-        "message": "message",
+    "applyStaffParking": {
+      "title": "Parking Permit for Staff Members",
+      "subtitle": "Application for car, motorcycle, and bicycle permits",
+      "steps": {
+        "title": "Four steps of application",
+        "step1": "Fill out the Application Form",
+        "step2": "Print",
+        "step3": "The Signatures from the approved unit and the supervisor",
+        "step4": "Take a Photo or Scan and Upload the Signed Application Form",
+        "apply": "apply"
+      },
+      "basic_info": {
+        "applicant": "Name",
+        "applicant_source": "Department",
+        "email": "Email()",
+        "phone_number": "Phone number",
+        "academic_year": "Academic Year",
+        "required": "*Required Field",
+        "next": "Next Step:  Vehicle Registration"
+      },
+      "vehicle_registration": {
+        "vehicle_type": "vehicle_type",
+        "vehicle_type_car": "car",
+        "vehicle_type_scooter": "scooter",
+        "vehicle_type_bike": "bike1",
+        "plate": "plate",
+        "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
+        "car_type": "Vehicle Type",
+        "distance": "Daily One-way Commuting Distance to School",
+        "next": "next",
+        "print": "print",
+        "plate_registered": "plate_registered",
+        "delete": "delete",
+        "delete_confirm_title": "delete_confirm_title",
+        "delete_confirm_content": "delete_confirm_content",
+        "cancel": "cancel"
+      },
+      "loginAndUpload": {
+        "plate": "License Plate Number",
+        "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
+        "phone_number": "Phone number",
+        "academic_year": "Academic Year of Application",
+        "loginAndUpload": "Log In to Upload",
+        "success": "success",
+        "fail": "fail"
+      },
+      "uploadDocuments": {
+        "plate_registered": "Registered License Plate",
+        "upload": "Upload Documents",
+        "campusToReceiveCertificate": "Main / Nanda Campus Parking Permit",
+        "primaryCampus": "Main Campus",
+        "nanDaCampus": "Nanda Campus",
+        "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+        "captcha": "captcha",
+        "apply": "apply",
         "cancel": "Cancel",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+      }
     },
-    "all_main_pass_code_list": {
-        "TC": "Faculty and Staff On-campus Vehicle Permit",
-        "TE": " Vehicle Permit for Residential Staff Quarters",
-        "SC": "Student Vehicle Permit",
-        "HF": "Short-term Vehicle Permit",
-        "TM": "Faculty and Staff On-campus Vehicle Permit",
-        "TME": "Vehicle Permit for Residential Staff Quarters",
-        "SM": "Student Vehicle Permit",
-        "BS": "Bicycle Permit",
-        "WC": "WC",
-        "WM": "WM",
-        "unknown": "Unknown"
-    },
-    "car_types": {
-        "Gasoline": "Gasoline Vehicle",
-        "Hybrid": "Hybrid Vehicle",
-        "Electric": "Electric Vehicle",
-        "Diesel": "Diesel Vehicle"
-    },
-    "statuses": {
-        "form_status": {
-            "0": "待審核E",
-            "1": "審核中E",
-            "2": "已審核E",
-            "3": "已退件E",
-            "4": "無審核E",
-            "999": "申請人抽單E",
-            "unknown": "Unknown"
-        },
-        "payment_status": {
-            "1": "已繳費E",
-            "0": "未繳費E"
-        },
-        "receive_status": {
-            "1": "已領用E",
-            "0": "未領用E",
-            "unknown": "Unknown"
-        },
-        "unknown": "未知狀態E"
-    },
-    "payment_methods": {
-        "1": "Pay deduction",
-        "2": "Bill",
-        "3": "Online",
-        "4": "Project Funds",
-        "0": "Unknown"
-    },
-    "receive_location": {
-        "0": "Unknown",
-        "1": "Main Campus",
-        "2": "Nanda Campus",
-        "999": "All"
-    },
-    "commute_distances": {
-        "5_10km": "5-10km",
-        "10_20km": "10-20km",
-        "20_30km": "20-30km",
-        "30_40km": "30-40km",
-        "40_50km": "40-50km",
-        "over_50km": "Over 50km"
-    },
-    "confirm_modal": {
-        "title": "Information confirmation",
-        "message": "Please confirm again whether the application information is correct.",
+    "applyFacultyStudentParking": {
+      "title": "Parking Permit for Faculty, Staff, and Students",
+      "subtitle": "Application for car, motorcycle, and bicycle permits",
+      "verify_fail": "verify fail",
+      "basic_info": {
+        "academic_year": "Academic Year of Application",
+        "email": "Email",
+        "phone_number": "Phone Number",
+        "has_disability_certificate": "Possession of Disability Certificate",
+        "yes": "Yes",
+        "no": "No",
+        "next": "Next Step: Vehicle Registration"
+      },
+      "vehicle_registration": {
+        "vehicle_type": "Select Vehicle Registration",
+        "vehicle_type_car": "car",
+        "vehicle_type_scooter": "scooter",
+        "vehicle_type_bike": "bike",
+        "plate": "License Plate Number",
+        "licensePlateInputFormat": "licensePlateInputFormat\"-\"",
+        "main_pass_code": "Type of Permit",
+        "register": "Next Step for Registration",
+        "next": "End Registration",
+        "plate_registered": "Registered License Plate",
+        "bike_num": "The number of cars for application",
+        "main_pass_bike": "Bike Permit",
+        "unit": "unit",
+        "delete": "delete",
+        "delete_confirm_title": "delete_confirm_title",
+        "delete_confirm_content": "delete_confirm_content",
+        "cancel": "cancel"
+      },
+      "uploadDocuments": {
+        "plate_registered": "Registered License Plate",
+        "distance": "Daily One-way Commuting Distance to School",
+        "upload": "Upload Documents",
+        "campusToReceiveCertificate": "Main / Nanda Campus Parking Permit",
+        "primaryCampus": "Main Campus",
+        "nanDaCampus": "Nanda Campus",
+        "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+        "apply": "Submit Application",
         "cancel": "Cancel",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+      }
     },
-    "noSearchResultModal": {
-        "title": "no result title",
-        "message": "message",
-        "confirm": "Confirm"
+    "applyEvent": {
+      "title": "Self-organized Activities by Units",
+      "subtitle": "Activities subtitle",
+      "steps": {
+        "title": "Four steps of application",
+        "step1": "Fill out the Application Form",
+        "step2": "Print",
+        "step3": "The Signatures from the approved unit and the supervisor",
+        "step4": "Take a Photo or Scan and Upload the Signed Application Form",
+        "apply": "Apply"
+      },
+      "form": {
+        "activity": "Event Name",
+        "start_date": "Event Start Date",
+        "end_date": "Event End Date",
+        "start_time": "Event Start Time",
+        "end_time": "Event End Time",
+        "location": "Application Campus",
+        "primaryCampus": "Main campus",
+        "nanDaCampus": "Nanda campus",
+        "area": "Event Location",
+        "headcount": "Estimated Number of Participants",
+        "bus_count": "Estimated Number of Vehicles Entering Campus",
+        "bus": "(Tour Buses)",
+        "car_count": "Estimated Number of Vehicles Entering Campus",
+        "car": "(Private Cars)",
+        "source": "Applying Unit",
+        "applicant": "Applicant",
+        "phone_number": "Phone number",
+        "email": "Email",
+        "note_title": "Note:",
+        "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
+        "print": "Print Application Form",
+        "uploadDocuments": "Upload Application Form and Other Attachments"
+      },
+      "login": {
+        "email": "Email",
+        "phone_number": "Phone number",
+        "login": "Login",
+        "success": "Success",
+        "fail": "Fail"
+      },
+      "upload": {
+        "title": "title",
+        "upload": "Upload Documents",
+        "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+        "captcha": "Verification Code",
+        "apply": "Submit Application",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+      }
     },
-    "searchFailModal": {
-        "title": "searchFail_title",
-        "message": "searchFail_message",
-        "confirm": "Confirm"
+    "applyEventCoupon": {
+      "title": "Parking vouchers for events and activities",
+      "subtitle": "Parking vouchers for events and activities",
+      "steps": {
+        "title": "Four steps of application",
+        "step1": "Fill out the Application Form",
+        "step2": "Print",
+        "step3": "The Signatures from the approved unit and the supervisor",
+        "step4": "Take a Photo or Scan and Upload the Signed Application Form",
+        "apply": "Apply"
+      },
+      "form": {
+        "activity": "Event Name",
+        "start_date": "Event Start Date",
+        "end_date": "Event End Date",
+        "start_time": "Event Start Time",
+        "end_time": "Event End Time",
+        "location": "Application Campus",
+        "primaryCampus": "Main campus",
+        "nanDaCampus": "Nanda campus",
+        "area": "Event Location",
+        "headcount": "Estimated Number of Participants",
+        "bus_count": "Estimated Number of Vehicles Entering Campus",
+        "bus": "(Tour Buses)",
+        "car_count": "Estimated Number of Vehicles Entering Campus",
+        "car": "(Private Cars)",
+        "source": "Applying Unit",
+        "applicant": "Applicant",
+        "phone_number": "Phone number",
+        "email": "Email",
+        "note_title": "Note:",
+        "note_content": "Before submitting the application, print out the application form, have it signed by the supervisor of the applying unit, and scan or photograph the approved application form as an attachment for submission.",
+        "print": "Print Application Form",
+        "uploadDocuments": "Upload Application Form and Other Attachments"
+      },
+      "login": {
+        "email": "Email",
+        "phone_number": "Phone number",
+        "login": "Login",
+        "success": "Success",
+        "fail": "Fail"
+      },
+      "upload": {
+        "title": "title",
+        "upload": "Upload Documents",
+        "certificateApplicationInstructionsRead": "I Have Read the Permit Instructions",
+        "captcha": "Verification Code",
+        "apply": "Submit Application",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+      },
+      "coupon": {
+        "payment": {
+          "title": "Payment Method",
+          "project": "Project Funds",
+          "cash": "Cash Payment"
+        },
+        "invoice": {
+          "title": "invoice",
+          "need_invoice": "need_invoice",
+          "withVat": "withVat",
+          "withoutVat": "withoutVat",
+          "company_name": "company_name",
+          "vat_number": "vat_number"
+        },
+        "project_number": "Internal Unit Project Number",
+        "reason": "Reason for Application",
+        "quantity": "Quantity",
+        "collection_method": "Voucher Collection Method",
+        "by_email": "Send by Email",
+        "physical": "Collect Physical Vouchers",
+        "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
+        "captcha": "Verification Code",
+        "apply": "Submit Application",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+      }
+    },
+    "preorderCoupon": {
+      "title": "preorderCoupon_title",
+      "subtitle": "preorderCoupon_subtitle",
+      "applicant": "Applicant",
+      "phone_number": "Phone number",
+      "email": "Email",
+      "payment": {
+        "title": "Payment Method",
+        "project": "Project Funds",
+        "cash": "Cash Payment"
+      },
+      "invoice": {
+        "title": "invoice",
+        "need_invoice": "need_invoice",
+        "withVat": "withVat",
+        "withoutVat": "withoutVat",
+        "company_name": "company_name",
+        "vat_number": "vat_number"
+      },
+      "project_number": "Internal Unit Project Number",
+      "reason": "Reason for Application",
+      "quantity": "Quantity",
+      "collection_method": "Voucher Collection Method",
+      "by_email": "Send by Email",
+      "physical": "Collect Physical Vouchers",
+      "certificateApplicationInstructionsRead": "I Have Read and Understood the Event Application Instructions",
+      "captcha": "Verification Code",
+      "apply": "Submit Application",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "certificateApplicationInstructionsTitle": "certificateApplicationInstructions"
+    },
+    "applicationSuccess": {
+      "title": "",
+      "subtitle": "",
+      "received": "Application Received. To check the application progress, please go to the ",
+      "index": "\"Application Homepage\" ",
+      "checkProgress": "and select ",
+      "queryLinks": " \"Application Progress Inquiry.\" ",
+      "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
+    },
+    "query": {
+      "title": "title",
+      "subtitle": "subtitle",
+      "select": "select",
+      "goHomePage": "Go back to the\napplication page",
+      "queryFacultyStudentParking": "Parking Permit for Faculty, Staff, and Students",
+      "queryFacultyStudentParking_subtitle": "Inquiry about car, motorcycle, and bicycle permits",
+      "queryStaffParking": "Parking Permit for Staff Members",
+      "queryStaffParking_subtitle": "Inquiry about car and motorcycle work permits",
+      "queryEvent": "Self-organized Activities by Units",
+      "queryEvent_subtitle": "Activity Inquiry",
+      "queryCoupon": "Pre-purchase Vouchers",
+      "queryCoupon_subtitle": "Application and Pre-purchase for Parking vouchers"
+    },
+    "queryStaffParking": {
+      "title": "Parking Permit for Staff Members",
+      "subtitle": "Inquiry about car and motorcycle work permits"
+    },
+    "queryFacultyStudentParking": {
+      "title": "Parking Permit for Faculty, Staff, and Students",
+      "subtitle": "Inquiry about car, motorcycle, and bicycle permits",
+      "applicant_number": "Applicant number",
+      "phone_number": "Phone number",
+      "academic_year": "Academic Year",
+      "query": "search",
+      "serial_number": "Serial number",
+      "status": "Status"
+    },
+    "queryFacultyStudentParking_details": {
+      "form_info": "Form info",
+      "application_date": "Application Date",
+      "cancel_application_date": "Cancellation date",
+      "plate": "License Plate Number",
+      "main_pass_code": "Type of Permit",
+      "cancel_application_plate": "Cancel vehicle registration application",
+      "receive_campus": "Main / Nanda Campus Parking Permit",
+      "payment_method": "Payment Method",
+      "amount": "Payment amount",
+      "receive_status": "Collection status",
+      "download": "Download",
+      "search_invoice": "Tax invoice inquiry",
+      "cancel_application": "Cancell Application"
+    },
+    "queryEvent": {
+      "title": "Self-organized Activities by Units",
+      "subtitle": "Activity Inquiry"
+    },
+    "queryCoupon": {
+      "title": "Pre-purchase Vouchers",
+      "subtitle": "Application and Pre-purchase for Parking vouchers"
     }
+  },
+  "stepNavigator": {
+    "fillOut": "Fill out the Application Form",
+    "uploadAndSubmit": "Upload and Submit Application"
+  },
+  "validation": {
+    "title": "Information Confirmation",
+    "content": "Incorrect information . Please confirm. Thank you!",
+    "confirm": "Confirm"
+  },
+  "applicationFail": {
+    "title": "Application Incomplete",
+    "content": "The network or system is not responding currently. Please try uploading later.",
+    "confirm": "Confirm"
+  },
+  "pendingReviewRestrictionModal": {
+    "title": "Information confirmation",
+    "content": "pendingReviewRestrictionModal_content",
+    "confirm": "confirm"
+  },
+  "notReadModal": {
+    "title": "Information confirmation",
+    "content": "Please read the permit instructions carefully and select \"I Have Read and Understood the Application Instructions\" before submitting the application.",
+    "confirm": "Confirm"
+  },
+  "captchaModal": {
+    "title": "captchaModal_title",
+    "content": "captchaModal_content",
+    "confirm": "captchaModal_confirm"
+  },
+  "confirm_coupon_modal": {
+    "title": "confirm_coupon",
+    "message": "message",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "all_main_pass_code_list": {
+    "TC": "Faculty and Staff On-campus Vehicle Permit",
+    "TE": " Vehicle Permit for Residential Staff Quarters",
+    "SC": "Student Vehicle Permit",
+    "HF": "Short-term Vehicle Permit",
+    "TM": "Faculty and Staff On-campus Vehicle Permit",
+    "TME": "Vehicle Permit for Residential Staff Quarters",
+    "SM": "Student Vehicle Permit",
+    "BS": "Bicycle Permit",
+    "WC": "WC",
+    "WM": "WM",
+    "unknown": "Unknown"
+  },
+  "car_types": {
+    "Gasoline": "Gasoline Vehicle",
+    "Hybrid": "Hybrid Vehicle",
+    "Electric": "Electric Vehicle",
+    "Diesel": "Diesel Vehicle"
+  },
+  "statuses": {
+    "form_status": {
+      "0": "待審核E",
+      "1": "審核中E",
+      "2": "已審核E",
+      "3": "已退件E",
+      "4": "無審核E",
+      "999": "申請人抽單E",
+      "unknown": "Unknown"
+    },
+    "payment_status": {
+      "1": "已繳費E",
+      "0": "未繳費E"
+    },
+    "receive_status": {
+      "1": "已領用E",
+      "0": "未領用E",
+      "unknown": "Unknown"
+    },
+    "unknown": "未知狀態E"
+  },
+  "payment_methods": {
+    "1": "Pay deduction",
+    "2": "Bill",
+    "3": "Online",
+    "4": "Project Funds",
+    "0": "Unknown"
+  },
+  "receive_location": {
+    "0": "Unknown",
+    "1": "Main Campus",
+    "2": "Nanda Campus",
+    "999": "All"
+  },
+  "commute_distances": {
+    "5_10km": "5-10km",
+    "10_20km": "10-20km",
+    "20_30km": "20-30km",
+    "30_40km": "30-40km",
+    "40_50km": "40-50km",
+    "over_50km": "Over 50km"
+  },
+  "confirm_modal": {
+    "title": "Information confirmation",
+    "message": "Please confirm again whether the application information is correct.",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "noSearchResultModal": {
+    "title": "no result title",
+    "message": "message",
+    "confirm": "Confirm"
+  },
+  "searchFailModal": {
+    "title": "searchFail_title",
+    "message": "searchFail_message",
+    "confirm": "Confirm"
+  }
 }

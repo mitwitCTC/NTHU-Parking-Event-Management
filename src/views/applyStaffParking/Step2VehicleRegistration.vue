@@ -222,10 +222,7 @@ function deleteVehicle_registered() {
 </script>
 
 <template>
-  <VehicleType
-    :car_type_title="car_type_title"
-    @updateCar_type_title="updateCar_type_title"
-  />
+  <VehicleType :car_type_title="car_type_title" @updateCar_type_title="updateCar_type_title" />
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
   <form class="mt-5">
@@ -242,12 +239,7 @@ function deleteVehicle_registered() {
           )
         </span>
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="plate"
-        v-model="vehicle_registration_data.plate"
-      />
+      <input type="text" class="form-control" id="plate" v-model="vehicle_registration_data.plate" />
     </div>
     <div class="mb-3" v-if="car_type_title == '汽車'">
       <label for="car_type" class="form-label">
@@ -267,15 +259,8 @@ function deleteVehicle_registered() {
           )
         }}
       </label>
-      <select
-        class="form-select"
-        v-model="vehicle_registration_data.main_pass_code"
-      >
-        <option
-          v-for="item in main_pass_code_list"
-          :key="item.code"
-          :value="item.code"
-        >
+      <select class="form-select" v-model="vehicle_registration_data.main_pass_code">
+        <option v-for="item in main_pass_code_list" :key="item.code" :value="item.code">
           {{ $t(`all_main_pass_code_list.${item.code}`) }}
         </option>
       </select>
@@ -285,42 +270,26 @@ function deleteVehicle_registered() {
         {{ $t('pages.applyStaffParking.vehicle_registration.distance') }}
       </label>
       <select class="form-select" v-model="selectedCommuteDistance">
-        <option
-          v-for="item in commuteDistances"
-          :key="item.value"
-          :value="item.value"
-        >
+        <option v-for="item in commuteDistances" :key="item.value" :value="item.value">
           {{ $t(item.labelKey) }}
         </option>
       </select>
     </div>
     <div class="d-flex justify-content-between">
-      <button
-        class="btn btn-secondary"
-        @click.prevent="addVehicle_registered_list"
-      >
+      <button class="btn btn-secondary" @click.prevent="addVehicle_registered_list">
         {{ $t('pages.applyStaffParking.vehicle_registration.next') }}
       </button>
-      <button
-        class="btn btn-secondary"
-        @click.prevent="submitApplication"
-        :disabled="vehicle_registered_list.length <= 0"
-      >
+      <button class="btn btn-secondary" @click.prevent="submitApplication"
+        :disabled="vehicle_registered_list.length <= 0">
         {{ $t('pages.applyStaffParking.vehicle_registration.print') }}
       </button>
     </div>
   </form>
   <!-- 引入 ValidationModal 元件 -->
-  <ValidationModal
-    :showModal="showModal"
-    :errors="errors"
-    @close="closeValidatorModal"
-  />
+  <ValidationModal :showModal="showModal" :errors="errors" @close="closeValidatorModal" />
   <!-- 提交申請結果 modal 開始 -->
-  <ApplicatioinResultModal
-    :showApplicatioinResultModal="showApplicatioinResultModal"
-    @close="closeApplicatioinResultModal"
-  />
+  <ApplicatioinResultModal :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal" />
   <section>
     <p class="mt-3">
       {{ $t('pages.applyStaffParking.vehicle_registration.plate_registered') }}
@@ -328,18 +297,15 @@ function deleteVehicle_registered() {
     <div class="registered-list border rounded vehicle-registration">
       <ul>
         <li v-for="(item, index) in vehicle_registered_list" :key="index">
-          <div
-            class="d-flex justify-content-between align-items-center px-3 py-1 mt-1"
-          >
+          <div class="d-flex justify-content-between align-items-center px-3 py-1 mt-1">
             <p class="m-0">
               <span> {{ item.plate }}&nbsp;</span>
               <span>
                 {{
                   $t(
-                    `all_main_pass_code_list.${
-                      all_main_pass_code_list.find(
-                        code => code.code === item.main_pass_code,
-                      )?.code || 'unknown'
+                    `all_main_pass_code_list.${all_main_pass_code_list.find(
+                      code => code.code === item.main_pass_code,
+                    )?.code || 'unknown'
                     }`,
                   )
                 }}
@@ -353,12 +319,7 @@ function deleteVehicle_registered() {
       </ul>
     </div>
     <!-- 刪除已登記車號 modal 開始 -->
-    <div
-      class="modal fade"
-      id="deleteModal"
-      tabindex="-1"
-      aria-labelledby="deleteModalLabel"
-    >
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-secondary">
@@ -369,12 +330,7 @@ function deleteVehicle_registered() {
                 )
               }}
             </h5>
-            <button
-              type="button"
-              class="btn-close"
-              @click="closeDeleteModal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" @click="closeDeleteModal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <p>
@@ -383,12 +339,11 @@ function deleteVehicle_registered() {
                 <br />
                 {{
                   $t(
-                    `all_main_pass_code_list.${
-                      all_main_pass_code_list.find(
-                        code =>
-                          code.code ===
-                          deleteVehicle_registered_data.main_pass_code,
-                      )?.code || 'unknown'
+                    `all_main_pass_code_list.${all_main_pass_code_list.find(
+                      code =>
+                        code.code ===
+                        deleteVehicle_registered_data.main_pass_code,
+                    )?.code || 'unknown'
                     }`,
                   )
                 }}
@@ -406,10 +361,7 @@ function deleteVehicle_registered() {
             <p class="pointer text-primary fw-bold" @click="closeDeleteModal">
               {{ $t('pages.applyStaffParking.vehicle_registration.cancel') }}
             </p>
-            <p
-              class="pointer text-primary fw-bold"
-              @click="deleteVehicle_registered"
-            >
+            <p class="pointer text-primary fw-bold" @click="deleteVehicle_registered">
               {{ $t('pages.applyStaffParking.vehicle_registration.delete') }}
             </p>
           </div>
@@ -425,6 +377,7 @@ function deleteVehicle_registered() {
   height: 100px;
   overflow-y: auto;
   scrollbar-width: none;
+
   ::-webkit-scrollbar {
     display: none;
   }
