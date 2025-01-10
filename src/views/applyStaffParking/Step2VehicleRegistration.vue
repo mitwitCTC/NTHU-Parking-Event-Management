@@ -167,6 +167,11 @@ async function prepareApplicationData() {
     content: vehicle_registered_list.value,
     distance_title: selectedCommuteDistance.value,
     distance: 0,
+    DonateMark: staffStore.applicant_data.DonateMark, // 捐贈註記
+    NPOBAN: staffStore.applicant_data.NPOBAN, // 捐贈對象
+    CarrierType: staffStore.applicant_data.CarrierType, // 載具類別
+    CarrierID1: staffStore.applicant_data.CarrierID1, // 載具顯碼
+    CarrierID2: staffStore.applicant_data.CarrierID2, // 載具隱碼
   }
 }
 

@@ -33,7 +33,17 @@
         "phone_number": "Phone number",
         "academic_year": "Academic Year",
         "required": "*Required Field",
-        "next": "Next Step:  Vehicle Registration"
+        "next": "Next Step:  Vehicle Registration",
+        "invoice": {
+          "title": "Uniform Invoice",
+          "uxb2b": "UX Membership",
+          "mobile_carrier": "Mobile barcode registration",
+          "donate": "Donation Invoice",
+          "withVat": "Issue a unified number",
+          "withoutVat": "No unified number is issued",
+          "company_name": "Company Name",
+          "vat_number": "Unified Number"
+        }
       },
       "vehicle_registration": {
         "vehicle_type": "vehicle_type",
@@ -86,7 +96,17 @@
         "has_disability_certificate": "Possession of Disability Certificate",
         "yes": "Yes",
         "no": "No",
-        "next": "Next Step: Vehicle Registration"
+        "next": "Next Step: Vehicle Registration",
+        "invoice": {
+          "title": "Uniform Invoice",
+          "uxb2b": "UX Membership",
+          "mobile_carrier": "Mobile barcode registration",
+          "donate": "Donation Invoice",
+          "withVat": "Issue a unified number",
+          "withoutVat": "No unified number is issued",
+          "company_name": "Company Name",
+          "vat_number": "Unified Number"
+        }
       },
       "vehicle_registration": {
         "vehicle_type": "Select Vehicle Registration",
@@ -233,12 +253,14 @@
           "cash": "Cash Payment"
         },
         "invoice": {
-          "title": "invoice",
-          "need_invoice": "need_invoice",
-          "withVat": "withVat",
-          "withoutVat": "withoutVat",
-          "company_name": "company_name",
-          "vat_number": "vat_number"
+          "title": "Uniform Invoice",
+          "uxb2b": "UX Membership",
+          "mobile_carrier": "Mobile barcode registration",
+          "donate": "Donation Invoice",
+          "withVat": "Issue a unified number",
+          "withoutVat": "No unified number is issued",
+          "company_name": "Company Name",
+          "vat_number": "Unified Number"
         },
         "project_number": "Internal Unit Project Number",
         "reason": "Reason for Application",
@@ -266,12 +288,14 @@
         "cash": "Cash Payment"
       },
       "invoice": {
-        "title": "invoice",
-        "need_invoice": "need_invoice",
-        "withVat": "withVat",
-        "withoutVat": "withoutVat",
-        "company_name": "company_name",
-        "vat_number": "vat_number"
+        "title": "Uniform Invoice",
+        "uxb2b": "UX Membership",
+        "mobile_carrier": "Mobile barcode registration",
+        "donate": "Donation Invoice",
+        "withVat": "Issue a unified number",
+        "withoutVat": "No unified number is issued",
+        "company_name": "Company Name",
+        "vat_number": "Unified Number"
       },
       "project_number": "Internal Unit Project Number",
       "reason": "Reason for Application",

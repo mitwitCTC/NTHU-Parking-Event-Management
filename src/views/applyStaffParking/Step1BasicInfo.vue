@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import StepNavigator from '@/components/StepNavigator.vue'
 import router from '@/router'
 import { useStaffStore } from '@/stores/staffStore'
@@ -8,6 +8,10 @@ import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 import { useAcademicYears } from '@/composables/getAcademicYears.js'
 const { academicYears } = useAcademicYears('/api/academic-years')
+import { useDonationOrganization } from '@/composables/useDonationOrganization'
+const { donationOrganizationList } = useDonationOrganization()
+import { generateUXB2BCode } from '@/composables/generateUXB2BCode'
+
 
 const currentStep = ref(1)
 // 定義步驟資料
@@ -31,9 +35,24 @@ const steps = [
 ]
 const staffStore = useStaffStore()
 
+const invoice_needVat = ref(false)
 // 申請人資料
 const applicant_data = ref({
   campusToReceiveCertificate: '1', // 預設在校本部領證
+  CarrierType: '3J0001', // 預設為網優載具
+  CarrierID1: '', // 載具顯碼
+  CarrierID2: '', // 載具隱碼
+  DonateMark: '0', // 捐贈註記，0：預設，無捐贈，1：捐贈
+  NPOBAN: '' // 捐贈對象
+})
+onMounted(() => {
+  staffStore.getApplicantData()
+  if (staffStore.applicant_data != {}) {
+    Object.assign(applicant_data.value, staffStore.applicant_data)
+  }
+  if (staffStore.applicant_data.vat_number != '') {
+    invoice_needVat.value = true
+  }
 })
 
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
@@ -47,6 +66,19 @@ function formValidate() {
     email: { email: true },
     phone_number: { required: true, phone_number: true },
     academic_year: { required: true },
+  }
+
+  // 選擇共通性載具，則載具欄位為必填
+  if (applicant_data.value.CarrierType == '3J0002') {
+    rules.CarrierID1 = { required: true, CarrierID1: true }
+  }
+  // 選擇捐贈，則捐贈機構欄位為必填
+  if (applicant_data.value.DonateMark == true) {
+    rules.NPOBAN = { required: true }
+  }
+  // 如果需開立統編，則統編欄位為必填
+  if (invoice_needVat.value) {
+    rules.vat_number = { required: true, vat_number: true }
   }
 
   // 確保 formValidatorRef 正確引用 FormValidator 組件
@@ -68,6 +100,33 @@ function formValidate() {
     return false
   }
 }
+
+watch(
+  () => applicant_data.value.DonateMark,
+  (newValue) => {
+    if (newValue == 1) {
+      // DonateMark 勾選時
+      applicant_data.value.NPOBAN = ''; // NPOBAN 可選 (清空，讓使用者重新選擇)
+      invoice_needVat.value = false; // 強制 invoice_needVat 為 false
+      applicant_data.value.vat_number = ''; // 清空統編
+    } else {
+      // DonateMark 未勾選時
+      applicant_data.value.NPOBAN = ''; // 確保 NPOBAN 為空
+    }
+  }
+);
+
+watch(
+  () => invoice_needVat.value,
+  (newValue) => {
+    if (newValue) {
+      applicant_data.value.DonateMark = 0; // DonateMark 必須未勾選
+    } else {
+      applicant_data.value.vat_number = ''
+    }
+  }
+);
+
 // 這個方法將由 ValidationModal 觸發來關閉 Modal
 function closeValidatorModal() {
   showModal.value = false
@@ -83,9 +142,18 @@ function closeConfirmModal() {
 }
 function apply() {
   if (formValidate()) {
+    formatApplicationData()
     staffStore.setApplicantData(applicant_data.value)
     router.push('/apply-staff-parking/step2')
   }
+}
+
+// 處理申請人資料
+function formatApplicationData() {
+  if (applicant_data.value.CarrierType == '3J0001') {
+    applicant_data.value.CarrierID1 = generateUXB2BCode(applicant_data.value.phone_number)
+  }
+  applicant_data.value.CarrierID2 = applicant_data.value.CarrierID1
 }
 </script>
 
@@ -149,6 +217,79 @@ function apply() {
         </option>
       </select>
     </div>
+    <div class="mb-3">
+      {{
+        $t(
+          'pages.applyStaffParking.basic_info.invoice.title',
+        )
+      }}
+      <div class="invoice-section p-2">
+
+        <div class="d-flex flex-column flex-md-row gap-md-5">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="carrierType1" id="carrierType1"
+              v-model="applicant_data.CarrierType" value="3J0001" />
+            <label class="form-check-label" for="carrierType1">
+              {{ $t('pages.applyStaffParking.basic_info.invoice.uxb2b') }}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="carrierType2" id="carrierType2"
+              v-model="applicant_data.CarrierType" value="3J0002" />
+            <label class="form-check-label" for="carrierType2">
+              {{ $t('pages.applyStaffParking.basic_info.invoice.mobile_carrier') }}
+            </label>
+          </div>
+        </div>
+        <div class="mb-3" v-if="applicant_data.CarrierType == '3J0002'">
+          <input type="text" class="form-control" id="CarrierID1" v-model="applicant_data.CarrierID1" />
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="DonateMark" id="DonateMark"
+            v-model="applicant_data.DonateMark" true-value="1" false-value="0" />
+          <label class="form-check-label" for="DonateMark">
+            {{ $t('pages.applyStaffParking.basic_info.invoice.donate') }}
+          </label>
+        </div>
+        <select class="form-select" v-model="applicant_data.NPOBAN" :disabled="applicant_data.DonateMark == 0">
+          <option v-for="item in donationOrganizationList" :key="item.id" :value="item.id">
+            {{ item.name }}
+          </option>
+        </select>
+        <hr>
+        <div class="mb-3">
+          <div class="d-flex flex-column flex-md-row gap-md-5">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="invoice_needVat1" v-model="invoice_needVat" :value=true
+                :disabled="applicant_data.DonateMark == 1" />
+              <label class="form-check-label" for="invoice_needVat1">
+                {{ $t('pages.applyStaffParking.basic_info.invoice.withVat') }}
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="invoice_needVat2" v-model="invoice_needVat"
+                :value=false />
+              <label class="form-check-label" for="invoice_needVat2">
+                {{ $t('pages.applyStaffParking.basic_info.invoice.withoutVat') }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="company_name" class="form-label">
+            {{ $t('pages.applyStaffParking.basic_info.invoice.company_name') }}
+          </label>
+          <input type="text" class="form-control" id="company_name" v-model="applicant_data.company_name" />
+        </div>
+        <div class="mb-3">
+          <label for="vat_number" class="form-label">
+            {{ $t('pages.applyStaffParking.basic_info.invoice.vat_number') }}
+          </label>
+          <input type="text" class="form-control" id="vat_number" :disabled="invoice_needVat == false"
+            v-model="applicant_data.vat_number" />
+        </div>
+      </div>
+    </div>
     <div class="text-center">
       <button class="btn btn-secondary" @click.prevent="handleNext">
         {{ $t('pages.applyStaffParking.basic_info.next') }}
@@ -164,5 +305,10 @@ function apply() {
 <style scoped>
 .pointer {
   cursor: pointer;
+}
+
+.invoice-section {
+  border: 2px solid darkgray;
+  border-radius: 5px;
 }
 </style>

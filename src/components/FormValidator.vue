@@ -77,6 +77,16 @@ const validateForm = (formData, rules) => {
       errors[field] = `${field} 必須包含且僅包含一個 "-"，不得有其他符號`
     }
 
+    // 載具驗證
+    if (
+      rule.CarrierID1 &&
+      stringValue &&
+      !/^\/[0-9A-Z.+-]{7}$/.test(stringValue)
+    ) {
+      isValid = false
+      errors[field] = `${field} 不是有效的共通性手機載具`
+    }
+
     // 統一編號驗證
     if (rule.vat_number && stringValue && !validateUnifiedNumber(stringValue)) {
       isValid = false

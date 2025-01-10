@@ -33,7 +33,17 @@
         "phone_number": "聯絡電話",
         "academic_year": "申請學年度",
         "required": "*為必填項目",
-        "next": "下一步，登記車輛"
+        "next": "下一步，登記車輛",
+        "invoice": {
+          "title": "發票開立",
+          "uxb2b": "網際優勢會員載具",
+          "mobile_carrier": "共通性載具",
+          "donate": "捐贈",
+          "withVat": "開立統編",
+          "withoutVat": "無統編",
+          "company_name": "公司抬頭",
+          "vat_number": "統一編號"
+        }
       },
       "vehicle_registration": {
         "vehicle_type": "點選登記車輛種類",
@@ -86,7 +96,17 @@
         "has_disability_certificate": "持有身心障礙手冊",
         "yes": "是",
         "no": "否",
-        "next": "下一步，登記車輛"
+        "next": "下一步，登記車輛",
+        "invoice": {
+          "title": "發票開立",
+          "uxb2b": "網際優勢會員載具",
+          "mobile_carrier": "共通性載具",
+          "donate": "捐贈",
+          "withVat": "開立統編",
+          "withoutVat": "無統編",
+          "company_name": "公司抬頭",
+          "vat_number": "統一編號"
+        }
       },
       "vehicle_registration": {
         "vehicle_type": "點選登記車輛種類",
@@ -234,9 +254,11 @@
         },
         "invoice": {
           "title": "發票開立",
-          "need_invoice": "開立統一編號",
-          "withVat": "開立統一編號",
-          "withoutVat": "不開立統編",
+          "uxb2b": "網際優勢會員載具",
+          "mobile_carrier": "共通性載具",
+          "donate": "捐贈",
+          "withVat": "開立統編",
+          "withoutVat": "無統編",
           "company_name": "公司抬頭",
           "vat_number": "統一編號"
         },
@@ -267,9 +289,11 @@
       },
       "invoice": {
         "title": "發票開立",
-        "need_invoice": "開立統一編號",
-        "withVat": "開立統一編號",
-        "withoutVat": "不開立統編",
+        "uxb2b": "網際優勢會員載具",
+        "mobile_carrier": "共通性載具",
+        "donate": "捐贈",
+        "withVat": "開立統編",
+        "withoutVat": "無統編",
         "company_name": "公司抬頭",
         "vat_number": "統一編號"
       },

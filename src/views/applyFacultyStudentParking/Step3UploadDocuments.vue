@@ -269,6 +269,12 @@ async function apply() {
     content: applicationData.value.vehicle_registered_list, // 申請車牌列表
     distance_title: applicationData.value.selectedCommuteDistance, //  每日單趟通勤距離-距離文字
     distance: 0, //  每日單趟通勤距離-距離
+    love_card: applicationData.value.basic_info.has_disability_certificate, // 持有愛心卡
+    DonateMark: applicationData.value.basic_info.DonateMark, // 捐贈註記
+    NPOBAN: applicationData.value.basic_info.NPOBAN, // 捐贈對象
+    CarrierType: applicationData.value.basic_info.CarrierType, // 載具類別
+    CarrierID1: applicationData.value.basic_info.CarrierID1, // 載具顯碼
+    CarrierID2: applicationData.value.basic_info.CarrierID2, // 載具隱碼
   }
   try {
     const response = await Api.post(
@@ -633,5 +639,20 @@ img {
 
 .pointer {
   cursor: pointer;
+}
+
+.icon-container {
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  margin-top: -30px;
+  margin-left: 10px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    vertical-align: bottom;
+    object-fit: contain;
+  }
 }
 </style>

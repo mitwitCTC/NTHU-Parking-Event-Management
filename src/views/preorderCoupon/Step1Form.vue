@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import router from '@/router'
 import Api from '@/api'
 import { Modal } from 'bootstrap'
@@ -19,11 +19,19 @@ const { rocYear, getROCYear } = useROCYear()
 onMounted(() => {
   getROCYear()
 })
+import { useDonationOrganization } from '@/composables/useDonationOrganization'
+const { donationOrganizationList } = useDonationOrganization()
+import { generateUXB2BCode } from '@/composables/generateUXB2BCode'
 
 const applicationData = ref({
   payment_method: '2', // 預設付費方式為計畫經費
   collection_method: '0', // 預設領券方式為電子郵件寄送
   captcha: '',
+  CarrierType: '3J0001', // 預設為網優載具
+  CarrierID1: '', // 載具顯碼
+  CarrierID2: '', // 載具隱碼
+  DonateMark: '0', // 捐贈註記，0：預設，無捐贈，1：捐贈
+  NPOBAN: '' // 捐贈對象
 })
 const payment_methods = ref([
   { value: '2', labelKey: 'pages.preorderCoupon.payment.project' },
@@ -49,7 +57,7 @@ const confirmAction = () => {
   certificateApplicationInstructionsRead.value = true
   closeIntroductionModal()
 }
-const invoice_needVat = ref(null)
+const invoice_needVat = ref(false)
 // 驗證碼
 const generatedCaptcha = ref('')
 const formValidatorRef = ref(null) // 用來引用 FormValidator 元件
@@ -73,6 +81,14 @@ function formValidate() {
     applicationData.value.company_name = ''
     applicationData.value.vat_number = ''
   } else if (applicationData.value.payment_method === '4') {
+    // 選擇共通性載具，則載具欄位為必填
+    if (applicationData.value.CarrierType == '3J0002') {
+      baseRules.CarrierID1 = { required: true, CarrierID1: true }
+    }
+    // 選擇捐贈，則捐贈機構欄位為必填
+    if (applicationData.value.DonateMark == true) {
+      baseRules.NPOBAN = { required: true }
+    }
     baseRules.company_name = { required: true }
     if (invoice_needVat.value) {
       baseRules.vat_number = { required: true, vat_number: true }
@@ -98,6 +114,33 @@ function formValidate() {
     return false
   }
 }
+
+watch(
+  () => applicationData.value.DonateMark,
+  (newValue) => {
+    if (newValue == 1) {
+      // DonateMark 勾選時
+      applicationData.value.NPOBAN = ''; // NPOBAN 可選 (清空，讓使用者重新選擇)
+      invoice_needVat.value = false; // 強制 invoice_needVat 為 false
+      applicationData.value.vat_number = ''; // 清空統編
+    } else {
+      // DonateMark 未勾選時
+      applicationData.value.NPOBAN = ''; // 確保 NPOBAN 為空
+    }
+  }
+);
+
+watch(
+  () => invoice_needVat.value,
+  (newValue) => {
+    if (newValue) {
+      applicationData.value.DonateMark = 0; // DonateMark 必須未勾選
+    } else {
+      applicationData.value.vat_number = ''
+    }
+  }
+);
+
 // 這個方法將由 ValidationModal 觸發來關閉 Modal
 function closeValidatorModal() {
   showModal.value = false
@@ -105,6 +148,10 @@ function closeValidatorModal() {
 // 是否成功送出申請
 const formatApplicationData = ref({})
 async function prepareApplicationData() {
+  if (applicationData.value.CarrierType == '3J0001') {
+    applicationData.value.CarrierID1 = generateUXB2BCode(applicationData.value.phone_number)
+  }
+  applicationData.value.CarrierID2 = applicationData.value.CarrierID1
   await getFormInfo('抵用券')
   formatApplicationData.value = {
     title: form_info.value.title,
@@ -121,6 +168,11 @@ async function prepareApplicationData() {
     reason_application: applicationData.value.reason,
     coupon_quantity: applicationData.value.quantity,
     receive_method: applicationData.value.collection_method,
+    DonateMark: applicationData.value.DonateMark, // 捐贈註記
+    NPOBAN: applicationData.value.NPOBAN, // 捐贈對象
+    CarrierType: applicationData.value.CarrierType, // 載具類別
+    CarrierID1: applicationData.value.CarrierID1, // 載具顯碼
+    CarrierID2: applicationData.value.CarrierID2, // 載具隱碼
   }
 }
 async function submitApplication() {
@@ -220,34 +272,77 @@ function closeCaptchaModal() {
     </div>
     <div v-if="applicationData.payment_method == 4">
       <div class="mb-3">
-        {{ $t('pages.preorderCoupon.invoice.title') }}
-        <div class="d-flex flex-column flex-md-row gap-md-5">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="invoice_needVat1" v-model="invoice_needVat" value="true" />
-            <label class="form-check-label" for="invoice_needVat1">
-              {{ $t('pages.preorderCoupon.invoice.withVat') }}
-            </label>
+        {{
+          $t(
+            'pages.preorderCoupon.invoice.title',
+          )
+        }}
+        <div class="invoice-section p-2">
+
+          <div class="d-flex flex-column flex-md-row gap-md-5">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="carrierType1" id="carrierType1"
+                v-model="applicationData.CarrierType" value="3J0001" />
+              <label class="form-check-label" for="carrierType1">
+                {{ $t('pages.preorderCoupon.invoice.uxb2b') }}
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="carrierType2" id="carrierType2"
+                v-model="applicationData.CarrierType" value="3J0002" />
+              <label class="form-check-label" for="carrierType2">
+                {{ $t('pages.preorderCoupon.invoice.mobile_carrier') }}
+              </label>
+            </div>
+          </div>
+          <div class="mb-3" v-if="applicationData.CarrierType == '3J0002'">
+            <input type="text" class="form-control" id="CarrierID1" v-model="applicationData.CarrierID1" />
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" id="invoice_needVat2" v-model="invoice_needVat"
-              value="false" />
-            <label class="form-check-label" for="invoice_needVat2">
-              {{ $t('pages.preorderCoupon.invoice.withoutVat') }}
+            <input class="form-check-input" type="checkbox" name="DonateMark" id="DonateMark"
+              v-model="applicationData.DonateMark" true-value="1" false-value="0" />
+            <label class="form-check-label" for="DonateMark">
+              {{ $t('pages.preorderCoupon.invoice.donate') }}
             </label>
+          </div>
+          <select class="form-select" v-model="applicationData.NPOBAN" :disabled="applicationData.DonateMark == 0">
+            <option v-for="item in donationOrganizationList" :key="item.id" :value="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <hr>
+          <div class="mb-3">
+            <div class="d-flex flex-column flex-md-row gap-md-5">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="invoice_needVat1" v-model="invoice_needVat" :value=true
+                  :disabled="applicationData.DonateMark == 1" />
+                <label class="form-check-label" for="invoice_needVat1">
+                  {{ $t('pages.preorderCoupon.invoice.withVat') }}
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="invoice_needVat2" v-model="invoice_needVat"
+                  :value=false />
+                <label class="form-check-label" for="invoice_needVat2">
+                  {{ $t('pages.preorderCoupon.invoice.withoutVat') }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="company_name" class="form-label">
+              {{ $t('pages.preorderCoupon.invoice.company_name') }}
+            </label>
+            <input type="text" class="form-control" id="company_name" v-model="applicationData.company_name" />
+          </div>
+          <div class="mb-3">
+            <label for="vat_number" class="form-label">
+              {{ $t('pages.preorderCoupon.invoice.vat_number') }}
+            </label>
+            <input type="text" class="form-control" id="vat_number" :disabled="invoice_needVat == false"
+              v-model="applicationData.vat_number" />
           </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="company_name" class="form-label">
-          {{ $t('pages.preorderCoupon.invoice.company_name') }}
-        </label>
-        <input type="text" class="form-control" id="company_name" v-model="applicationData.company_name" />
-      </div>
-      <div class="mb-3">
-        <label for="vat_number" class="form-label">
-          {{ $t('pages.preorderCoupon.invoice.vat_number') }}
-        </label>
-        <input type="text" class="form-control" id="vat_number" v-model="applicationData.vat_number" />
       </div>
     </div>
     <div class="mb-3">
@@ -366,5 +461,10 @@ function closeCaptchaModal() {
 
 textarea {
   resize: none;
+}
+
+.invoice-section {
+  border: 2px solid darkgray;
+  border-radius: 5px;
 }
 </style>
