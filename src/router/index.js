@@ -8,9 +8,9 @@ import preorderCoupon from '@/views/preorderCoupon.vue'
 import applicationSuccess from '@/views/applicationSuccess.vue'
 import queryLinks from '@/views/queryLinks.vue'
 import queryFacultyStudentParking from '@/views/queryFacultyStudentParking/TheIndex.vue'
-import queryStaffParking from '@/views/queryStaffParking.vue'
-import queryEvent from '@/views/queryEvent.vue'
-import queryCoupon from '@/views/queryCoupon.vue'
+import queryStaffParking from '@/views/queryStaffParking/TheIndex.vue'
+import queryEvent from '@/views/queryEvent/TheIndex.vue'
+import queryCoupon from '@/views/queryCoupon/TheIndex.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -194,14 +194,29 @@ const router = createRouter({
       component: queryStaffParking,
     },
     {
+      path: '/query-staff-parking/:id',
+      name: 'QueryStaffParkingDetail',
+      component: () => import('@/views/queryStaffParking/TheDetail.vue'),
+    },
+    {
       path: '/query-event',
       name: 'QueryEvent',
       component: queryEvent,
     },
     {
+      path: '/query-event/:id',
+      name: 'QueryEventDetail',
+      component: () => import('@/views/queryEvent/TheDetail.vue'),
+    },
+    {
       path: '/query-coupon',
       name: 'QueryCoupon',
       component: queryCoupon,
+    },
+    {
+      path: '/query-coupon/:id',
+      name: 'QueryCouponDetail',
+      component: () => import('@/views/queryCoupon/TheDetail.vue'),
     },
   ],
 })

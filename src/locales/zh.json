@@ -335,7 +335,28 @@
     },
     "queryStaffParking": {
       "title": "工作人員停車證",
-      "subtitle": "汽車、機車工作證查詢"
+      "subtitle": "汽車、機車工作證查詢",
+      "applicant": "申請人姓名",
+      "phone_number": "聯絡電話",
+      "academic_year": "學年度",
+      "query": "查詢",
+      "serial_number": "表單號碼",
+      "status": "狀態"
+    },
+    "queryStaffParking_details": {
+      "form_info": "表單資訊",
+      "application_date": "申請日期",
+      "cancel_application_date": "取消申請日期",
+      "plate": "申請車號",
+      "cancel_application_plate": "取消申請車號",
+      "main_pass_code": "車證",
+      "receive_campus": "領證校區",
+      "payment_method": "繳費方式",
+      "amount": "繳費金額",
+      "receive_status": "領證狀態",
+      "download": "下載",
+      "search_invoice": "發票查詢",
+      "cancel_application": "取消申請"
     },
     "queryFacultyStudentParking": {
       "title": "停車證查詢",
@@ -364,11 +385,48 @@
     },
     "queryEvent": {
       "title": "各單位自辦活動",
-      "subtitle": "活動查詢"
+      "subtitle": "活動查詢",
+      "phone_number": "手機號碼",
+      "academic_year": "申請年度",
+      "query": "查詢",
+      "serial_number": "表單號碼",
+      "status": "狀態"
+    },
+    "queryEvent_details": {
+      "form_info": "表單資訊",
+      "application_date": "申請日期",
+      "cancel_application_date": "取消申請日期",
+      "activity_title": "活動名稱",
+      "activity_campus": "申請校區",
+      "activity_start_date": "活動日期(起)",
+      "activity_end_date": "活動日期(迄)",
+      "activity_start_time": "活動時間(起)",
+      "activity_end_time": "活動時間(迄)",
+      "parkingArea": "車輛停放於",
+      "cancel_application": "取消申請"
     },
     "queryCoupon": {
       "title": "預購抵用券",
-      "subtitle": "停車抵用券申請及預購查詢"
+      "subtitle": "停車抵用券申請及預購查詢",
+      "phone_number": "手機號碼",
+      "academic_year": "申請年度",
+      "query": "查詢",
+      "serial_number": "表單號碼",
+      "status": "狀態"
+    },
+    "queryCoupon_details": {
+      "form_info": "表單資訊",
+      "application_date": "申請日期",
+      "cancel_application_date": "取消申請日期",
+      "coupon_quantity": "張數：",
+      "unit": "張",
+      "amount": "金額：",
+      "dollar": "元",
+      "payment_method": "付費方式：",
+      "receive_method": "領券方式：",
+      "download": "下載",
+      "search_invoice": "發票查詢",
+      "cancel_application": "取消申請"
     }
   },
   "stepNavigator": {
@@ -452,6 +510,10 @@
     "3": "線上繳費",
     "4": "計畫經費",
     "0": "未定義"
+  },
+  "receive_methods": {
+    "1": "領用實體券",
+    "0": "電子郵件寄送"
   },
   "receive_location": {
     "0": "未定義",

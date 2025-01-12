@@ -335,7 +335,28 @@
     },
     "queryStaffParking": {
       "title": "Parking Permit for Staff Members",
-      "subtitle": "Inquiry about car and motorcycle work permits"
+      "subtitle": "Inquiry about car and motorcycle work permits",
+      "applicant": "Name",
+      "phone_number": "Phone number",
+      "academic_year": "Academic Year",
+      "query": "Inquiry",
+      "serial_number": "Form Number",
+      "status": "State"
+    },
+    "queryStaffParking_details": {
+      "form_info": "Form info",
+      "application_date": "Application Date",
+      "cancel_application_date": "Cancellation date",
+      "plate": "License Plate Number",
+      "main_pass_code": "Type of Permit",
+      "cancel_application_plate": "Cancel vehicle registration application",
+      "receive_campus": "Main / Nanda Campus Parking Permit",
+      "payment_method": "Payment Method",
+      "amount": "Payment amount",
+      "receive_status": "Collection status",
+      "download": "Download",
+      "search_invoice": "Tax invoice inquiry",
+      "cancel_application": "Cancell Application"
     },
     "queryFacultyStudentParking": {
       "title": "Parking Permit for Faculty, Staff, and Students",
@@ -344,8 +365,8 @@
       "phone_number": "Phone number",
       "academic_year": "Academic Year",
       "query": "search",
-      "serial_number": "Serial number",
-      "status": "Status"
+      "serial_number": "Form Number",
+      "status": "State"
     },
     "queryFacultyStudentParking_details": {
       "form_info": "Form info",
@@ -364,11 +385,48 @@
     },
     "queryEvent": {
       "title": "Self-organized Activities by Units",
-      "subtitle": "Activity Inquiry"
+      "subtitle": "Activity Inquiry",
+      "phone_number": "Phone number",
+      "academic_year": "Application year",
+      "query": "Inquiry",
+      "serial_number": "Form Number",
+      "status": "State"
+    },
+    "queryEvent_details": {
+      "form_info": "Form info",
+      "application_date": "Application Date",
+      "cancel_application_date": "Cancellation date",
+      "activity_title": "Event Name",
+      "activity_campus": "Application Campus",
+      "activity_start_date": "Event Start Date",
+      "activity_end_date": "Event End Date",
+      "activity_start_time": "Event Start Time",
+      "activity_end_time": "Event End Time",
+      "parkingArea": "Parking location",
+      "cancel_application": "Cancell Application"
     },
     "queryCoupon": {
       "title": "Pre-purchase Vouchers",
-      "subtitle": "Application and Pre-purchase for Parking vouchers"
+      "subtitle": "Application and Pre-purchase for Parking vouchers",
+      "phone_number": "Phone number",
+      "academic_year": "Application year",
+      "query": "Inquiry",
+      "serial_number": "Form Number",
+      "status": "State"
+    },
+    "queryCoupon_details": {
+      "form_info": "Form info",
+      "application_date": "Application Date",
+      "cancel_application_date": "Cancellation date",
+      "coupon_quantity": "Quantity:",
+      "unit": "pieces",
+      "amount": "Payment amount:",
+      "dollar": "dollars",
+      "payment_method": "Payment Method:",
+      "receive_method": "Voucher Collection Method:",
+      "download": "Download",
+      "search_invoice": "Tax invoice inquiry",
+      "cancel_application": "Cancell Application"
     }
   },
   "stepNavigator": {
@@ -452,6 +510,10 @@
     "3": "Online",
     "4": "Project Funds",
     "0": "Unknown"
+  },
+  "receive_methods": {
+    "1": "Collect Physical Vouchers",
+    "0": "Send by Email"
   },
   "receive_location": {
     "0": "Unknown",

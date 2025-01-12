@@ -36,7 +36,6 @@ export function useFormStatus() {
         payment_method: data.payment_method,
         receive_method: data.receive_method,
       }
-      console.log(statuses.value)
     } catch (error) {
       console.error('Error fetching form statuses:', error)
     }
