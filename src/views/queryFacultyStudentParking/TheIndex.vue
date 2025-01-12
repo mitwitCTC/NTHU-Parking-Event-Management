@@ -88,11 +88,8 @@ function goToDetail(serial_number) {
 </script>
 
 <template>
-  <TheLayout
-    :title="$t('pages.queryFacultyStudentParking.title')"
-    :subtitle="$t('pages.queryFacultyStudentParking.subtitle')"
-    :showBackIcon="true"
-  >
+  <TheLayout :title="$t('pages.queryFacultyStudentParking.title')"
+    :subtitle="$t('pages.queryFacultyStudentParking.subtitle')" :showBackIcon="true">
     <template #content>
       <div class="content-container">
         <form>
@@ -100,32 +97,20 @@ function goToDetail(serial_number) {
             <label for="applicant_number" class="form-label">
               {{ $t('pages.queryFacultyStudentParking.applicant_number') }}
             </label>
-            <input
-              type="text"
-              class="form-control"
-              id="applicant_number"
-              v-model="search_form_request_data.applicant_number"
-            />
+            <input type="text" class="form-control" id="applicant_number"
+              v-model="search_form_request_data.applicant_number" />
           </div>
           <div class="mb-3">
             <label for="phone_number" class="form-label">
               {{ $t('pages.queryFacultyStudentParking.phone_number') }}
             </label>
-            <input
-              type="text"
-              class="form-control"
-              id="phone_number"
-              v-model="search_form_request_data.phone_number"
-            />
+            <input type="text" class="form-control" id="phone_number" v-model="search_form_request_data.phone_number" />
           </div>
           <div class="mb-3">
             <label for="academic_year" class="form-label">
               {{ $t('pages.queryFacultyStudentParking.academic_year') }}
             </label>
-            <select
-              class="form-select"
-              v-model="search_form_request_data.academic_year"
-            >
+            <select class="form-select" v-model="search_form_request_data.academic_year">
               <option v-for="year in academicYears" :key="year" :value="year">
                 {{ year }}
               </option>
@@ -152,12 +137,8 @@ function goToDetail(serial_number) {
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(item, index) in result_list"
-                :key="index"
-                class="pointer"
-                @click="goToDetail(item.serial_number)"
-              >
+              <tr v-for="(item, index) in result_list" :key="index" class="pointer"
+                @click="goToDetail(item.serial_number)">
                 <th scope="row" class="text-center">
                   {{ item.serial_number }}
                 </th>
@@ -188,16 +169,9 @@ function goToDetail(serial_number) {
             </tbody>
           </table>
         </div>
-        <NoSearchResultModal
-          :showNoSearchResultModal="showNoSearchResultModal"
-          :errors="errors"
-          @close="closeNoSearchResultModal"
-        />
-        <SearchFailModal
-          :showSearchFailModal="showSearchFailModal"
-          :errors="errors"
-          @close="closeSearchFailModal"
-        />
+        <NoSearchResultModal :showNoSearchResultModal="showNoSearchResultModal" :errors="errors"
+          @close="closeNoSearchResultModal" />
+        <SearchFailModal :showSearchFailModal="showSearchFailModal" :errors="errors" @close="closeSearchFailModal" />
         <router-view />
       </div>
     </template>
@@ -208,6 +182,7 @@ function goToDetail(serial_number) {
 .back-icon {
   cursor: pointer;
 }
+
 .pointer {
   cursor: pointer;
 }
@@ -221,12 +196,12 @@ function goToDetail(serial_number) {
 
 .result-list {
   margin-top: 5px;
-  flex-grow: 1; /* 佔據剩餘空間 */
+  flex-grow: 1;
+  /* 佔據剩餘空間 */
   border: 2px solid darkgrey;
   width: 100%;
-  overflow-y: auto; /* 僅垂直滾動 */
+  overflow-y: auto;
+  /* 僅垂直滾動 */
   height: 35vh;
 }
-
-
 </style>
