@@ -11,6 +11,7 @@ import queryFacultyStudentParking from '@/views/queryFacultyStudentParking/TheIn
 import queryStaffParking from '@/views/queryStaffParking/TheIndex.vue'
 import queryEvent from '@/views/queryEvent/TheIndex.vue'
 import queryCoupon from '@/views/queryCoupon/TheIndex.vue'
+import cancelApplicationSuccess from '@/views/cancelApplicationSuccess.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -217,6 +218,11 @@ const router = createRouter({
       path: '/query-coupon/:id',
       name: 'QueryCouponDetail',
       component: () => import('@/views/queryCoupon/TheDetail.vue'),
+    },
+    {
+      path: '/cancel-application-success',
+      name: 'cancelApplicationSuccess',
+      component: cancelApplicationSuccess,
     },
   ],
 })

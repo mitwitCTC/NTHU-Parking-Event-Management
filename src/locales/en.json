@@ -319,6 +319,12 @@
       "queryLinks": " \"Application Progress Inquiry.\" ",
       "progressInquiry": " Relevant progress information will also be sent via email. Thank you!"
     },
+    "cancelApplicationSuccess": {
+      "title": "",
+      "subtitle": "",
+      "canceled": "The cancellation of the application has been completed",
+      "backQueryLinks": "Go back Application Progress Inquiry"
+    },
     "query": {
       "title": "title",
       "subtitle": "subtitle",
@@ -462,6 +468,17 @@
     "title": "confirm_coupon",
     "message": "message",
     "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "cancel_application_modal": {
+    "title": "Cancel Application Confirmation",
+    "message": "Please confirm if you wish to cancel this application.",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "cancel_application_fail_modal": {
+    "title": "System is busy",
+    "message": "The system is busy right now. Please try canceling your application later, or contact the Campus Security Office. Thank you.",
     "confirm": "Confirm"
   },
   "all_main_pass_code_list": {

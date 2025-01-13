@@ -1,44 +1,47 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
+const router = useRouter()
 import TheLayout from '@/components/TheLayout.vue'
 const serial_number = ref('')
 serial_number.value = route.params.id
+import Api from '@/api'
 
 const form_details = ref({})
+const showSearchFailModal = ref(false)
 async function getFromDetails() {
-  form_details.value = {
-    form_status: '2',
-    payment_status: '1',
-    receive_status: '0',
-    application_time: '2024-12-20 09:05:13',
-    cancel_application_time: '2024-12-21 09:05:13',
-    receive_location: '1',
-    payment_method: '2',
-    amount: 8000,
-    vehicle_registered_list: [
-      {
-        plate: 'AE9832',
-        main_pass_code: 'SC',
-      },
-      {
-        plate: 'EA9832',
-        main_pass_code: 'SM',
-      },
-      {
-        plate: '腳踏車',
-        main_pass_code: 'BS',
-        count: 2,
-      },
-      {
-        plate: '腳踏車',
-        main_pass_code: 'BS',
-        count: 2,
-      },
-    ],
+  try {
+    const response = await Api.post('/main/searchFromDetail', { serial_number: serial_number.value })
+    if (response.data.returnCode == 0) {
+      form_details.value = {
+        form_status: response.data.data.form_status,
+        payment_status: response.data.data.payment_status,
+        receive_status: response.data.data.receive_status,
+        application_time: response.data.data.created_at,
+        cancel_application_time: response.data.data.reject_time, // 取消申請時間
+        receive_location: response.data.data.receive_location,
+        payment_method: response.data.data.payment_method,
+        amount: response.data.amount || 0,
+        vehicle_registered_list: response.data.data.content.map(({ plate, main_pass_code }) => ({
+          plate,
+          main_pass_code
+        }))
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    showSearchFailModal.value = true
   }
 }
+function closeSearchFailModal() {
+  showSearchFailModal.value = false
+  router.go(-1)
+}
+function closeCancelApplicationFailModal() {
+  showCancelApplicationFailModal.value = false
+}
+
 onMounted(() => {
   getFromDetails()
 })
@@ -46,6 +49,28 @@ onMounted(() => {
 import { useFormStatus } from '@/composables/useFormStatus.js'
 const { getFormStatuses, getStatusText } = useFormStatus()
 getFormStatuses()
+const errors = ref({}) // 儲存錯誤訊息
+import SearchFailModal from '@/components/SearchFailModal.vue'
+import CancelApplicationModal from '@/components/CancelApplicationModal.vue'
+import CancelApplicationFailModal from '@/components/CancelApplicationFailModal.vue'
+const showCancelApplicationModal = ref(false)
+const showCancelApplicationFailModal = ref(true)
+function closeCancelApplicationModal() {
+  showCancelApplicationModal.value = false
+}
+async function cancelApplication() {
+  try {
+    const response = await Api.post('/main/applicantreject', { serial_number: serial_number.value })
+    if (response.data.returnCode == 0) {
+      router.push('cancel-application-success')
+    } else {
+      showCancelApplicationFailModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showCancelApplicationFailModal.value = true
+  }
+}
 </script>
 <template>
   <TheLayout :title="$t('pages.queryStaffParking.title')" :subtitle="$t('pages.queryStaffParking.subtitle')"
@@ -100,7 +125,8 @@ getFormStatuses()
                 <div>
                   {{ form_details.application_time }}
                 </div>
-                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1">
+                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1"
+                  @click="showCancelApplicationModal = true">
                   [
                   <span class="text-primary">
                     {{ $t('pages.queryStaffParking_details.cancel_application') }}
@@ -212,6 +238,14 @@ getFormStatuses()
           </section>
         </div>
       </div>
+      <!-- 查無表單資訊 modal -->
+      <SearchFailModal :showSearchFailModal="showSearchFailModal" :errors="errors" @close="closeSearchFailModal" />
+      <!-- 取消申請 modal 開始 -->
+      <CancelApplicationModal :showCancelApplicationModal="showCancelApplicationModal" @apply="cancelApplication"
+        @close="closeCancelApplicationModal" />
+      <!-- 取消申請失敗 modal 開始 -->
+      <CancelApplicationFailModal :showCancelApplicationFailModal="showCancelApplicationFailModal"
+        @close="closeCancelApplicationFailModal" />
     </template>
   </TheLayout>
 </template>

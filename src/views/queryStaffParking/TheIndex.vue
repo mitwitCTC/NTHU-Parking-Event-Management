@@ -12,6 +12,9 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import { ref, computed, onMounted } from 'vue'
 import { useAcademicYears } from '@/composables/getAcademicYears.js'
 const { academicYears } = useAcademicYears('/api/academic-years')
+import { useFormInfo } from '@/composables/useFormInfo'
+const { form_info, getFormInfo } = useFormInfo()
+import pacaApi from '@/pacaApi'
 import NoSearchResultModal from '@/components/NoSearchResultModal.vue'
 import SearchFailModal from '@/components/SearchFailModal.vue'
 const errors = ref({}) // 儲存錯誤訊息
@@ -25,7 +28,7 @@ function closeSearchFailModal() {
 }
 import { useFormStatus } from '@/composables/useFormStatus.js'
 const search_form_request_data = ref({
-  applicant_number: '',
+  applicant: '',
   phone_number: '',
   academic_year: null,
 })
@@ -35,37 +38,41 @@ getFormStatuses()
 const isLoadingResult_list = ref(false)
 async function search() {
   isLoadingResult_list.value = true
-  if (search_form_request_data.value.phone_number != '0960712213') {
-    showNoSearchResultModal.value = true
+  await getFormInfo('工作證')
+  search_form_request_data.value.form_code = form_info.value.form_code
+  search_form_request_data.value.email = ''
+  search_form_request_data.value.applicant_number = ''
+  search_form_request_data.value.activity_title = ''
+  search_form_request_data.value.project_number = ''
+  try {
+    const response = await pacaApi.post('/v2/forms/formsearch', search_form_request_data.value, {
+      headers: {
+        authorization:
+          'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
+      },
+    })
+
+    result_list.value = response.data.map(({ id, serial_number, form_status, payment_status, receive_status }) => ({
+      id,
+      serial_number,
+      form_status,
+      payment_status,
+      receive_status,
+    }))
+
+    if (result_list.value.length <= 0) {
+      showNoSearchResultModal.value = true
+    }
+
+  } catch (error) {
+    console.error(error)
+    showSearchFailModal.value = true
     result_list.value = []
-  } else {
-    result_list.value = [
-      {
-        id: '1',
-        serial_number: 'C241225093939277',
-        form_status: 2,
-        payment_status: 0,
-        receive_status: 0,
-      },
-      {
-        id: '2',
-        serial_number: 'C241225093939288',
-        form_status: 2,
-        payment_status: 1,
-        receive_status: 0,
-      },
-      {
-        id: '3',
-        serial_number: 'C241225093939299',
-        form_status: 999,
-        payment_status: 0,
-        receive_status: 0,
-      },
-    ]
-    // 儲存搜尋條件和結果
-    searchStore.setSearchForm(search_form_request_data.value)
-    searchStore.setResultList(result_list.value)
   }
+
+  // 儲存搜尋條件和結果
+  searchStore.setSearchForm(search_form_request_data.value)
+  searchStore.setResultList(result_list.value)
 
   setTimeout(() => {
     isLoadingResult_list.value = false

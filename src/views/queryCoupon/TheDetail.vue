@@ -1,24 +1,35 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+const router = useRouter()
 const route = useRoute()
 import TheLayout from '@/components/TheLayout.vue'
 const serial_number = ref('')
 serial_number.value = route.params.id
+import Api from '@/api'
 
 const form_details = ref({})
+const showSearchFailModal = ref(false)
 async function getFromDetails() {
-  form_details.value = {
-    form_status: '2',
-    payment_status: '1',
-    application_time: '2024-12-20 09:05:13',
-    cancel_application_time: '2024-12-21 09:05:13',
-    coupon_quantity: 50,
-    amount: 5000,
-    payment_method: '2',
-    project_number: '113L0010D1',
-    receive_method: '1',
-    invoice_status: true, // 發票狀態
+  try {
+    const response = await Api.post('/main/searchFromDetail', { serial_number: serial_number.value })
+    if (response.data.returnCode == 0) {
+      form_details.value = {
+        form_status: response.data.data.form_status,
+        payment_status: response.data.data.payment_status,
+        application_time: response.data.data.application_time,
+        cancel_application_time: response.data.data.reject_time, // 取消申請時間
+        coupon_quantity: response.data.data.coupon_quantity,
+        amount: response.data.data.amount,
+        payment_method: response.data.data.payment_method,
+        project_number: response.data.data.project_number,
+        receive_method: response.data.data.receive_method,
+        invoice_status: response.data.data.invoice_status, // 發票狀態
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    showSearchFailModal.value = true
   }
 }
 onMounted(() => {
@@ -28,6 +39,28 @@ onMounted(() => {
 import { useFormStatus } from '@/composables/useFormStatus.js'
 const { getFormStatuses, getStatusText } = useFormStatus()
 getFormStatuses()
+const errors = ref({}) // 儲存錯誤訊息
+import SearchFailModal from '@/components/SearchFailModal.vue'
+import CancelApplicationModal from '@/components/CancelApplicationModal.vue'
+import CancelApplicationFailModal from '@/components/CancelApplicationFailModal.vue'
+const showCancelApplicationModal = ref(false)
+const showCancelApplicationFailModal = ref(true)
+function closeCancelApplicationModal() {
+  showCancelApplicationModal.value = false
+}
+async function cancelApplication() {
+  try {
+    const response = await Api.post('/main/applicantreject', { serial_number: serial_number.value })
+    if (response.data.returnCode == 0) {
+      router.push('cancel-application-success')
+    } else {
+      showCancelApplicationFailModal.value = true
+    }
+  } catch (error) {
+    console.error(error)
+    showCancelApplicationFailModal.value = true
+  }
+}
 </script>
 <template>
   <TheLayout :title="$t('pages.queryCoupon.title')" :subtitle="$t('pages.queryCoupon.subtitle')" :showBackIcon="true">
@@ -74,7 +107,8 @@ getFormStatuses()
                 <div>
                   {{ form_details.application_time }}
                 </div>
-                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1">
+                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1"
+                  @click="showCancelApplicationModal = true">
                   [
                   <span class="text-primary">
                     {{ $t('pages.queryCoupon_details.cancel_application') }}</span>
@@ -205,6 +239,14 @@ getFormStatuses()
           </section>
         </div>
       </div>
+      <!-- 查無表單資訊 modal -->
+      <SearchFailModal :showSearchFailModal="showSearchFailModal" :errors="errors" @close="closeSearchFailModal" />
+      <!-- 取消申請 modal 開始 -->
+      <CancelApplicationModal :showCancelApplicationModal="showCancelApplicationModal" @apply="cancelApplication"
+        @close="closeCancelApplicationModal" />
+      <!-- 取消申請失敗 modal 開始 -->
+      <CancelApplicationFailModal :showCancelApplicationFailModal="showCancelApplicationFailModal"
+        @close="closeCancelApplicationFailModal" />
     </template>
   </TheLayout>
 </template>
