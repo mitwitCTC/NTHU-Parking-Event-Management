@@ -76,14 +76,8 @@ function clearLogin_result() {
 </script>
 <template>
   <StepNavigator :currentStep="currentStep" :steps="steps" />
-  <div
-    v-if="login_result"
-    :class="[
-      'alert',
-      login_result == 'success' ? 'alert-success' : 'alert-danger',
-    ]"
-    role="alert"
-  >
+  <div v-if="login_result" :class="['alert', login_result == 'success' ? 'alert-success' : 'alert-danger']"
+    role="alert">
     {{
       login_result == 'success'
         ? $t('pages.applyEventCoupon.login.success')
@@ -95,23 +89,13 @@ function clearLogin_result() {
       <label for="email" class="form-label">
         {{ $t('pages.applyEventCoupon.login.email') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="email"
-        v-model="login_data.email"
-      />
+      <input type="text" class="form-control" id="email" v-model="login_data.email" />
     </div>
     <div class="mb-3">
       <label for="phone_number" class="form-label">
         {{ $t('pages.applyEventCoupon.login.phone_number') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone_number"
-        v-model="login_data.phone_number"
-      />
+      <input type="text" class="form-control" id="phone_number" v-model="login_data.phone_number" />
     </div>
     <button class="btn btn-secondary w-100" @click.prevent="login">
       {{ $t('pages.applyEventCoupon.login.login') }}

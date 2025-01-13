@@ -109,14 +109,8 @@ function clearLogin_result() {
 </script>
 
 <template>
-  <div
-    v-if="login_result"
-    :class="[
-      'alert',
-      login_result == 'success' ? 'alert-success' : 'alert-danger',
-    ]"
-    role="alert"
-  >
+  <div v-if="login_result" :class="['alert', login_result == 'success' ? 'alert-success' : 'alert-danger']"
+    role="alert">
     {{
       login_result == 'success'
         ? $t('pages.applyStaffParking.loginAndUpload.success')
@@ -138,23 +132,13 @@ function clearLogin_result() {
           )
         </span>
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="plate"
-        v-model="login_data.plate"
-      />
+      <input type="text" class="form-control" id="plate" v-model="login_data.plate" />
     </div>
     <div class="mb-3">
       <label for="phone_number" class="form-label">
         {{ $t('pages.applyStaffParking.loginAndUpload.phone_number') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone_number"
-        v-model="login_data.phone_number"
-      />
+      <input type="text" class="form-control" id="phone_number" v-model="login_data.phone_number" />
       <div class="mb-3">
         <label for="academic_year" class="form-label">
           {{ $t('pages.applyStaffParking.loginAndUpload.academic_year') }}
@@ -171,9 +155,5 @@ function clearLogin_result() {
     </button>
   </form>
   <!-- 引入 ValidationModal 元件 -->
-  <ValidationModal
-    :showModal="showModal"
-    :errors="errors"
-    @close="closeValidatorModal"
-  />
+  <ValidationModal :showModal="showModal" :errors="errors" @close="closeValidatorModal" />
 </template>

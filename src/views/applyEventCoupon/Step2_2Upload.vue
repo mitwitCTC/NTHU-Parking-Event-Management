@@ -204,12 +204,9 @@ function closeApplicatioinResultModal() {
       <p>
         {{ $t('pages.applyEventCoupon.upload.title') }}
       </p>
-      <div
-        v-for="(file, index) in applicationData.document_list"
-        :key="index"
+      <div v-for="(file, index) in applicationData.document_list" :key="index"
         class="bg-secondary mb-3 d-flex justify-content-around justify-content-md-center align-items-center upload position-relative pointer"
-        @click="!file && $refs[`fileInput${index}`][0].click()"
-      >
+        @click="!file && $refs[`fileInput${index}`][0].click()">
         <p class="fs-4 fw-bold px-1 py-3 align-content-center m-0">
           {{
             file?.name ||
@@ -221,41 +218,26 @@ function closeApplicatioinResultModal() {
           <img src="/images/upload/upload.svg" alt="upload" />
         </div>
 
-        <button
-          v-if="file"
-          type="button"
-          class="btn btn-sm position-absolute top-25 end-0"
-          @click.stop="removeFile(index)"
-        >
+        <button v-if="file" type="button" class="btn btn-sm position-absolute top-25 end-0"
+          @click.stop="removeFile(index)">
           X
         </button>
 
-        <input
-          type="file"
-          :ref="`fileInput${index}`"
-          class="d-none"
-          @change="handleFileUpload($event, index)"
-        />
+        <input type="file" :ref="`fileInput${index}`" class="d-none" @change="handleFileUpload($event, index)" />
       </div>
     </div>
     <div class="mb-3">
-      <button
-        type="button"
-        class="btn btn-secondary fw-bold w-100"
-        :class="{
-          btn: true,
-          'btn-dark': !certificateApplicationInstructionsRead,
-          'btn-secondary': certificateApplicationInstructionsRead,
-          'fw-bold': certificateApplicationInstructionsRead,
-          'w-100': true,
-        }"
-        :style="{
-          color: certificateApplicationInstructionsRead
-            ? '#702f9f'
-            : 'lightgray',
-        }"
-        @click="showIntroductionModal"
-      >
+      <button type="button" class="btn btn-secondary fw-bold w-100" :class="{
+        btn: true,
+        'btn-dark': !certificateApplicationInstructionsRead,
+        'btn-secondary': certificateApplicationInstructionsRead,
+        'fw-bold': certificateApplicationInstructionsRead,
+        'w-100': true,
+      }" :style="{
+        color: certificateApplicationInstructionsRead
+          ? '#702f9f'
+          : 'lightgray',
+      }" @click="showIntroductionModal">
         <i class="bi bi-check-circle"></i>
         {{
           $t(
@@ -270,12 +252,7 @@ function closeApplicatioinResultModal() {
           <label for="captcha" class="form-label text-nowrap m-0">
             {{ $t('pages.applyEventCoupon.upload.captcha') }}
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="captcha"
-            v-model="applicationData.captcha"
-          />
+          <input type="text" class="form-control" id="captcha" v-model="applicationData.captcha" />
         </div>
         <div class="captcha m-0">
           <TheCaptcha v-model:captchaText="generatedCaptcha" />
@@ -283,22 +260,14 @@ function closeApplicatioinResultModal() {
       </div>
     </div>
     <div class="text-center">
-      <button
-        class="btn btn-secondary w-100"
-        :disabled="applicationData.document_list.every(doc => doc === null)"
-        @click.prevent="handleSubmit"
-      >
+      <button class="btn btn-secondary w-100" :disabled="applicationData.document_list.every(doc => doc === null)"
+        @click.prevent="handleSubmit">
         {{ $t('pages.applyEventCoupon.upload.apply') }}
       </button>
     </div>
   </form>
   <!-- 辦證說明 modal 開始 -->
-  <div
-    class="modal fade"
-    id="introductionModal"
-    tabindex="-1"
-    aria-labelledby="introductionModalLabel"
-  >
+  <div class="modal fade" id="introductionModal" tabindex="-1" aria-labelledby="introductionModalLabel">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary">
@@ -309,21 +278,13 @@ function closeApplicatioinResultModal() {
               )
             }}
           </h5>
-          <button
-            type="button"
-            class="btn-close"
-            @click="closeIntroductionModal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" @click="closeIntroductionModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <PdfViewer :pdfUrl="pdfUrl" />
         </div>
         <div class="modal-footer">
-          <p
-            class="pointer text-primary fw-bold"
-            @click="closeIntroductionModal"
-          >
+          <p class="pointer text-primary fw-bold" @click="closeIntroductionModal">
             {{ $t('pages.applyEventCoupon.upload.cancel') }}
           </p>
           <p class="pointer text-primary fw-bold" @click="confirmAction">
@@ -335,26 +296,14 @@ function closeApplicatioinResultModal() {
   </div>
   <!-- 辦證說明 modal 結束 -->
   <!-- 確認送出申請資料 modal -->
-  <ConfirmModal
-    :showConfirmModal="showConfirmModal"
-    @close="closeConfirmModal"
-    @apply="apply"
-  />
+  <ConfirmModal :showConfirmModal="showConfirmModal" @close="closeConfirmModal" @apply="apply" />
   <!-- 未閱讀辦證說明 modal 開始 -->
-  <NotReadModal
-    :showNotReadModal="showNotReadModal"
-    @close="closeNotReadModal"
-  />
+  <NotReadModal :showNotReadModal="showNotReadModal" @close="closeNotReadModal" />
   <!-- 驗證碼不正確 modal 開始 -->
-  <CaptchaErrorModal
-    :showCaptchaModal="showCaptchaModal"
-    @close="closeCaptchaModal"
-  />
+  <CaptchaErrorModal :showCaptchaModal="showCaptchaModal" @close="closeCaptchaModal" />
   <!-- 提交申請結果 modal 開始 -->
-  <ApplicatioinResultModal
-    :showApplicatioinResultModal="showApplicatioinResultModal"
-    @close="closeApplicatioinResultModal"
-  />
+  <ApplicatioinResultModal :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal" />
   <!-- 提交申請結果 modal 結束 -->
 </template>
 
@@ -363,6 +312,7 @@ function closeApplicatioinResultModal() {
   height: 100px;
   overflow-y: auto;
   scrollbar-width: none;
+
   ::-webkit-scrollbar {
     display: none;
   }
@@ -373,6 +323,7 @@ function closeApplicatioinResultModal() {
   width: 60px;
   height: 60px;
 }
+
 img {
   width: 100%;
   height: 100%;

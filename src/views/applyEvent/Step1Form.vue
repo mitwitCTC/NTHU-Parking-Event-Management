@@ -212,31 +212,16 @@ function goToUploadDocuments() {
       <label for="activity" class="form-label">
         {{ $t('pages.applyEvent.form.activity') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="activity"
-        v-model="applicant_data.activity_title"
-      />
+      <input type="text" class="form-control" id="activity" v-model="applicant_data.activity_title" />
     </div>
     <div class="mb-3 position-relative">
       <label for="activity_start_date" class="form-label">
         {{ $t('pages.applyEvent.form.start_date') }}
       </label>
       <div @click="openDatePicker('startDate')">
-        <input
-          type="date"
-          ref="startDateInput"
-          class="form-control custom-date-time-input"
-          id="activity_start_date"
-          v-model="applicant_data.activity_start_date"
-          :min="tomorrowDate"
-        />
-        <img
-          src="/images/Arturo-Wibawa-Akar-Calendar.svg"
-          alt="Calendar Icon"
-          class="custom-date-time-icon"
-        />
+        <input type="date" ref="startDateInput" class="form-control custom-date-time-input" id="activity_start_date"
+          v-model="applicant_data.activity_start_date" :min="tomorrowDate" />
+        <img src="/images/Arturo-Wibawa-Akar-Calendar.svg" alt="Calendar Icon" class="custom-date-time-icon" />
       </div>
     </div>
     <div class="mb-3 position-relative">
@@ -244,19 +229,9 @@ function goToUploadDocuments() {
         {{ $t('pages.applyEvent.form.end_date') }}
       </label>
       <div @click="openDatePicker('endDate')">
-        <input
-          type="date"
-          ref="endDateInput"
-          class="form-control custom-date-time-input"
-          id="activity_end_date"
-          v-model="applicant_data.activity_end_date"
-          :min="minEndDate"
-        />
-        <img
-          src="/images/Arturo-Wibawa-Akar-Calendar.svg"
-          alt="Calendar Icon"
-          class="custom-date-time-icon"
-        />
+        <input type="date" ref="endDateInput" class="form-control custom-date-time-input" id="activity_end_date"
+          v-model="applicant_data.activity_end_date" :min="minEndDate" />
+        <img src="/images/Arturo-Wibawa-Akar-Calendar.svg" alt="Calendar Icon" class="custom-date-time-icon" />
       </div>
     </div>
     <div class="mb-3 position-relative">
@@ -264,18 +239,9 @@ function goToUploadDocuments() {
         {{ $t('pages.applyEvent.form.start_time') }}
       </label>
       <div @click="openTimePicker('startTime')">
-        <input
-          type="time"
-          ref="startTimeInput"
-          class="form-control custom-date-time-input"
-          id="activity_start_time"
-          v-model="applicant_data.activity_start_time"
-        />
-        <img
-          src="/images/Arturo-Wibawa-Akar-Clock.svg"
-          alt="Clock Icon"
-          class="custom-date-time-icon"
-        />
+        <input type="time" ref="startTimeInput" class="form-control custom-date-time-input" id="activity_start_time"
+          v-model="applicant_data.activity_start_time" />
+        <img src="/images/Arturo-Wibawa-Akar-Clock.svg" alt="Clock Icon" class="custom-date-time-icon" />
       </div>
     </div>
     <div class="mb-3 position-relative">
@@ -283,43 +249,24 @@ function goToUploadDocuments() {
         {{ $t('pages.applyEvent.form.end_time') }}
       </label>
       <div @click="openTimePicker('endTime')">
-        <input
-          type="time"
-          ref="endTimeInput"
-          class="form-control custom-date-time-input"
-          id="activity_end_date"
-          v-model="applicant_data.activity_end_time"
-        />
-        <img
-          src="/images/Arturo-Wibawa-Akar-Clock.svg"
-          alt="Clock Icon"
-          class="custom-date-time-icon"
-        />
+        <input type="time" ref="endTimeInput" class="form-control custom-date-time-input" id="activity_end_date"
+          v-model="applicant_data.activity_end_time" />
+        <img src="/images/Arturo-Wibawa-Akar-Clock.svg" alt="Clock Icon" class="custom-date-time-icon" />
       </div>
     </div>
     <div class="mb-3">
       {{ $t('pages.applyEvent.form.location') }}
       <div class="d-flex flex-column flex-md-row gap-md-5">
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="activity_campus1"
-            v-model="applicant_data.activity_campus"
-            value="1"
-          />
+          <input class="form-check-input" type="radio" id="activity_campus1" v-model="applicant_data.activity_campus"
+            value="1" />
           <label class="form-check-label" for="activity_campus1">
             {{ $t('pages.applyEvent.form.primaryCampus') }}
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            id="activity_campus2"
-            v-model="applicant_data.activity_campus"
-            value="2"
-          />
+          <input class="form-check-input" type="radio" id="activity_campus2" v-model="applicant_data.activity_campus"
+            value="2" />
           <label class="form-check-label" for="activity_campus2">
             {{ $t('pages.applyEvent.form.nanDaCampus') }}
           </label>
@@ -330,91 +277,51 @@ function goToUploadDocuments() {
       <label for="area" class="form-label">
         {{ $t('pages.applyEvent.form.area') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="area"
-        v-model="applicant_data.area"
-      />
+      <input type="text" class="form-control" id="area" v-model="applicant_data.area" />
     </div>
     <div class="mb-3">
       <label for="headcount" class="form-label">
         {{ $t('pages.applyEvent.form.headcount') }}
       </label>
-      <input
-        type="number"
-        class="form-control"
-        id="headcount"
-        v-model="applicant_data.headcount"
-      />
+      <input type="number" class="form-control" id="headcount" v-model="applicant_data.headcount" />
     </div>
     <div class="mb-3">
       <label for="bus_count" class="form-label">
         <span>{{ $t('pages.applyEvent.form.bus_count') }}&nbsp;</span>
         <span class="text-primary">{{ $t('pages.applyEvent.form.bus') }}</span>
       </label>
-      <input
-        type="number"
-        class="form-control"
-        id="bus_count"
-        v-model="applicant_data.bus_count"
-      />
+      <input type="number" class="form-control" id="bus_count" v-model="applicant_data.bus_count" />
     </div>
     <div class="mb-3">
       <label for="car_count" class="form-label">
         <span>{{ $t('pages.applyEvent.form.car_count') }}&nbsp;</span>
         <span class="text-primary">{{ $t('pages.applyEvent.form.car') }}</span>
       </label>
-      <input
-        type="number"
-        class="form-control"
-        id="car_count"
-        v-model="applicant_data.car_count"
-      />
+      <input type="number" class="form-control" id="car_count" v-model="applicant_data.car_count" />
     </div>
     <div class="mb-3">
       <label for="source" class="form-label">
         {{ $t('pages.applyEvent.form.source') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="source"
-        v-model="applicant_data.source"
-      />
+      <input type="text" class="form-control" id="source" v-model="applicant_data.source" />
     </div>
     <div class="mb-3">
       <label for="applicant" class="form-label">
         {{ $t('pages.applyEvent.form.applicant') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="applicant"
-        v-model="applicant_data.applicant"
-      />
+      <input type="text" class="form-control" id="applicant" v-model="applicant_data.applicant" />
     </div>
     <div class="mb-3">
       <label for="phone_number" class="form-label">
         {{ $t('pages.applyEvent.form.phone_number') }}
       </label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone_number"
-        v-model="applicant_data.phone_number"
-      />
+      <input type="text" class="form-control" id="phone_number" v-model="applicant_data.phone_number" />
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">
         {{ $t('pages.applyEvent.form.email') }}
       </label>
-      <input
-        type="mail"
-        class="form-control"
-        id="email"
-        v-model="applicant_data.email"
-      />
+      <input type="mail" class="form-control" id="email" v-model="applicant_data.email" />
     </div>
     <div class="note">
       <p class="text-danger">
@@ -439,38 +346,31 @@ function goToUploadDocuments() {
     </button>
   </div>
   <!-- 引入 ValidationModal 元件 -->
-  <ValidationModal
-    :showModal="showModal"
-    :errors="errors"
-    @close="closeValidatorModal"
-  />
+  <ValidationModal :showModal="showModal" :errors="errors" @close="closeValidatorModal" />
   <!-- 確認送出申請資料 modal -->
-  <ConfirmModal
-    :showConfirmModal="showConfirmModal"
-    @close="closeConfirmModal"
-    @apply="submitApplication"
-  />
+  <ConfirmModal :showConfirmModal="showConfirmModal" @close="closeConfirmModal" @apply="submitApplication" />
   <!-- 提交申請失敗 modal 開始 -->
-  <ApplicatioinResultModal
-    :showApplicatioinResultModal="showApplicatioinResultModal"
-    @close="closeApplicatioinResultModal"
-  />
+  <ApplicatioinResultModal :showApplicatioinResultModal="showApplicatioinResultModal"
+    @close="closeApplicatioinResultModal" />
 </template>
 
 <style scoped>
 .custom-date-wrapper {
   cursor: pointer;
   display: inline-block;
-  width: 100%; /* 確保覆蓋整個輸入框 */
+  width: 100%;
+  /* 確保覆蓋整個輸入框 */
 }
 
 .custom-date-time-input::-webkit-calendar-picker-indicator {
-  display: none; /* 隱藏內建 icon */
+  display: none;
+  /* 隱藏內建 icon */
 }
 
 .custom-date-time-input {
   position: relative;
-  padding-right: 40px; /* 為自定義圖標預留空間 */
+  padding-right: 40px;
+  /* 為自定義圖標預留空間 */
 }
 
 .custom-date-time-icon {
@@ -478,8 +378,11 @@ function goToUploadDocuments() {
   right: 10px;
   top: 70%;
   transform: translateY(-50%);
-  width: 24px; /* 根據需求調整寬度 */
-  height: 24px; /* 根據需求調整高度 */
-  pointer-events: none; /* 確保點擊圖標不會阻止輸入框的操作 */
+  width: 24px;
+  /* 根據需求調整寬度 */
+  height: 24px;
+  /* 根據需求調整高度 */
+  pointer-events: none;
+  /* 確保點擊圖標不會阻止輸入框的操作 */
 }
 </style>
