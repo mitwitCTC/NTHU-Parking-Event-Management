@@ -1,5 +1,7 @@
 <script setup>
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
 import { useSerialStore } from '@/stores/serial_numberStore'
@@ -35,7 +37,9 @@ const login_data = ref({
 })
 
 const login_result = ref('')
+const isLogining = ref(false)
 async function login() {
+  isLogining.value = true
   try {
     await getFormInfo('活動')
     const form_code = form_info.value.form_code
@@ -57,6 +61,8 @@ async function login() {
   } catch (error) {
     console.error(error)
     login_result.value = 'fail'
+  } finally {
+    isLogining.value = false
   }
   clearLogin_result()
 }
@@ -77,6 +83,7 @@ function clearLogin_result() {
         : $t('pages.applyEvent.login.fail')
     }}
   </div>
+  <loading :active="isLogining" :is-full-page="true"></loading>
   <form>
     <div class="mb-3">
       <label for="email" class="form-label">

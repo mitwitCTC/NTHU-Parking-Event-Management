@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue'
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
@@ -175,8 +177,11 @@ async function prepareApplicationData() {
     router.replace({ name: 'Home' })
   }
 }
+
+const isSubmitting = ref(false)
 async function submitApplication() {
   await prepareApplicationData()
+  isSubmitting.value = true
   try {
     const response = await Api.post(
       '/main/applicationForm',
@@ -192,6 +197,7 @@ async function submitApplication() {
     showApplicatioinResultModal.value = true
   } finally {
     showConfirmModal.value = false
+    isSubmitting.value = false
   }
 }
 const showApplicatioinResultModal = ref(false) // 控制 提交失敗結果Modal 顯示
@@ -207,6 +213,7 @@ function goToUploadDocuments() {
   <StepNavigator :currentStep="currentStep" :steps="steps" />
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
+  <loading :active="isSubmitting" :is-full-page="true"></loading>
   <form>
     <div class="mb-3">
       <label for="activity" class="form-label">

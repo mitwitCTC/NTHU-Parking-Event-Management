@@ -1,5 +1,7 @@
 <script setup>
 import pacaApi from '@/pacaApi'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
 import { useSerialStore } from '@/stores/serial_numberStore'
@@ -124,6 +126,7 @@ function closeConfirmModal() {
 function closeCaptchaModal() {
   showCaptchaModal.value = false
 }
+
 function handleSubmit() {
   if (!certificateApplicationInstructionsRead.value) {
     showNotReadModal.value = true
@@ -136,7 +139,9 @@ function handleSubmit() {
   }
 }
 
+const isApplying = ref(false)
 async function apply() {
+  isApplying.value = true
   await getFormInfo('活動')
   const form_code = form_info.value.form_code
   // 備份原始 document_list 資料
@@ -147,6 +152,12 @@ async function apply() {
   const formData = new FormData()
   if (!serialNumber) {
     console.error('表單序號不存在')
+    showConfirmModal.value = false
+    // 恢復 document_list 為原始資料
+    applicationData.value.document_list = [...originalDocumentList]
+    setTimeout(() => {
+      isApplying.value = false
+    }, 2000)
     return false
   }
   // 添加 serial_number 至 formData
@@ -187,10 +198,12 @@ async function apply() {
     //  恢復 document_list 為原始資料
     applicationData.value.document_list = [...originalDocumentList]
     console.error('上傳文件時發生錯誤', error.response?.data || error.message)
+    showConfirmModal.value = false
     showApplicatioinResultModal.value = true
     return false
   } finally {
     showConfirmModal.value = false
+    isApplying.value = false
   }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
@@ -200,6 +213,7 @@ function closeApplicatioinResultModal() {
 }
 </script>
 <template>
+  <loading :active="isApplying" :is-full-page="true"></loading>
   <form class="mt-5">
     <div class="mb-3">
       <p>

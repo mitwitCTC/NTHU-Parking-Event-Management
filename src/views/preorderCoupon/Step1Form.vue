@@ -2,6 +2,8 @@
 import { onMounted, ref, watch } from 'vue'
 import router from '@/router'
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import { Modal } from 'bootstrap'
 import FormValidator from '@/components/FormValidator.vue' // 引入 FormValidator
 import ValidationModal from '@/components/ValidationModal.vue'
@@ -148,7 +150,7 @@ function closeValidatorModal() {
 // 是否成功送出申請
 const formatApplicationData = ref({})
 async function prepareApplicationData() {
-  if (applicationData.value.CarrierType == '3J0001') {
+  if (applicationData.value.payment_method == '4' && applicationData.value.CarrierType == '3J0001') {
     applicationData.value.CarrierID1 = generateUXB2BCode(applicationData.value.phone_number)
   }
   applicationData.value.CarrierID2 = applicationData.value.CarrierID1
@@ -175,7 +177,10 @@ async function prepareApplicationData() {
     CarrierID2: applicationData.value.CarrierID2, // 載具隱碼
   }
 }
+
+const isSubmitting = ref(false)
 async function submitApplication() {
+  isSubmitting.value = true
   await prepareApplicationData()
   try {
     const response = await Api.post(
@@ -192,6 +197,7 @@ async function submitApplication() {
     showApplicatioinResultModal.value = true
   } finally {
     showConfirmCouponModal.value = false
+    isSubmitting.value = false
   }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
@@ -233,6 +239,7 @@ function closeCaptchaModal() {
 <template>
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
+  <loading :active="isSubmitting" :is-full-page="true"></loading>
   <form>
     <div class="mb-3">
       <label for="applicant" class="form-label">

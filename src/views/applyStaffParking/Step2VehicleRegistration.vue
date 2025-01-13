@@ -10,6 +10,8 @@ import ValidationModal from '@/components/ValidationModal.vue'
 import ApplicatioinResultModal from '@/components/ApplicatioinResultModal.vue'
 import { useFormInfo } from '@/composables/useFormInfo'
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import router from '@/router'
 const { form_info, getFormInfo } = useFormInfo()
 
@@ -177,7 +179,9 @@ async function prepareApplicationData() {
 
 // 是否成功送出申請
 const showApplicatioinResultModal = ref(false) // 控制 申請失敗結果Modal 顯示
+const isSubmitting = ref(false)
 async function submitApplication() {
+  isSubmitting.value = true
   try {
     await prepareApplicationData()
     const response = await Api.post(
@@ -193,6 +197,8 @@ async function submitApplication() {
   } catch (error) {
     console.error(error)
     showApplicatioinResultModal.value = true
+  } finally {
+    isSubmitting.value = false
   }
 }
 function closeApplicatioinResultModal() {
@@ -230,6 +236,7 @@ function deleteVehicle_registered() {
   <VehicleType :car_type_title="car_type_title" @updateCar_type_title="updateCar_type_title" />
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
+  <loading :active="isSubmitting" :is-full-page="true"></loading>
   <form class="mt-5">
     <div class="mb-3">
       <label for="plate" class="form-label">

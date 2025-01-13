@@ -4,6 +4,8 @@ const { form_info, getFormInfo } = useFormInfo()
 import { useSerialStore } from '@/stores/serial_numberStore'
 const serialStore = useSerialStore()
 import pacaApi from '@/pacaApi'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import router from '@/router'
 import { ref } from 'vue'
 import TheCaptcha from '@/components/TheCaptcha.vue'
@@ -136,7 +138,9 @@ function handleSubmit() {
   }
 }
 
+const isApplying = ref(false)
 async function apply() {
+  isApplying.value = true
   await getFormInfo('活動暨抵用券')
   const form_code = form_info.value.form_code
   // 備份原始 document_list 資料
@@ -147,6 +151,10 @@ async function apply() {
   const formData = new FormData()
   if (!serialNumber) {
     console.error('表單序號不存在')
+    showConfirmModal.value = false
+    // 恢復 document_list 為原始資料
+    applicationData.value.document_list = [...originalDocumentList]
+    isApplying.value = false
     return false
   }
   // 添加 serial_number 至 formData
@@ -190,6 +198,7 @@ async function apply() {
     return false
   } finally {
     showConfirmModal.value = false
+    isApplying.value = false
   }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
@@ -199,6 +208,7 @@ function closeApplicatioinResultModal() {
 }
 </script>
 <template>
+  <loading :active="isApplying" :is-full-page="true"></loading>
   <form class="mt-5">
     <div class="mb-3">
       <p>

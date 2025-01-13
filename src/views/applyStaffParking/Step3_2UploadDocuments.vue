@@ -1,5 +1,7 @@
 <script setup>
 import pacaApi from '@/pacaApi'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import router from '@/router'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
@@ -162,8 +164,10 @@ function handleSubmit() {
   }
 }
 
+const isApplying = ref(false)
 async function apply() {
   await getFormInfo('工作證')
+  isApplying.value = true
   const form_code = form_info.value.form_code
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
@@ -217,6 +221,7 @@ async function apply() {
     return false
   } finally {
     showConfirmModal.value = false
+    isApplying.value = false
   }
 }
 const showApplicatioinResultModal = ref(false) // 控制 Modal 顯示
@@ -250,6 +255,7 @@ function closeApplicatioinResultModal() {
       </ul>
     </div>
   </section>
+  <loading :active="isApplying" :is-full-page="true"></loading>
   <form class="mt-5">
     <div class="mb-3">
       <p>

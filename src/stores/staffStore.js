@@ -30,7 +30,6 @@ export const useStaffStore = defineStore('staff', {
           main_pass_code,
           car_type_title,
         }),
-        console.log(this.staff_applicant_data_vehicle_registered_list),
       )
 
       // 寫入 sessionStorage

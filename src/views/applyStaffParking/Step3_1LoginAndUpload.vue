@@ -1,5 +1,7 @@
 <script setup>
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
 import { useSerialStore } from '@/stores/serial_numberStore'
@@ -71,8 +73,10 @@ function closeValidatorModal() {
 }
 
 const login_result = ref('')
+const isLogining = ref(false)
 async function loginAndUpload() {
   if (formValidate()) {
+    isLogining.value = true
     try {
       await getFormInfo('工作證')
       const form_code = form_info.value.form_code
@@ -97,6 +101,8 @@ async function loginAndUpload() {
     } catch (error) {
       console.error(error)
       login_result.value = 'fail'
+    } finally {
+      isLogining.value = false
     }
     clearLogin_result()
   }
@@ -120,6 +126,7 @@ function clearLogin_result() {
   <StepNavigator :currentStep="currentStep" :steps="steps" />
   <!-- 引入 FormValidator 元件 -->
   <FormValidator ref="formValidatorRef" />
+  <loading :active="isLogining" :is-full-page="true"></loading>
   <form>
     <div class="mb-3">
       <label for="plate" class="form-label">

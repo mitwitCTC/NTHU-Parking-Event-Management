@@ -12,6 +12,8 @@ import { useFormInfo } from '@/composables/useFormInfo'
 const { form_info, getFormInfo } = useFormInfo()
 import pacaApi from '@/pacaApi'
 import Api from '@/api'
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import PdfViewer from '@/components/PdfViewer.vue'
 const pdfUrl = '/documents/國立清華大學校園車輛管理辦法-1130626.pdf'
 let introductionModal = null
@@ -166,8 +168,10 @@ async function handleFileUpload(event, index) {
 function removeFile(index) {
   applicationData.value.document_list[index] = null
 }
+const isUploading = ref(false)
 // 上傳證件
 async function uploadDocuments() {
+  isUploading.value = true
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
 
@@ -222,6 +226,8 @@ async function uploadDocuments() {
     console.error('上傳文件時發生錯誤', error.response?.data || error.message)
     showApplicatioinResultModal.value = true
     return false
+  } finally {
+    isUploading.value = false
   }
 }
 
@@ -247,7 +253,9 @@ function formatBikeRegisteredList() {
 
 const formatApplicationData = ref({})
 
+const isApplying = ref(false)
 async function apply() {
+  isApplying.value = true
   await getFormInfo('停車證')
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
@@ -320,6 +328,8 @@ async function apply() {
     // 恢復 document_list 為原始資料
     applicationData.value.document_list = [...originalDocumentList]
     showApplicatioinResultModal.value = true
+  } finally {
+    isApplying.value = false
   }
 }
 // 是否成功送出申請，送出申請表單成功+上傳證件成功
@@ -489,6 +499,8 @@ function closeConfirmModal() {
     </div>
     <!-- 刪除已登記車號 modal 結束 -->
   </section>
+  <loading :active="isUploading" :is-full-page="true"></loading>
+  <loading :active="isApplying" :is-full-page="true"></loading>
   <form class="mt-5">
     <div class="mb-3">
       <label for="distance" class="form-label">
