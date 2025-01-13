@@ -48,11 +48,8 @@ const { getFormStatuses, getStatusText } = useFormStatus()
 getFormStatuses()
 </script>
 <template>
-  <TheLayout
-    :title="$t('pages.queryFacultyStudentParking.title')"
-    :subtitle="$t('pages.queryFacultyStudentParking.subtitle')"
-    :showBackIcon="true"
-  >
+  <TheLayout :title="$t('pages.queryFacultyStudentParking.title')"
+    :subtitle="$t('pages.queryFacultyStudentParking.subtitle')" :showBackIcon="true">
     <template #content>
       <div class="form-info-wrapper mt-3">
         <div class="form-info text-center">
@@ -64,10 +61,7 @@ getFormStatuses()
               <!-- 若 form_status 不為 2 已審核，顯示表單狀態 -->
               {{ getStatusText('form_status', form_details.form_status) }}
             </span>
-            <span
-              v-else-if="form_details.payment_status == 0"
-              class="fw-bold fs-4"
-            >
+            <span v-else-if="form_details.payment_status == 0" class="fw-bold fs-4">
               <!-- 未繳費，顯示審核與繳費狀態 -->
               {{
                 getStatusText('form_status', form_details.form_status) +
@@ -75,10 +69,7 @@ getFormStatuses()
                 getStatusText('payment_status', form_details.payment_status)
               }}
             </span>
-            <span
-              v-else-if="form_details.payment_status == 1"
-              class="fw-bold fs-4"
-            >
+            <span v-else-if="form_details.payment_status == 1" class="fw-bold fs-4">
               <!-- 已繳費，顯示所有狀態 -->
               {{
                 getStatusText('form_status', form_details.form_status) +
@@ -109,13 +100,16 @@ getFormStatuses()
                 <div>
                   {{ form_details.application_time }}
                 </div>
-                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1">
-                    [
-                    <span class="text-primary">{{ $t('pages.queryFacultyStudentParking_details.cancel_application') }}</span>
-                    <div class="icon-container mx-2">
-                      <img src="/images/query/delete.svg" alt="delete">
-                    </div>
-                    ]
+                <div class="d-flex pointer" v-if="form_details.form_status == 0 || form_details.form_status == 1"
+                  @click="showCancelApplicationModal = true">
+                  [
+                  <span class="text-primary">
+                    {{ $t('pages.queryFacultyStudentParking_details.cancel_application') }}
+                  </span>
+                  <div class="icon-container mx-2">
+                    <img src="/images/query/delete.svg" alt="delete">
+                  </div>
+                  ]
                 </div>
               </div>
             </div>
@@ -151,11 +145,8 @@ getFormStatuses()
                   }}
                 </span>
               </div>
-              <div
-                class="d-flex vehicle-row px-3"
-                v-for="(item, index) in form_details.vehicle_registered_list"
-                :key="index"
-              >
+              <div class="d-flex vehicle-row px-3" v-for="(item, index) in form_details.vehicle_registered_list"
+                :key="index">
                 <span class="row-item">{{ item.plate }}</span>
                 <span class="row-item">
                   {{ $t(`all_main_pass_code_list.${item.main_pass_code}`) }}
@@ -202,7 +193,7 @@ getFormStatuses()
                 </div>
               </div>
               <div v-else-if="form_details.payment_status == 1" class="d-flex align-items-center">
-                <span>{{getStatusText('payment_status', form_details.payment_status)}}</span>
+                <span>{{ getStatusText('payment_status', form_details.payment_status) }}</span>
                 <div class="d-flex pointer">
                   [
                   <span class="text-primary">{{ $t('pages.queryFacultyStudentParking_details.search_invoice') }}</span>
@@ -234,8 +225,8 @@ getFormStatuses()
                   form_details.payment_status == 0
                     ? 'NA'
                     : $t(
-                        `statuses.receive_status.${form_details.receive_status}`,
-                      )
+                      `statuses.receive_status.${form_details.receive_status}`,
+                    )
                 }}
               </span>
             </p>
@@ -248,7 +239,8 @@ getFormStatuses()
 
 <style scoped lang="scss">
 .form-info-wrapper {
-  width: 100vw; /* 滿版寬度 */
+  width: 100vw;
+  /* 滿版寬度 */
   background-color: white;
   position: relative;
   left: 50%;
@@ -263,12 +255,15 @@ getFormStatuses()
 
 .header-item,
 .row-item {
-  flex: 1; /* 讓每個項目占用相同的空間 */
-  text-align: start; /* 文字水平置中 */
+  flex: 1;
+  /* 讓每個項目占用相同的空間 */
+  text-align: start;
+  /* 文字水平置中 */
 }
 
 .vehicle-header {
-  font-weight: bold; /* 標題加粗 */
+  font-weight: bold;
+  /* 標題加粗 */
 }
 
 .vehicle-row {
@@ -278,9 +273,11 @@ getFormStatuses()
 .pointer {
   cursor: pointer;
 }
+
 .icon-container {
   width: 25px;
   height: 25px;
+
   img {
     width: 100%;
     height: 100%;
