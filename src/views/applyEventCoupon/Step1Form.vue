@@ -183,7 +183,7 @@ async function submitApplication() {
   await prepareApplicationData()
   try {
     const response = await Api.post(
-      '/main/applicationForms',
+      '/main/applicationForm',
       formatApplicationData.value,
     )
     if (response.data.returnCode == 0) {

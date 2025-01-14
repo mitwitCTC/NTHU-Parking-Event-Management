@@ -166,52 +166,47 @@ function handleSubmit() {
 
 const isApplying = ref(false)
 async function apply() {
+  showConfirmModal.value = false
   await getFormInfo('工作證')
   isApplying.value = true
-  const form_code = form_info.value.form_code
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
   applicationData.value.document_list =
     applicationData.value.document_list.filter(file => file !== null)
+  const form_code = form_info.value.form_code
   const serialNumber = serialStore.getSerialNumber(form_code)
-  const formData = new FormData()
   if (!serialNumber) {
     console.error('表單序號不存在')
     return false
   }
-  // 添加 serial_number 至 formData
-  formData.append('serial_number', serialNumber)
-
-  // 檢查文件列表是否有效
-  const validFiles = applicationData.value.document_list.filter(file => file)
-
-  // 添加檔案至 FormData
-  validFiles.forEach(file => {
-    if (file instanceof Blob) {
-      formData.append('attachment', file, file.name)
-    } else {
-      console.error('無效檔案', file)
-    }
-  })
 
   try {
-    const response = await pacaApi.post('/v2/forms/attachment', formData, {
-      headers: {
-        authorization:
-          'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
-      },
+    const uploadPromises = applicationData.value.document_list.map(file => {
+      if (!(file instanceof Blob)) {
+        console.error('無效檔案', file)
+        return Promise.reject(new Error('無效檔案'))
+      }
+
+      const formData = new FormData()
+      formData.append('serial_number', serialNumber)
+      formData.append('attachment', file, file.name)
+
+      return pacaApi.post('/v2/forms/attachment', formData, {
+        headers: {
+          authorization:
+            'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
+        },
+      })
     })
 
-    if (response.status === 200) {
-      // 文件上傳成功
+    // 等待所有上傳完成
+    const results = await Promise.all(uploadPromises)
+
+    if (results.every(res => res.status === 200)) {
       serialStore.clearSerialNumber(form_code)
       router.replace('/application-success')
     } else {
-      console.error('文件上傳失敗', response)
-      // 恢復 document_list 為原始資料
-      applicationData.value.document_list = [...originalDocumentList]
-      showApplicatioinResultModal.value = true
-      return false
+      throw new Error('部分文件上傳失敗')
     }
   } catch (error) {
     //  恢復 document_list 為原始資料
@@ -220,7 +215,6 @@ async function apply() {
     showApplicatioinResultModal.value = true
     return false
   } finally {
-    showConfirmModal.value = false
     isApplying.value = false
   }
 }
@@ -324,8 +318,7 @@ function closeApplicatioinResultModal() {
     </div>
   </form>
   <!-- 辦證說明 modal 開始 -->
-  <div class="modal fade" id="introductionModal" tabindex="-1" aria-labelledby="introductionModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="introductionModal" tabindex="-1" aria-labelledby="introductionModalLabel">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary">

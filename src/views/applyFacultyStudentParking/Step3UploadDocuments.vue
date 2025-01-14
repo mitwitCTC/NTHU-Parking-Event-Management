@@ -175,46 +175,43 @@ async function uploadDocuments() {
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
 
-  const formData = new FormData()
-
   // 檢查 serial_number 是否存在
   const serialNumber = formatApplicationData.value.serial_number
   if (!serialNumber) {
     console.error('表單序號不存在')
     return false
   }
-  // 添加 serial_number 至 formData
-  formData.append('serial_number', serialNumber)
 
   // 檢查文件列表是否有效
-  const validFiles = applicationData.value.document_list.filter(file => file)
-
-  // 添加檔案至 FormData
-  validFiles.forEach(file => {
-    if (file instanceof Blob) {
-      formData.append('attachment', file, file.name)
-    } else {
-      console.error('無效檔案', file)
-    }
-  })
+  const validFiles = applicationData.value.document_list.filter(file => file instanceof Blob)
 
   try {
-    const response = await pacaApi.post('/v2/forms/attachment', formData, {
-      headers: {
-        authorization:
-          'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
-      },
+    // 並發上傳所有文件
+    const uploadPromises = validFiles.map(file => {
+      const formData = new FormData()
+      formData.append('serial_number', serialNumber)
+      formData.append('attachment', file, file.name)
+
+      return pacaApi.post('/v2/forms/attachment', formData, {
+        headers: {
+          authorization:
+            'jYs3u6lUwi4iwyvGCl0BPnPyefUfIVd1iGLcMUoFn0mWm2hLs04MY460IJbZTT9T+6+H+ejjAbzwzmW17aSX5+z3',
+        },
+      })
     })
 
-    if (response.status === 200) {
-      // 文件上傳成功
+    // 等待所有上傳完成
+    const responses = await Promise.all(uploadPromises)
+
+    // 驗證所有上傳是否成功
+    const allSuccessful = responses.every(response => response.status === 200);
+
+    if (allSuccessful) {
       return true
     } else {
-      console.error('文件上傳失敗', response)
-      // 恢復 document_list 為原始資料
-      applicationData.value.document_list = [...originalDocumentList]
-      applicationData.value.vehicle_registered_list =
-        facultyStudentStore.vehicle_registered_list
+      console.error('部分文件上傳失敗', responses);
+      applicationData.value.document_list = [...originalDocumentList];
+      applicationData.value.vehicle_registered_list = facultyStudentStore.vehicle_registered_list;
       showApplicatioinResultModal.value = true
       return false
     }
@@ -256,6 +253,7 @@ const formatApplicationData = ref({})
 const isApplying = ref(false)
 async function apply() {
   isApplying.value = true
+  showConfirmModal.value = false
   await getFormInfo('停車證')
   // 備份原始 document_list 資料
   const originalDocumentList = [...applicationData.value.document_list]
@@ -292,11 +290,14 @@ async function apply() {
 
     if (response.data.returnCode == 0) {
       // 判斷是否有上傳的檔案
-      const hasValidFiles = applicationData.value.document_list.some(
-        file => file instanceof File,
-      )
+      const validFiles = applicationData.value.document_list.filter(file => file instanceof Blob)
 
-      if (!hasValidFiles) {
+      if (validFiles.length === 0) {
+        console.error('沒有有效檔案可以上傳')
+        return false
+      }
+
+      if (!validFiles.length === 0) {
         // 沒有檔案的情況下，送出申請表單成功即為申請成功
         isApplicationSuccess.value = true
         facultyStudentStore.clear()
