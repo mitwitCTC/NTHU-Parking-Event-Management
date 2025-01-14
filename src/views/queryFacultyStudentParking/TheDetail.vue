@@ -62,7 +62,8 @@ async function cancelApplication() {
   try {
     const response = await Api.post('/main/applicantreject', { serial_number: serial_number.value })
     if (response.data.returnCode == 0) {
-      router.push('cancel-application-success')
+      closeCancelApplicationModal()
+      router.push('/cancel-application-success')
     } else {
       showCancelApplicationFailModal.value = true
     }
